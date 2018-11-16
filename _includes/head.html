@@ -1,0 +1,60 @@
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
+  <meta name='description' content='{% if page.description %}{{ page.description | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}'>
+
+  <!-- <meta property="fb:app_id" content="261774384602004" />
+  <meta name="fb:page_id" content="529311780455210" /> -->
+  <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
+  <meta property="og:type" content="portfolio">
+  <meta property="og:url" content="{{ page.url | prepend: site.baseurl | prepend: site.url }}">
+  <meta property="og:email" content="me@arunteja.com"/>
+  <meta property="og:phone_number" content="+91-855-378-8515"/>
+  <meta property="og:locality" content="Bangalore"/>
+  <meta property="og:region" content="Karnataka"/>
+  <meta property="og:country-name" content="INDIA"/>
+  <meta property="og:site_name" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}"/>
+  <meta property="og:image" content="{% if page.image %}{{"/img/" | prepend: site.baseurl | prepend: site.url | append : page.image}}{% else %} {{"/img/" | prepend: site.baseurl | prepend: site.url | append : site.og_img }}{% endif %}" />
+  <meta property="og:image:width" content="630" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:description" content="{% if page.description %}{{ page.description | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@ZeoSpec">
+  <meta name="twitter:url" content="{{ page.url | prepend: site.baseurl | prepend: site.url }}">
+  <meta name="twitter:site" content="">
+  <meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
+  <meta name="twitter:description" content="{% if page.description %}{{ page.description | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+  <meta name="twitter:domain" content="{{ site.url }}">
+  <meta name="twitter:image:src" content="{% if page.image %}{{"/img/" | prepend: site.baseurl | prepend: site.url | append : page.image}}{% else %} {{"/img/" | prepend: site.baseurl | prepend: site.url | append : site.og_img }}{% endif %}">
+  
+  <meta name="keywords" content="ZeoSpec, Arun Teja Godavarthi"/>
+  <meta name="author" content="ZeoSpec" />
+  <meta name="subject" content="Good Times | Become Good Memories | Bad Times | Become Bad Memories">
+  <meta name="copyright"content="ZeoSpec">
+  <meta name="Classification" content="portfolio,blog">
+  <meta name="designer" content="ZeoSpec">
+  <meta name="reply-to" content="me@arunteja.com">
+  <meta name="owner" content="ZeoSpec">
+  <!-- <meta name="url" content="https://rotaract3190.org">
+  <meta name="identifier-URL" content="https://rotaract3190.org"> -->
+  <meta name="directory" content="submission">
+  <meta name="category" content="portfolio,blog">
+  <meta http-equiv="cache-control" content="public" />  
+  
+  <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
+  <link rel="alternate" type="application/rss+xml" title="{{ site.title | escape }}" href="{{ "/feed.xml" | relative_url }}">
+  
+  <!-- Google Font -->
+	<link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
+  
+  
+  <style>
+    {% capture include_to_scssify %}
+    {% include main.scss %}
+    {% endcapture %}
+    {{ include_to_scssify | scssify }}
+  </style>
+</head>
