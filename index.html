@@ -1,54 +1,76 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <title>Arun Teja Godavarthi</title>
-    <meta name="author" content="ZeoSpec">
-    <meta name="description" content="Darker the Sh@doW, Brighter the L!GhT">
-    <meta property="og:title" content="ZeoSpec">
-    <meta property="og:url" content="https://www.arunteja.com/">
-    <meta property="og:site_name" content="ZeoSpec">
-    <meta property="og:description" content="Darker the Sh@doW, Brighter the L!GhT">
-    <meta property="og:image" content="arun.jpg">
-    <meta property="og:type" content="website">
-    
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:description" content="Darker the Sh@doW, Brighter the L!GhT">
-    <meta name="twitter:title" content="ZeoSpec">
-    <meta name="twitter:url" content="https://www.arunteja.com/">
-    <meta name="twitter:site" content="ZeoSpec">
-    <meta name="twitter:creator" content="@ZeoSpec">
-    <meta name="twitter:domain" content="https://www.arunteja.com/">
-    <meta property="twitter:image" content="arun.jpg">
-    
-    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
-    <link href="main.css" rel="stylesheet">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-</head>
+---
+layout: default
+---
+<div class="container">
+	<div class="row">
+	{% if site.posts.size > 0 %}
+		{%- for post in paginator.posts -%}
+		{% if forloop.index <= 1 %}
+		<div class="col col-12">
+			<article class="article-first">
+				<div class="article-image-first" style="background-image: url({{"/img/" | prepend: site.baseurl | append : post.image}})">
+					<div class="article-content-first">
+						<div class="article-tag">
+						{% if post.tags.size >= 1 %}
+							{% for tag in post.tags %}
+							<a href="{{ site.baseurl }}/tags#{{tag}}" class="tag">{{ tag }}</a>
+							{% endfor %}
+						{% else %} {% endif %}
+						</div>
+						<h2 class="article-title"><a href="{{ post.url | prepend: site.baseurl }}">{{post.title}}</a></h2>
+						<p class="article-excerpt">{% if post.description %}{{ post.description | strip_html | truncate: 163 }}{% else %}{{ post.content | strip_html | truncate: 163 }}{% endif %}</p>
+						<a href="{{ post.url | prepend: site.baseurl }}" class="button read-more">Read More</a>
+					</div>
+				</div>
+			</article> <!-- /.article-first -->
+		</div>
+		{% endif %}
 
-<body>
-    
-    <div class="content">
-        <div class="card">
-            <div class="firstinfo"><img src="./arun.jpg" />
-                <div class="profileinfo">
-                    <h1>Arun Teja Godavarthi</h1>
-                    <h3>ZeoSpec</h3>
-                    <p class="bio">Good Times | Become Good Memories | Bad Times | Become Good Lessons</p>
-                </div>
-            </div>
-        </div>
-        <div class="badgescard"> 
-            <a href="https://facebook.com/zeospec" target="_blank"><span class="fa fa-facebook"></span></a>
-            <a href="https://twitter.com/zeospec" target="_blank"><span class="fa fa-twitter"></span></a>
-            <a href="https://www.instagram.com/zeospec/" target="_blank"><span class="fa fa-instagram"></span></a>
-            <a href="https://github.com/zeospec" target="_blank"><span class="fa fa-github"></span></a>
-            <a href="mailto:me@arunteja.com" target="_blank"><span class="fa fa-envelope"></span></a>            
-        </div>
-    </div>
-    
-</body>
-</html>
+		{% endfor %}
+	{% endif %}
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col col-12 col-t-8">
+			<div class="row">
+			{%- for post in paginator.posts offset: 1 -%}
+				<article class="article col col-12 col-t-6">
+					<div class="article-box">
+						<div class="article-head">
+							<a href="{{ post.url | prepend: site.baseurl }}" class="article-image" style="background-image: url({{"/img/" | prepend: site.baseurl | append : post.image}})">
+								<div class="image-overlay">
+									<span class="image-overlay-text">{{post.title | slice: 0}}</span>
+								</div>
+							</a>
+						</div>
+						<div class="article-content">
+							<div class="article-info">
+								<div class="article-date">
+									<span class="date"><time datetime="{{ post.date | date_to_xmlschema }}">{% assign date_format = site.minima.date_format | default: "%b %-d, %Y" %}{{ post.date | date: date_format }}</time></span>
+								</div>
+								<div class="article-tag">
+								{% if post.tags.size >= 1 %}
+									{% for tag in post.tags %}
+									<a href="{{ site.baseurl }}/tags#{{tag}}" class="tag">{{ tag }}</a>
+									{% endfor %}
+								{% else %} {% endif %}
+								</div>
+							</div>
+							<h2 class="article-title">
+								<a href="{{ post.url | prepend: site.baseurl }}">{{post.title}}</a>
+							</h2>
+							<p class="article-excerpt">{% if post.description %}{{ post.description | strip_html | truncate: 135 }}{% else %}{{ post.content | strip_html | truncate: 135 }}{% endif %}</p>
+						</div>
+					</div>
+				</article> <!-- /.article -->
+			{% endfor %}
+			</div>
+			{% include pagination.html %}
+		</div>
+		<div class="col col-12 col-t-4">
+			{% include sidebar.html %}
+		</div>
+	</div>
+</div>
