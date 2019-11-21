@@ -23,6 +23,7 @@ defaults:
 
 include:
   - _pages
+  - _redirects
 
 # Archives
 jekyll-archives:
