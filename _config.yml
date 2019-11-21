@@ -9,6 +9,7 @@ plugins:
   - jekyll-paginate
   - jekyll-sitemap
   - jekyll-archives
+  - jekyll-feed
 
 paginate: 5
 paginate_path: "/page/:num"
