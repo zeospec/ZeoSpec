@@ -64,11 +64,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler
-  jekyll (>= 3.8.5)
+  jekyll
   jekyll-archives
   jekyll-paginate
   jekyll-sitemap
-
-BUNDLED WITH
-   2.0.2

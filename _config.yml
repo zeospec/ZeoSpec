@@ -1,0 +1,50 @@
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://zeospec.com" # the base hostname & protocol for your site, e.g. http://example.com
+
+
+# Build settings
+markdown: kramdown
+permalink: pretty
+plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-archives
+
+paginate: 5
+paginate_path: "/page/:num"
+
+
+# Pages Path
+defaults:
+  - scope:
+      path: '_pages'
+    values:
+      permalink: /:basename:output_ext
+
+include:
+  - _pages
+
+# Archives
+jekyll-archives:
+  enabled: all
+  layout: archive
+  permalinks:
+    year: '/:year/'
+    month: '/:year/:month/'
+    day: '/:year/:month/:day/'
+    tag: '/tags/:name/'
+
+# Archives
+# jekyll-archives:
+#   enabled: all
+#   layout: archive
+#   permalinks:
+#     category: '/:name/'
+#     year: '/:year/'
+#     month: '/:year/:month/'
+#     day: '/:year/:month/:day/'
+#     tag: '/clubs/:name/'
+
+sass:
+  sass_dir: _sass
+  style: compressed
