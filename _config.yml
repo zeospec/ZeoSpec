@@ -14,7 +14,6 @@ plugins:
 paginate: 5
 paginate_path: "/page/:num"
 
-
 # Pages Path
 defaults:
   - scope:
