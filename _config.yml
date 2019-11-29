@@ -1,6 +1,8 @@
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://zeospec.com" # the base hostname & protocol for your site, e.g. http://example.com
 
+timezone: Asia/Kolkata
+
 
 # Build settings
 markdown: kramdown
