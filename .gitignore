@@ -1,5 +1,6 @@
 .DS_Store
 .jekyll-cache
+Gemfile.lock
 _site
 _pages/styleguide.md
 _posts/2018-05-29-welcome-to-jekyll.markdown
