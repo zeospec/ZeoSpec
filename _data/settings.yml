@@ -2,7 +2,7 @@
 # General Site Settings
 title: Arun Teja Godavarthi | ZeoSpec
 logo: zeospec.png # You can add own logo.
-description: Personal blog of ZeoSpec (Arun Teja Godavarthi)
+description: Personal blog of Arun Teja Godavarthi aka. ZeoSpec
 
 og_img: arunnobag.png
 
@@ -29,8 +29,8 @@ instagram: https://instagram.com/ZeoSpec # Add your Instagram handle
 
 #-------------------------------
 # Comment Section (Disqus)
-disqus-identifier: # add your shortname for Disqus Comment. For example mr-brown
-
+# disqus-identifier: # add your shortname for Disqus Comment. For example mr-brown
+utterances: true
 
 #-------------------------------
 # Instagram Feed
