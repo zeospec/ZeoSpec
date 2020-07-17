@@ -16,3 +16,11 @@
 <script src="{{ site.baseurl }}/js/common.js"></script>
 
 <script src="{{ site.baseurl }}/js/vendors/InstagramFeed.min.js"></script>
+
+{% if page.footnotes == true %}
+<!-- littlefoot fancy notes -->
+<script src="https://unpkg.com/littlefoot/dist/littlefoot.js" type="application/javascript"></script>
+<script type="application/javascript">
+  littlefoot.default()
+</script>
+{% endif %}

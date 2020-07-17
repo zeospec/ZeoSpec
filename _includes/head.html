@@ -38,7 +38,7 @@
     <meta name="keywords"
         content="Arun Teja Godavarthi, Arun, ZeoSpec, Teja, Godavarthi" />
     <meta name="author" content="ZeoSpec" />
-    <meta name="subject" content=" ">
+    <meta name="subject" content="{{ site.data.settings.description }}">
     <meta name="copyright" content="ZeoSpec">
     <meta name="Classification" content="Personal Website">
     <meta name="designer" content="ZeoSpec">
@@ -50,6 +50,11 @@
     <meta http-equiv="cache-control" content="public" />
     <meta http-equiv="Expires" content="0">
 
+    <link rel="me" href="https://twitter.com/ZeoSpec" />
+    <link rel="me" href="https://www.facebook.com/zeospec/" />
+    <link rel="me" href="https://www.instagram.com/ZeoSpec/" />
+    <link rel="me" href="https://www.linkedin.com/in/zeospec/" />
+    
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
   <!-- Ionicons -->
@@ -61,7 +66,11 @@
   {% endcapture %}
   {{ include_to_scssify | scssify }}
   </style>
-  
+
+{% if page.footnotes == true %}
+<link rel="stylesheet" href="https://unpkg.com/littlefoot/dist/littlefoot.css"/>
+{% endif %}
+
   <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
