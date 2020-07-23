@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/zeospec
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://zeospec.com
+  * I am zeospec (https://keybase.io/zeospec) on keybase.
+  * I have a public key ASDoXuLlVBP6lGWYExWnpAWejpvAmrMG43BL05foJhcNWwo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120e85ee2e55413fa9465981315a7a4059e8e9bc09ab306e3704bd397e826170d5b0a",
+      "host": "keybase.io",
+      "kid": "0120e85ee2e55413fa9465981315a7a4059e8e9bc09ab306e3704bd397e826170d5b0a",
+      "uid": "2ffbc4dc8bee2c4bf2d86b1fb531bc19",
+      "username": "zeospec"
+    },
+    "merkle_root": {
+      "ctime": 1595523667,
+      "hash": "d451bf0d7bafa214586d45ae5c869b3830ffca491fe594b362600b48de23d0bd3498f2b6739f27535851a97268a0efb1f5a00c08a018da41de0c09b7a127fe14",
+      "hash_meta": "d09404fb31e46d4e4320d9dd92460c69dd2da94fa2aa8808e300d4e766697e87",
+      "seqno": 17060566
+    },
+    "service": {
+      "entropy": "qkT7TE80zlgBnrYj2S9lWUZi",
+      "hostname": "zeospec.com",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "5.5.0"
+  },
+  "ctime": 1595523701,
+  "expire_in": 504576000,
+  "prev": "c0f86cd61ca71bc2b4b470211cc36d10cc567fe7af21ce5a282ca7586dae7fb9",
+  "seqno": 11,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEg6F7i5VQT+pRlmBMVp6QFno6bwJqzBuNwS9OX6CYXDVsKp3BheWxvYWTESpcCC8QgwPhs1hynG8K0tHAhHMNtEMxWf+evIc5aKCynWG2uf7nEIAk2WezW0kYNfpsS3IF1R1fG16RlPKGMMDiTRWo/73qyAgHCo3NpZ8RAovxYonNVrROeCic4Kt9yUJKaAFEoVZpfPfBpQEOzDjPnVRedEP1J+RYOgNkuShuhxLdJf0XotCSlKtac6Tc4AKhzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIL1V53axAU47C7yMVz/yc7EgBZtvIh+pjycldr1b8sueo3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/zeospec
+
+==================================================================
