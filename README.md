@@ -1,3 +1,3 @@
 Hello, welcome!!!
 
-I am Arun Teja Godavarthi aka. Zeospec
+I am Arun Teja Godavarthi aka. ZeoSpec
