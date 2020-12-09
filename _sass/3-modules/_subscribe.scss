@@ -25,15 +25,18 @@
     .subscribe__email {
       width: 100%;
       padding: 17px;
+      margin-top: 10px;
       font-size: 16px;
-      text-align: center;
+      text-align: center; 
       outline: none;
       border: none;
-      border-bottom: 3px solid $light-gray;
+      border-bottom: 3px solid $gray;
+      // border-bottom: 3px solid $light-gray;
 
       &::placeholder {
         font-size: 18px;
-        color: $light-gray;
+        color: $gray;
+        // color: $light-gray;
       }
     }
 
