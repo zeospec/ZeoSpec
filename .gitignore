@@ -2,6 +2,7 @@
 .jekyll-cache
 Gemfile.lock
 _site
+_pages/about-base.md
 _pages/styleguide.md
 _posts/2018-05-29-welcome-to-jekyll.markdown
 _posts/2018-06-25-start-the-day-with-the-right-habit.markdown

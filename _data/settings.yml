@@ -12,7 +12,7 @@ author:
   name: Arun Teja Godavarthi
   image: zeospec-4.jpg
   say-hello: Hello, I’m <strong>Arun Teja Godavarthi</strong>
-  bio: aka' <strong>ZeoSpec</strong>.
+  bio: aka' <strong>ZeoSpec</strong>.<br><br><strong>Community</strong>, <strong><a href="https://rtr.zeospec.com/" target="_blank">Rotaract</a></strong>, <strong>Open Source</strong>, <strong>Training</strong>, <strong>Entrepreneurship</strong>, and <strong>exploring the uncharted paths</strong>.
 
   # image: 01.jpg
   # bio: Designs, talks, and writes about <strong>web</strong>, <strong>ethics</strong>, <strong>privacy</strong>, and dev. I share design tutorials, free resources and inspiration. Loves <a href="#">music</a> & riding his bicycle.
@@ -20,6 +20,7 @@ author:
 
 #-------------------------------
 # Contact links
+linkedin: https://www.linkedin.com/in/zeospec/
 twitter: https://twitter.com/ZeoSpec # Add your Twitter handle
 facebook: https://facebook.com/ZeoSpec # Add your Facebook handle
 instagram: https://instagram.com/ZeoSpec # Add your Instagram handle
@@ -53,4 +54,5 @@ substack: https://zeospec.substack.com/subscribe
 
 google_form_subscription: true
 google_form: https://docs.google.com/forms/d/e/1FAIpQLSfB3qsTYxgAcWdde5Jzq7JquR2ASwVR9myv9dy3ULH7UOM2vg/formResponse
-formkey: entry.1470521357
+formNamekey: entry.6950510
+formEmailkey: entry.1470521357
