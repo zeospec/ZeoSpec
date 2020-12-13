@@ -3,7 +3,7 @@
 <div class="container">
   <div class="subscribe">
     <h3 class="subscribe__title">Subscribe</h3>
-    <p class="subscribe__subtitle">Stay up to date! Get all the latest & greatest updates delivered straight to your inbox.</p>
+    <p class="subscribe__subtitle">Stay up to date! Get all the latest updates delivered straight to your inbox.</p>
     <form class="subscribe-form validate" action="{% if site.data.settings.mailchimp %}//{{site.data.settings.mailchimp}}{% else %}#{% endif %}"
       method="POST" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" novalidate>
       <div class="subscribe-group">
@@ -28,7 +28,7 @@ onload="if(submission)  {window.location='/thankyou';}"></iframe>
 <div class="container">
   <div class="subscribe"> 
     <h3 class="subscribe__title">Subscribe</h3>
-    <p class="subscribe__subtitle">Stay up to date! Get all the latest & greatest updates delivered straight to your inbox.</p>
+    <p class="subscribe__subtitle">Stay up to date! Get all the latest updates delivered straight to your inbox.</p>
     
     <form class="subscribe-form" action="{{site.data.settings.google_form}}"
     target="hidden_iframe" onsubmit="submission=true;" method="POST">
@@ -49,7 +49,7 @@ onload="if(submission)  {window.location='/thankyou';}"></iframe>
 <div class="container">
   <div class="subscribe">
     <h3 class="subscribe__title">Subscribe</h3>
-    <p class="subscribe__subtitle">Stay up to date! Get all the latest & greatest updates delivered straight to your inbox.</p>
+    <p class="subscribe__subtitle">Stay up to date! Get all the latest updates delivered straight to your inbox.</p>
     <form class="subscribe-form validate" action="{% if site.data.settings.substack %}{{site.data.settings.substack}}{% else %}#{% endif %}"
       target="_blank" novalidate>
       <input class="subscribe__button" type="submit">
