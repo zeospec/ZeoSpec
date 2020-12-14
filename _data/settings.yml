@@ -46,13 +46,18 @@ google-analytics: UA-172399613-1 # Add your identifier. For example UA-99631805-
 
 #-------------------------------
 # Newsletter
+subscribe__title: Subscribe
+subscribe__subtitle: Stay up to date! Get all the latest updates delivered straight to your inbox.
+
 mailchimp_subscription: false
 mailchimp: zeospec.us4.list-manage.com/subscribe/post?u=23869bb983dc401df79867d66&amp;id=0dcc7f289a # Add your MailChimp form identifier. For example - blogenjoyfreedom.us16.list-manage.com/subscribe/post?u=cd56155d76ddeeb4c0bc4d080&amp;id=7a526cd13e
 
-substack_subscription: false
-substack: https://zeospec.substack.com/subscribe
-
-google_form_subscription: true
+google_form_subscription: false
 google_form: https://docs.google.com/forms/d/e/1FAIpQLSfB3qsTYxgAcWdde5Jzq7JquR2ASwVR9myv9dy3ULH7UOM2vg/formResponse
 formNamekey: entry.6950510
 formEmailkey: entry.1470521357
+
+convertkit_subscription: true
+convertkit_form: https://app.convertkit.com/forms/1874147/subscriptions
+convertkit_FNamekey: fields[first_name]
+convertkit_Emailkey: email_address

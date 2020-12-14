@@ -2,9 +2,10 @@
 <!-- Regular Mailchimp -->
 <div class="container">
   <div class="subscribe">
-    <h3 class="subscribe__title">Subscribe</h3>
-    <p class="subscribe__subtitle">Stay up to date! Get all the latest updates delivered straight to your inbox.</p>
-    <form class="subscribe-form validate" action="{% if site.data.settings.mailchimp %}//{{site.data.settings.mailchimp}}{% else %}#{% endif %}"
+    <h3 class="subscribe__title">{{site.data.settings.subscribe__title}}</h3>
+    <p class="subscribe__subtitle">{{site.data.settings.subscribe__subtitle}}</p>
+    <form class="subscribe-form validate"
+      action="{% if site.data.settings.mailchimp %}//{{site.data.settings.mailchimp}}{% else %}#{% endif %}"
       method="POST" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" novalidate>
       <div class="subscribe-group">
         <label class="screen-reader-text" for="mce-EMAIL">Email address</label>
@@ -23,20 +24,21 @@
   var submission = false;
 </script>
 <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"
-onload="if(submission)  {window.location='/thankyou';}"></iframe>
+  onload="if(submission)  {window.location='/thankyou';}"></iframe>
 
 <div class="container">
-  <div class="subscribe"> 
-    <h3 class="subscribe__title">Subscribe</h3>
-    <p class="subscribe__subtitle">Stay up to date! Get all the latest updates delivered straight to your inbox.</p>
-    
-    <form class="subscribe-form" action="{{site.data.settings.google_form}}"
-    target="hidden_iframe" onsubmit="submission=true;" method="POST">
+  <div class="subscribe">
+    <h3 class="subscribe__title">{{site.data.settings.subscribe__title}}</h3>
+    <p class="subscribe__subtitle">{{site.data.settings.subscribe__subtitle}}</p>
+    <form class="subscribe-form" action="{{site.data.settings.google_form}}" target="hidden_iframe"
+      onsubmit="submission=true;" method="POST">
       <div class="subscribe-group">
         <label class="screen-reader-text" for="name">Full Name</label>
-        <input class="subscribe__email" class="form-control" name="{{site.data.settings.formNamekey}}" id="name" type="text" placeholder="Enter your fullname..." autocomplete="off" required>
+        <input class="subscribe__email" class="form-control" name="{{site.data.settings.formNamekey}}" id="name"
+          type="text" placeholder="Enter your fullname..." autocomplete="off" required>
         <label class="screen-reader-text" for="emailid">Email address</label>
-        <input class="subscribe__email" class="form-control" name="{{site.data.settings.formEmailkey}}" id="emailid" type="email" placeholder="Enter your email..." required>
+        <input class="subscribe__email" class="form-control" name="{{site.data.settings.formEmailkey}}" id="emailid"
+          type="email" placeholder="Enter your email..." required>
       </div>
       <input class="subscribe__button" type="submit" value="Subscribe">
     </form>
@@ -44,15 +46,23 @@ onload="if(submission)  {window.location='/thankyou';}"></iframe>
 </div>
 {% endif %}
 
-{% if site.data.settings.substack_subscription == true %}
-<!-- Substack -->
+{% if site.data.settings.convertkit_subscription == true %}
+<!-- Convertkit -->
 <div class="container">
   <div class="subscribe">
-    <h3 class="subscribe__title">Subscribe</h3>
-    <p class="subscribe__subtitle">Stay up to date! Get all the latest updates delivered straight to your inbox.</p>
-    <form class="subscribe-form validate" action="{% if site.data.settings.substack %}{{site.data.settings.substack}}{% else %}#{% endif %}"
-      target="_blank" novalidate>
-      <input class="subscribe__button" type="submit">
+    <h3 class="subscribe__title">{{site.data.settings.subscribe__title}}</h3>
+    <p class="subscribe__subtitle">{{site.data.settings.subscribe__subtitle}}</p>
+    <form class="subscribe-form" action="{{site.data.settings.convertkit_form}}" target="hidden_iframe"
+      onsubmit="submission=true;" method="POST">
+      <div class="subscribe-group">
+        <label class="screen-reader-text" for="name">Full Name</label>
+        <input class="subscribe__email" class="form-control" name="{{site.data.settings.convertkit_FNamekey}}" id="name" type="text"
+          placeholder="Enter your fullname..." autocomplete="off" required>
+        <label class="screen-reader-text" for="emailid">Email address</label>
+        <input class="subscribe__email" class="form-control" name="{{site.data.settings.convertkit_Emailkey}}" id="emailid" type="email"
+          placeholder="Enter your email..." required>
+      </div>
+      <input class="subscribe__button" type="submit" value="Subscribe">
     </form>
   </div>
 </div>
