@@ -47,6 +47,13 @@
 {% endif %}
 
 {% if site.data.settings.convertkit_subscription == true %}
+<!-- Google Form -->
+<script type="text/javascript">
+  var submission = false;
+</script>
+<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"
+  onload="if(submission)  {window.location='/thankyou';}"></iframe>
+  
 <!-- Convertkit -->
 <div class="container">
   <div class="subscribe">
