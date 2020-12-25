@@ -72,17 +72,13 @@
     {% include main.scss %}
   {% endcapture %}
   {{ include_to_scssify | scssify }}
-  </style>
+  </style> 
 
 {% if page.footnotes == true %}
 <link rel="stylesheet" href="https://unpkg.com/littlefoot/dist/littlefoot.css"/>
 {% endif %}
 
-  <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-TXSJ735');</script>
-    <!-- End Google Tag Manager -->
+{% if site.data.settings.google-analytics %}
+  {% include google-analytics.html %}
+{% endif %}
 </head>

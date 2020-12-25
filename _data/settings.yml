@@ -38,10 +38,9 @@ utterances: true
 instafeed: true # To enable the instafeed, use the value true. To turn off use the value false.
 instagram-profile: zeospec # Add instagram username
 
-
 #-------------------------------
 # Google Analytics
-google-analytics: UA-172399613-1 # Add your identifier. For example UA-99631805-1.
+google-analytics: G-0LLJ53Y3RH # Add your identifier. For example UA-99631805-1.
 
 
 #-------------------------------
