@@ -2,7 +2,7 @@
 layout: post
 title: When? What? Why? 'ZeoSpec'
 date: 2020-09-18
-description: "Here is a Short story of how the username: ZeoSpec came into existance, what does it mean etc. Along with the memories of 'aruntejagod'"
+description: Here is a Short story of how the username - ZeoSpec came into existance, what does it mean etc. Along with the memories of aruntejagod.
 image: 1_why_when_what_zeospec.png
 tags: story
 footnotes: true
