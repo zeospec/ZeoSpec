@@ -86,7 +86,7 @@ TallTeja was defining a physical attribute and missed that catchy feel, So consi
 
 *Many meanings for ZeoSpec, pick the one you cherish:*
 - The Ultimate Specification
-- The Ultimate hope if success
+- The Ultimate hope of success
 - Holy Spirit in the hope of success but without any specific plan or instructions
 - And more ...
 
