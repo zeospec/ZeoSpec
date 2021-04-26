@@ -1,0 +1,47 @@
+{% if page.layout == "post" %}
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "{{page.title}}",
+      "image": [
+        "{{page.image | absolute_url}}"
+       ],
+      "datePublished": "{{ page.date | date_to_xmlschema }}",
+      "dateModified": "{{ page.date | date_to_xmlschema }}"
+    }
+</script>
+{% else %}
+<script type='application/ld+json'>
+  {
+    "@context": "http://www.schema.org",
+    "@type": "person",
+    "name": "Arun Teja Godavarthi",
+    "jobTitle": "Entrepreneur",
+    "url": "https://zeospec.com",
+    "sameAs": [
+       "https://www.linkedin.com/in/zeospec/",
+       "https://twitter.com/ZeoSpec",
+       "https://www.facebook.com/zeospec/",
+       "https://www.instagram.com/ZeoSpec/",
+       "https://rtr.zeospec.com/"
+    ],
+    "image": "https://zeospec.com/images/zeospec-4.jpg",
+    "address": {
+       "@type": "PostalAddress",
+       "addressLocality": "Bangalore",
+       "addressRegion": "Karnataka",
+       "addressCountry": "India"
+    },
+    "email": "hi@zeospec.com",
+    "alumniOf": "CMR Institute of Technology",
+    "birthPlace": "Siruguppa",
+    "memberOf": "Rotaract Bangalore East",
+    "nationality": "Indian",
+    "colleague": [
+       "https://www.cmrit.ac.in/",
+       "https://www.sjpuc.in/"
+    ]
+  }
+  </script>
+  {% endif %}

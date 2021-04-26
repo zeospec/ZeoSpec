@@ -59,7 +59,6 @@
   <!-- Ionicons -->
   <link href="https://unpkg.com/ionicons@4.2.2/dist/css/ionicons.min.css" rel="stylesheet">
 
-
   {% if page.noindex == true %}
   <meta name=”robots” content=”noindex, follow”>
   {% endif %}
@@ -77,6 +76,8 @@
 {% if page.footnotes == true %}
 <link rel="stylesheet" href="https://unpkg.com/littlefoot/dist/littlefoot.css"/>
 {% endif %}
+
+{% include structuredata.html %}
 
 {% if site.data.settings.google-analytics %}
   {% include google-analytics.html %}
