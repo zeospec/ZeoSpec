@@ -1,6 +1,6 @@
 #-------------------------------
 # General Site Settings
-title: Arun Teja Godavarthi | ZeoSpec
+title: Arun Teja Godavarthi - ZeoSpec
 logo: zeospec.png # You can add own logo.
 description: Arun Teja Godavarthi aka. ZeoSpec is a Community Builder, a Rotaractor and an Entrepreneur, with deep love towards Open Source, Training, and exploring the uncharted paths.
 
@@ -32,11 +32,6 @@ instagram: https://instagram.com/ZeoSpec # Add your Instagram handle
 # Comment Section (Disqus)
 # disqus-identifier: # add your shortname for Disqus Comment. For example mr-brown
 utterances: true
-
-#-------------------------------
-# Instagram Feed
-instafeed: true # To enable the instafeed, use the value true. To turn off use the value false.
-instagram-profile: zeospec # Add instagram username
 
 #-------------------------------
 # Google Analytics
