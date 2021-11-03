@@ -7,4 +7,4 @@ https://www.zeospec.in/* https://zeospec.com/:splat 301!
 # Optional: Redirect default Netlify subdomain to primary domain
 https://zeospec.netlify.com/* https://zeospec.com/:splat 301!
 
-https://zeospec.com/meet/* https://timesync.novocall.co/zeospec
+# https://zeospec.com/meet/* https://timesync.novocall.co/zeospec
