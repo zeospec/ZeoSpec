@@ -54,7 +54,7 @@
 <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"
   onload="if(submission)  {window.location='/thankyou';}"></iframe>
   
-<!-- Convertkit -->
+<!-- Convertkit --> 
 <div class="container">
   <div class="subscribe">
     <h3 class="subscribe__title">{{site.data.settings.subscribe__title}}</h3>
@@ -74,3 +74,48 @@
   </div>
 </div>
 {% endif %}
+
+
+{% if site.data.settings.revue_subscription == true %}
+<!-- Convertkit --> 
+<div class="container">
+  <div class="subscribe">
+    <h3 class="subscribe__title">{{site.data.settings.subscribe__title}}</h3>
+    <p class="subscribe__subtitle">{{site.data.settings.subscribe__subtitle}}</p>
+    <form class="subscribe-form" action="http://letters.zeospec.com/add_subscriber" target="_blank" method="POST">
+      <div class="subscribe-group">
+        <label class="screen-reader-text" for="name">Full Name</label>
+        <input class="subscribe__email" class="form-control" name="member[first_name]" id="fname" type="text"
+          placeholder="Enter your First Name..." autocomplete="off" required>
+        <input class="subscribe__email" class="form-control" name="member[last_name]" id="lname" type="text"
+          placeholder="Enter your Last Name..." autocomplete="off" required>
+        <label class="screen-reader-text" for="emailid">Email address</label>
+        <input class="subscribe__email" class="form-control" name="member[email]" id="emailid" type="email"
+          placeholder="Enter your email..." required>
+      </div>
+      <input class="subscribe__button" name="member[subscribe]" type="submit" value="Subscribe">
+    </form>
+  </div>
+</div>
+{% endif %}
+
+<!-- <div id="revue-embed">
+  <form action="http://letters.zeospec.com/add_subscriber" method="post" id="revue-form" name="revue-form"  target="_blank">
+  <div class="revue-form-group">
+    <label for="member_email">Email address</label>
+    <input class="revue-form-field" placeholder="Your email address..." type="email" name="member[email]" id="member_email">
+  </div>
+  <div class="revue-form-group">
+    <label for="member_first_name">First name <span class="optional">(Optional)</span></label>
+    <input class="revue-form-field" placeholder="First name... (Optional)" type="text" name="member[first_name]" id="member_first_name">
+  </div>
+  <div class="revue-form-group">
+    <label for="member_last_name">Last name <span class="optional">(Optional)</span></label>
+    <input class="revue-form-field" placeholder="Last name... (Optional)" type="text" name="member[last_name]" id="member_last_name">
+  </div>
+  <div class="revue-form-actions">
+    <input type="submit" value="Subscribe" name="member[subscribe]" id="member_submit">
+  </div>
+  <div class="revue-form-footer">By subscribing, you agree with Revue’s <a target="_blank" href="https://www.getrevue.co/terms">Terms of Service</a> and <a target="_blank" href="https://www.getrevue.co/privacy">Privacy Policy</a>.</div>
+  </form>
+</div> -->

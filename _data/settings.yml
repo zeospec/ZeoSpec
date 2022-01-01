@@ -51,7 +51,10 @@ google_form: https://docs.google.com/forms/d/e/1FAIpQLSfB3qsTYxgAcWdde5Jzq7JquR2
 formNamekey: entry.6950510
 formEmailkey: entry.1470521357
 
-convertkit_subscription: true
+convertkit_subscription: false
 convertkit_form: https://app.convertkit.com/forms/1874147/subscriptions
 convertkit_FNamekey: fields[first_name]
 convertkit_Emailkey: email_address
+
+
+revue_subscription: true
