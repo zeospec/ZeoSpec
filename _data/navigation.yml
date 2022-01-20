@@ -1,0 +1,18 @@
+logo_image: '/images/logo2.svg' # You can add own logo. For example '/images/logo.png'.
+
+menu__settings:
+  menu__items:
+    - title: 'Home'
+      url: '/'
+    - url: '/about/'
+      title: 'About'
+    # - title: 'Projects'
+    #   url: '/projects/'
+    - title: 'Blog'
+      url: '/blog/'
+    - title: 'Schedule a Meeting 🤝'
+      url: '/meet/'
+    - title: 'More'
+      submenu:
+      - url: https://rtr.zeospec.com/
+        title: 'Rotaract'

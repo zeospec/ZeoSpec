@@ -1,0 +1,39 @@
+---
+layout: default
+title: Tags
+permalink: /blog/tags/
+page-heading:
+  title: Tags
+  description:
+noindex: true 
+---
+
+<div class="c-page">
+
+  {% include page-heading.html %}
+
+<section class="c-subscribe section">
+  <div class="container">
+    <div class="row">
+      <div class="col col-12" style="text-align: center;">
+
+        {% assign tags_list = site.tags %}
+        {% if tags_list.first[0] == null %}
+        {% for tag in tags_list %}
+        <a href="{{ site.baseurl }}/blog/tags/{{ tag }}" class="cta-button c-button c-button--primary c-button--large" style="margin: 5px;">{{ tag | capitalize | replace: "-"," "}} {{site.tags[tag].size}}</a>
+        {% endfor %}
+        {% else %}
+        {% for tag in tags_list %}
+        <a href="{{ site.baseurl }}/blog/tags/{{ tag[0] }}" class="cta-button c-button c-button--secondary c-button--large" style="margin: 5px;">{{ tag[0] | capitalize | replace: "-"," "}} ({{tag[1].size}})</a>
+        {% endfor %}
+        {% endif %}
+        {% assign tags_list = nil %}
+
+      </div>
+    </div>
+  </div>
+</section>
+
+  {% include newsletter.html %}
+
+</div>

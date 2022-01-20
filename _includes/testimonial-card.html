@@ -1,0 +1,22 @@
+<div class="c-testimonial-card">
+  <div class="c-testimonial-card__content">
+    <div class="c-testimonial-card__client-meta">
+      {% if testimonial-item.image %}
+        <div class="c-testimonial-card__image-container">
+          <img class="c-testimonial-card__client-avatar" src="{{ testimonial-item.image }}" alt="{{ testimonial-item.name }}">
+        </div>
+      {% endif %}
+      <div class="c-testimonial-card__client-info">
+        {% if testimonial-item.name %}
+          <h3 class="c-testimonial-card__client-name">{{ testimonial-item.name }}</h3>
+        {% endif %}
+        {% if testimonial-item.position %}
+          <p class="c-testimonial-card__client-position">{{ testimonial-item.position }}</p>
+        {% endif %}
+      </div>
+    </div>
+    {% if testimonial-item.blurb %}
+      <p class="c-testimonial-card__client-text">{{ testimonial-item.blurb }}</p>
+    {% endif %}
+  </div>
+</div>

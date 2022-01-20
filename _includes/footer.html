@@ -1,12 +1,23 @@
 <!-- begin footer -->
 <footer class="footer">
   <div class="container">
+    <div class="row">
+      <div class="col col-12">
 
-    {% include subscribe.html %}
-    
-    {% include contact-link.html %}
+        {% include social-link.html %}
 
-    <div class="copyright">Copyright &copy; {{site.time | date: '%Y'}} <a href="/">ZeoSpec</a> — All right Reserved.</div>
-</div>
+        <ul class="footer_nav list-reset">
+          {% for item in site.data.footer.footer_menu__settings.menu__items %}
+          <li class="footer_nav__item">
+            <a href="{{ item.url | relative_url }}" class="footer_nav__link">{{ item.title }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+
+        <div class="copyright">{{ site.data.footer.copyright_text_html }}</div>
+
+      </div>
+    </div>
+  </div>
 </footer>
 <!-- end footer -->

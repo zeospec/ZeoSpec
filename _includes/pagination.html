@@ -1,44 +1,36 @@
+{% if paginator.total_pages > 1 %}
+<!-- begin pagination -->
 <nav class="pagination">
   <div class="container">
-    <div class="pagination__list">
+    <div class="pagination__inner">
 
-      {% if paginator.previous_page %}
-      
-      {% if paginator.previous_page == 1 %}
-        <a class="previous-link" href="/">Prev Posts</a>
-      {% else %}
-        <a class="previous-link" href="/page/{{ paginator.previous_page }}/">Prev Posts</a>
-      {% endif %}
-      
-      {% else %}
-        <span class="disabled">Prev Posts</span>
-      {% endif %}
-
-      <div class="counter-box">
-        {% if paginator.page == 1 %}
-          <span class="active-link">1</span>
+      <div class="pagination__list">
+        
+        {% if paginator.previous_page %}
+        <a href="{{ paginator.previous_page_path | relative_url }}" class="pagination__prev"><i class="ion ion-ios-arrow-back"></i> Prev</a>
         {% else %}
-          <a href="/">1</a>
+        <span class="pagination__prev disabled"><i class="ion ion-ios-arrow-back"></i> Prev</span>
         {% endif %}
 
-
-        {% for count in (2..paginator.total_pages) %}
-
-        {% if count == paginator.page %}
-          <span class="active-link">{{ count }}</span>
-        {% else %}
-          <a class="count-number" href="/page/{{ count }}/">{{ count }}</a>
+        <div class="pagination__count">
+        {% for page in (1..paginator.total_pages) %}
+        {% if page == paginator.page %}
+        Page <span>{{ page }}</span>
         {% endif %}
         {% endfor %}
+        of <span>{{ paginator.total_pages }}</span>
+        </div>
+
+        {% if paginator.next_page %}
+        <a href="{{ paginator.next_page_path | relative_url }}" class="pagination__next">Next <i class="ion ion-ios-arrow-forward"></i></a>
+        {% else %}
+        <span class="pagination__next disabled">Next <i class="ion ion-ios-arrow-forward"></i></span>
+        {% endif %}
+
       </div>
-
-      {% if paginator.next_page %}
-      <a class="next-link" href="{{ site.baseurl }}/page/{{ paginator.next_page }}/">Next Posts</a>
-      {% else %}
-        <span class="disabled">Next Posts</span>
-      {% endif %}
-
 
     </div>
   </div>
 </nav>
+<!-- end pagination -->
+{% endif %}

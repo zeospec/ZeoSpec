@@ -1,0 +1,33 @@
+hero:
+  title: Hi, I am Arun Teja Godavarthi
+  description_html: <p>aka' <strong>ZeoSpec</strong>.<br><br><strong>Community</strong> Strategy & Management, <strong>Open Source</strong> Advocacy, <strong>Training</strong>, <strong>Entrepreneurship</strong>, <strong><a href="https://rtr.zeospec.com/" target="_blank">Rotaract</a></strong>, and <strong>Exploring the Uncharted Paths</strong>.</p>
+  image: /images/hero.jpg # 700 * 1050
+  image_alt: Arun Teja Godavarthi's picture
+  cta_button: Get in touch
+  cta_button_link: "meet" #contact
+  works_button: See my Updates # See my works
+  works_button_link: "#blog" #projects
+
+projects-section:
+  title: Latest Works
+  description_html: <p>I show only my best works built completely with passion, simplicity, and creativity!</p>
+  link_url: /projects
+  show_projects: false
+
+testimonials-section:
+  title: Testimonials
+  description_html:
+  show_testimonials: false
+
+blog-section:
+  title: Recent Posts
+  description_html: <p>Featuring thoughts, stories, and more!</p>
+  link_url: /blog
+  show_posts: true
+
+contact-form:
+  form_title: Get in touch
+  form_description: Send your message to hear back from me.
+  form_submission_email: hi@zeospec.com
+  form_button_text: Send now
+  show_contact_form: false
