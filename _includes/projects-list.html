@@ -1,0 +1,11 @@
+{% if page.projects-list.show_projects %}
+<div class="container animate">
+  <div class="row">
+    {% assign sorted_projects = site.projects | sort: 'date' | reverse %}
+
+    {% for project in sorted_projects %}
+      {% include project-card.html %}
+    {% endfor %}
+  </div>
+</div>
+{% endif %}

@@ -1,0 +1,8 @@
+<div class="container">
+  <div class="c-page-heading">
+    <h1 class="c-page-heading__title">{% if page.page-heading %}{{ page.page-heading.title }}{% elsif page.type == "tag" %}{{page.title | capitalize | replace: "-"," "}}{% else %}{{page.title}}{% endif %}</h1>
+    {% if page.page-heading.description or page.layout == "project" %}
+      <p class="c-page-heading__description">{% if page.layout =="project" %}{{page.subtitle}}{% else %}{{ page.page-heading.description }}{% endif %}</p>
+    {% endif %}
+  </div>
+</div>

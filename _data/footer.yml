@@ -1,0 +1,15 @@
+footer_menu__settings:
+  menu__items:
+    - title: 'Home'
+      url: '/'
+    # - title: 'Projects'
+    #   url: '/projects/'
+    - title: 'Blog'
+      url: '/Blog/'
+    - title: 'Schedule a Meeting 🤝'
+      url: '/meet/'
+    - title: 'About'
+      url: '/about/'
+
+copyright_text_html: >-
+  <p>2022 &copy; <a href="/">ZeoSpec</a></p>

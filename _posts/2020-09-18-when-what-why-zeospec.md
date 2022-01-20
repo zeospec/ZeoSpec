@@ -1,10 +1,10 @@
 ---
-layout: post
-title: When? What? Why? 'ZeoSpec'
 date: 2020-09-18
+title: When? What? Why? 'ZeoSpec'
 description: Here is a Short story of how the username - ZeoSpec came into existence, what does it mean and more. Along with the memories of aruntejagod.
-image: 1_why_when_what_zeospec.png
-tags: story
+image: /images/1_why_when_what_zeospec.png
+tags:
+  - story
 footnotes: true
 ---
 Hey buddy what is the meaning of ZeoSpec? Is ZeoSpec your company? … and then some, so let’s dive into the story behind “ZeoSpec”

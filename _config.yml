@@ -1,53 +1,54 @@
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://zeospec.com" # the base hostname & protocol for your site, e.g. http://example.com
+title: Arun Teja Godavarthi (ZeoSpec)
 
+url: "https://zeospec.com" # the base hostname & protocol for your site
+# baseurl: "/the/subpath/of/your/site" # Set this value to "" if you want your site to be root
+baseurl: ""
 timezone: Asia/Kolkata
 
-
-# Build settings
-markdown: kramdown
-permalink: pretty
 plugins:
   - jekyll-paginate
-  - jekyll-sitemap
   - jekyll-archives
   - jekyll-feed
+  - jekyll-sitemap
 
-paginate: 5
-paginate_path: "/page/:num"
+# markdown: kramdown
+paginate: 6
+paginate_path: blog/page-:num/
 
-# Pages Path
+
+collections:
+  pages:
+    output: true
+  projects:
+    output: false
+    permalink: /projects/:slug
+  testimonials:
+    output: false
+  posts:
+    output: true
+    permalink: blog/:title/ #/blog/:slug
+
 defaults:
   - scope:
-      path: '_pages'
+      path: ""
     values:
-      permalink: /:basename:output_ext
-
-include:
-  - _pages
-  - _redirects
+      layout: default
+  - scope:
+      type: projects
+    values:
+      layout: project
+  - scope:
+      type: posts
+    values:
+      layout: post
 
 # Archives
 jekyll-archives:
-  enabled: all
-  layout: archive
+  enabled: 
+    - tags
+  layout: tag_page
   permalinks:
-    year: '/:year/'
-    month: '/:year/:month/'
-    day: '/:year/:month/:day/'
-    tag: '/tags/:name/'
+    tag: '/blog/tags/:name/'
 
-# Archives
-# jekyll-archives:
-#   enabled: all
-#   layout: archive
-#   permalinks:
-#     category: '/:name/'
-#     year: '/:year/'
-#     month: '/:year/:month/'
-#     day: '/:year/:month/:day/'
-#     tag: '/clubs/:name/'
-
-sass:
-  sass_dir: _sass
-  style: compressed
+include:
+  - _redirects

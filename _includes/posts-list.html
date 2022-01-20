@@ -1,0 +1,11 @@
+{% if page.posts-list.show_posts %}
+<div class="container animate">
+  <div class="row">
+    {% for post in paginator.posts %}
+      {% include blog-card.html %}
+    {% endfor %}
+  </div>
+</div>
+
+{% include pagination.html %}
+{% endif %}

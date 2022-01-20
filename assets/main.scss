@@ -1,0 +1,42 @@
+---
+---
+
+@import '0-settings/_A_variables.scss';
+@import '0-settings/_B_color-scheme.scss';
+@import '0-settings/_C_mixins.scss';
+@import '0-settings/_D_helpers.scss';
+
+@import '1-tools/_A_normalize.scss';
+@import '1-tools/_B_reset.scss';
+@import '1-tools/_C_shared.scss';
+@import '1-tools/_D_syntax-highlighting.scss';
+@import '1-tools/_E_grid.scss';
+@import '1-tools/_F_tiny-slider.scss';
+@import '1-tools/_G_animate.scss';
+
+@import '2-base/_base.scss';
+
+@import '3-modules/_footer.scss';
+@import '3-modules/_header.scss';
+@import '3-modules/_pagination.scss';
+@import '3-modules/_scroll-button-top.scss';
+@import '3-modules/_sections.scss';
+@import '3-modules/_social-links.scss';
+
+@import '4-layouts/_page-layout.scss';
+
+@import '5-components/blog-card.scss';
+@import '5-components/blog-section.scss';
+@import '5-components/button.scss';
+@import '5-components/contact-form.scss';
+@import '5-components/content.scss';
+@import '5-components/hero.scss';
+@import '5-components/newsletter.scss';
+@import '5-components/page-heading.scss';
+@import '5-components/page-image.scss';
+@import '5-components/posts-list.scss';
+@import '5-components/project-card.scss';
+@import '5-components/projects-list.scss';
+@import '5-components/projects-section.scss';
+@import '5-components/testimonial-card.scss';
+@import '5-components/testimonials-section.scss';

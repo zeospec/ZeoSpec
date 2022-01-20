@@ -3,4 +3,4 @@
 # Optional: Redirect default Netlify subdomain to primary domain
 https://zeospec.netlify.app/* https://zeospec.com/:splat 301!
 
-# https://zeospec.com/meetlink/* https://timesync.novocall.co/zeospec
+https://zeospec.com/2020/09/18/when-what-why-zeospec/ https://zeospec.com/blog/when-what-why-zeospec/ 301!

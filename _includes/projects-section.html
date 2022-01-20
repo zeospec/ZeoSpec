@@ -1,0 +1,32 @@
+{% if site.data.content.projects-section.show_projects %}
+<!-- begin projects -->
+<section class="section projects" id="projects">
+  <div class="container">
+    <div class="row">
+      <div class="col col-12">
+        <div class="contaniner__inner animate">
+
+          <div class="section__info">
+            <div class="section__head">
+              <h2 class="section__title">{{ site.data.content.projects-section.title }}</h2>
+              <a class="section__link" href="{{ site.data.content.projects-section.link_url }}">View all <i class="ion ion-md-arrow-forward"></i></a>
+            </div>
+            <div class="section__description">{{ site.data.content.projects-section.description_html }}</div>
+          </div>
+
+          <div class="row">
+            {% assign sorted_projects = site.projects | sort: 'date' | reverse %}
+            {% for project in sorted_projects %}
+              {% if forloop.index <= 6 %}
+                {% include project-card.html %}
+              {% endif %}
+            {% endfor %}
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- end projects -->
+{% endif %}
