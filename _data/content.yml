@@ -10,7 +10,7 @@ hero:
 
 projects-section:
   title: Latest Works
-  description_html: <p>I show only my best works built completely with passion, simplicity, and creativity!</p>
+  description_html: <p>Showcasing a select sortlist of recent Activities!</p>
   link_url: /projects
   show_projects: false
 

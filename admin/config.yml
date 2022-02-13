@@ -1,0 +1,57 @@
+backend:
+  name: git-gateway
+  branch: master # Branch to update (master by default)
+  squash_merges: true
+
+# This line should *not* be indented
+# publish_mode: editorial_workflow
+
+media_folder: "images/" # Folder where user uploaded files should go
+site_url: https://zeospec.come/
+display_url: zeospec.come
+logo_url: https://zeospec.com/images/zeospec.jpg
+
+collections: # A list of collections the CMS should be able to edit 
+  - label: "Blog"
+    name: "blog"
+    folder: "_posts"
+    create: true # Allow users to create new documents in this collection
+    sort: "date:desc"
+    sortable_fields: ['title','date']
+    slug: "{{date}}-{{slug}}"
+    fields: # The fields each document in this collection have
+      - {label: "Date", name: "date", widget: "date", format: "YYYY-MM-DD"}
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Image (1200 * 800)", name: "image", widget: "image"}
+      - label: "Tags"
+        name: "tags"
+        widget: "list"
+        default: ["story"]
+      - {label: "Description", name: "description", widget: "markdown"}
+      - {label: "Footnotes", name: "footnotes", widget: "boolean", default: false}
+      - {label: "Body", name: "body", widget: "markdown", required: false}
+  - label: "Projects"
+    name: "projects"
+    folder: "_projects"
+    create: true # Allow users to create new documents in this collection
+    sort: "date:desc"
+    sortable_fields: ['title','date']
+    slug: "{{date}}-{{slug}}"
+    fields: # The fields each document in this collection have
+      - {label: "Date", name: "date", widget: "date", format: "YYYY-MM-DD"}
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Subtitle", name: "subtitle", widget: "string"}
+      - {label: "Image (Sq or Any)", name: "image", widget: "image"}
+      - {label: "Description", name: "description", widget: "markdown"}
+      - {label: "Body", name: "body", widget: "markdown", required: false}
+  - label: "Testimonials"
+    name: "testimonials"
+    folder: "_testimonials"
+    create: true # Allow users to create new documents in this collection
+    sort: "date:desc"
+    slug: "{{name}}"
+    fields: # The fields each document in this collection have
+      - {label: "Name", name: "name", widget: "string"}
+      - {label: "Position", name: "position", widget: "string"}
+      - {label: "Image (120 * 120)", name: "image", widget: "image"}
+      - {label: "Blurb", name: "blurb", widget: "markdown"}
