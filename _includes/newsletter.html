@@ -13,15 +13,17 @@
           </div>
 
           <form class="c-subscribe__form validate" action="{{ site.data.newsletter.newsletter_identifier }}"
-            method="POST" id="membedded-subscribe-form" name="membedded-subscribe-form" target="_blank" novalidate>
+            method="POST" id="membedded-subscribe-form" name="membedded-subscribe-form" target="_blank">
             <label class="screen-reader-text" for="mce-EMAIL">Email address</label>
-            <input class="c-subscribe__form-email required email" id="mce-EMAIL" type="text" name="member[email]" placeholder="Your email address">
+            <input class="c-subscribe__form-email required" id="fname" type="text" name="member[first_name]" placeholder="First Name" required>
+            <input class="c-subscribe__form-email required" id="lname" type="text" name="member[last_name]" placeholder="Last Name">
+            <input class="c-subscribe__form-email required email" id="mce-EMAIL" type="email" name="member[email]" placeholder="Your email address" required>
             <button class="c-button c-button--primary c-button--large" id="membedded-subscribe" type="submit" name="subscribe">{{ site.data.newsletter.newsletter_button }}</button>
           </form>
-
+ 
         </div>
       </div>
-    </div>
+    </div> 
   </div>
 </section>
 <!-- end subscribe -->
