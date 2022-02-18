@@ -1,6 +1,6 @@
 hero:
   title: Hi, I am Arun Teja Godavarthi
-  description_html: <p>aka' <strong>ZeoSpec</strong>.<br><br><strong>Developer Relations</strong> - Google Developers | <strong>Community</strong> Strategy & Growth, <strong>Open Source</strong> Advocacy, <strong>Change Management</strong>, <strong>Training</strong>, <strong>Entrepreneurship</strong>, <strong><a href="https://rtr.zeospec.com/" target="_blank">Rotaract</a></strong>, and Exploring the Uncharted Paths.</p>
+  description_html: <p>aka' <strong>ZeoSpec</strong>.<br><br><strong>Developer Relations</strong> - Google Developers | <strong>Community</strong> Strategy & Growth, <strong>Open Source</strong>, <strong>Change Management</strong>, <strong>Training</strong>, <strong>Entrepreneurship</strong>, <strong><a href="https://rtr.zeospec.com/" target="_blank">Rotaract</a></strong>, and Exploring the Uncharted Paths.</p>
   image: /images/hero.jpg # 700 * 1050
   image_alt: Arun Teja Godavarthi's picture
   cta_button: Get in touch
