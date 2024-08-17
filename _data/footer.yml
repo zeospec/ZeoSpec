@@ -2,8 +2,8 @@ footer_menu__settings:
   menu__items:
     - title: 'Home'
       url: '/'
-    # - title: 'Projects'
-    #   url: '/projects/'
+    # - title: 'work'
+    #   url: '/work/'
     - title: 'Blog'
       url: '/Blog/'
     - title: 'Schedule a Meeting 🤝'

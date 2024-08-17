@@ -4,15 +4,15 @@ menu__settings:
   menu__items:
     - title: 'Home'
       url: '/'
-    - url: '/about/'
-      title: 'About'
-    # - title: 'Projects'
-    #   url: '/projects/'
+    # - title: 'Work'
+    #   url: '/work/'
     - title: 'Blog'
       url: '/blog/'
     - title: 'Schedule a Meeting 🤝'
       url: '/meet/'
     - title: 'More'
       submenu:
+      - url: '/about/'
+        title: 'About'
       - url: https://rtr.zeospec.com/
         title: 'Rotaract'

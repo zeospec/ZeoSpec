@@ -2,8 +2,9 @@
 # Newsletter Settings
 newsletter_title: "Join my mailing list"
 newsletter_description: "Get latest updates and, cool stuff!" # Add descriptions to the form.
-newsletter_identifier: "https://letters.zeospec.com/add_subscriber"
+newsletter_identifier: https://docs.google.com/forms/d/e/1FAIpQLSfB3qsTYxgAcWdde5Jzq7JquR2ASwVR9myv9dy3ULH7UOM2vg/formResponse
+formFNamekey: entry.6950510
+formSNamekey: entry.1312227218
+formEmailkey: entry.1470521357
+
 newsletter_button: "Subscribe"
-
-
-
