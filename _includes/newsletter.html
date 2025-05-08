@@ -12,15 +12,24 @@
             </div>
           </div>
 
-          <form class="c-subscribe__form validate" action="{{ site.data.newsletter.newsletter_identifier }}"
-            method="POST" id="membedded-subscribe-form" name="membedded-subscribe-form" target="_blank">
+            <!-- Google Form -->   
+            <script type="text/javascript">
+              var submission = false;
+            </script>
+            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"
+            onload="if(submission)  {window.location='/thankyou';}"></iframe>
+            
+          <form class="c-subscribe__form validate" action="{{ site.data.newsletter.newsletter_identifier }}" target="hidden_iframe" onsubmit="submission=true;" method="POST">
             <label class="screen-reader-text" for="mce-EMAIL">Email address</label>
-            <input class="c-subscribe__form-email required" id="fname" type="text" name="member[first_name]" placeholder="First Name" required>
-            <input class="c-subscribe__form-email required" id="lname" type="text" name="member[last_name]" placeholder="Last Name">
-            <input class="c-subscribe__form-email required email" id="mce-EMAIL" type="email" name="member[email]" placeholder="Your email address" required>
-            <button class="c-button c-button--primary c-button--large" id="membedded-subscribe" type="submit" name="subscribe">{{ site.data.newsletter.newsletter_button }}</button>
+            <input class="c-subscribe__form-email required" id="fname" type="text" name="{{ site.data.newsletter.formFNamekey }}" placeholder="First Name" required>
+            <input class="c-subscribe__form-email required" id="lname" type="text" name="{{ site.data.newsletter.formSNamekey }}" placeholder="Last Name" required>
+            <input class="c-subscribe__form-email required email" id="mce-EMAIL" type="email" name="{{ site.data.newsletter.formEmailkey }}" placeholder="Your email address" required>
+
+            <button class="c-button c-button--primary c-button--large" id="membedded-subscribe" type="submit" name="subscribe" value="Subscribe">{{ site.data.newsletter.newsletter_button }}</button>
           </form>
- 
+
+
+
         </div>
       </div>
     </div> 
