@@ -1,12 +1,49 @@
+# System Files
 .DS_Store
+Thumbs.db
+
+# Jekyll
 .jekyll-cache
-Gemfile.lock
 _site
-_pages/about-base.md
-_pages/styleguide.md
-_posts/2018-05-29-welcome-to-jekyll.markdown
-_posts/2018-06-25-start-the-day-with-the-right-habit.markdown
-_posts/2018-07-05-moving-to-a-new-place.markdown
-_posts/2018-07-17-time-to-givegifts-to-everyone.markdown
-_posts/2018-07-19-why-a-brand-is-often-important.markdown
-_posts/2018-07-23-find-a-connection-with-the-reader.markdown
+Gemfile.lock
+
+# Security & Secrets
+.env
+.env.local
+.env.production
+*.key
+*.pem
+*.p12
+*.pfx
+secrets.yml
+config/secrets.yml
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+
+# Temporary Files
+*.tmp
+*.temp
+.cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Backup Files
+*.bak
+*.backup
+*~

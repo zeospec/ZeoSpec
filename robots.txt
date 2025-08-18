@@ -9,6 +9,8 @@ Disallow: /admin/
 Disallow: /_site/
 Disallow: /.jekyll-cache/
 Disallow: /.forestry/
+Disallow: /admin/config.yml
+Disallow: /admin/index.html
 
 # Allow important directories
 Allow: /blog/

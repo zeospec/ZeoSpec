@@ -19,7 +19,8 @@
             <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"
             onload="if(submission)  {window.location='/thankyou';}"></iframe>
             
-          <form class="c-subscribe__form validate" action="{{ site.data.newsletter.newsletter_identifier }}" target="hidden_iframe" onsubmit="submission=true;" method="POST">
+          <form class="c-subscribe__form validate" action="{{ site.data.newsletter.newsletter_identifier }}" target="hidden_iframe" onsubmit="submission=true;" method="POST" novalidate>
+            <input type="hidden" name="_honey" style="display:none">
             <label class="screen-reader-text" for="mce-EMAIL">Email address</label>
             <input class="c-subscribe__form-email required" id="fname" type="text" name="{{ site.data.newsletter.formFNamekey }}" placeholder="First Name" required>
             <input class="c-subscribe__form-email required" id="lname" type="text" name="{{ site.data.newsletter.formSNamekey }}" placeholder="Last Name" required>

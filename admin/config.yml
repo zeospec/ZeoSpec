@@ -7,8 +7,8 @@ backend:
 # publish_mode: editorial_workflow
 
 media_folder: "images/" # Folder where user uploaded files should go
-site_url: https://zeospec.come/
-display_url: zeospec.come
+site_url: https://zeospec.com/
+display_url: zeospec.com
 logo_url: https://zeospec.com/images/zeospec.jpg
 
 collections: # A list of collections the CMS should be able to edit 

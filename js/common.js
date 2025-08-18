@@ -4,10 +4,13 @@ document.addEventListener("DOMContentLoaded", function () {
   /* =======================
   // Menu
   ======================= */
-  var body = document.querySelector("body"),
-  menuOpenIcon = document.querySelector(".nav__icon-menu"),
-  menuCloseIcon = document.querySelector(".nav__icon-close"),
-  menuList = document.querySelector(".main-nav");
+  const body = document.querySelector("body");
+  const menuOpenIcon = document.querySelector(".nav__icon-menu");
+  const menuCloseIcon = document.querySelector(".nav__icon-close");
+  const menuList = document.querySelector(".main-nav");
+
+  // Security: Validate elements exist before adding event listeners
+  if (menuOpenIcon && menuCloseIcon && menuList) {
 
   menuOpenIcon.addEventListener("click", () => {
     menuOpen();
@@ -23,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function menuClose() {
     menuList.classList.remove("is-open");
+  }
   }
 
   /* =======================
