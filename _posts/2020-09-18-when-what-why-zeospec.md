@@ -1,10 +1,18 @@
 ---
 date: 2020-09-18
 title: When? What? Why? 'ZeoSpec'
-description: Here is a Short story of how the username - ZeoSpec came into existence, what does it mean and more. Along with the memories of aruntejagod.
+description: Discover the fascinating story behind the username 'ZeoSpec' - how Arun Teja Godavarthi created this unique identity combining anime inspiration and technical specifications. Learn about the meaning, history, and evolution of the ZeoSpec brand.
 image: /images/1_why_when_what_zeospec.png
+image_alt: "ZeoSpec username origin story and meaning"
 tags:
   - story
+  - personal
+  - branding
+  - community
+  - zeospec
+keywords: "ZeoSpec username, Arun Teja Godavarthi, username story, personal branding, community building"
+author: "Arun Teja Godavarthi"
+last_modified_at: 2024-01-15
 footnotes: true
 ---
 Hey buddy what is the meaning of ZeoSpec? Is ZeoSpec your company? … and then some, so let’s dive into the story behind “ZeoSpec”

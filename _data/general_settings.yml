@@ -1,6 +1,14 @@
-title: Arun Teja Godavarthi (ZeoSpec)
-description: Arun Teja Godavarthi aka. ZeoSpec is a Community Builder, a Rotaractor and an Entrepreneur, with deep love towards Open Source, Training, and exploring the uncharted paths.
+title: Arun Teja Godavarthi (ZeoSpec) - Developer Relations & Community Builder
+description: Arun Teja Godavarthi aka. ZeoSpec is a Developer Relations professional at Google Developers, Community Builder, Rotaractor and Entrepreneur. Expert in Open Source, Training, Change Management, and building tech communities.
 social_media_share_image: /images/zeospec.jpg
 disqus-identifier:
 google-analytics: G-0LLJ53Y3RH
 msclarity: true
+# SEO Settings
+seo:
+  keywords: "Arun Teja Godavarthi, ZeoSpec, Developer Relations, Google Developers, Community Builder, Open Source, Training, Entrepreneurship, Rotaract, Bangalore, India, Software Engineer, Tech Community"
+  author: "Arun Teja Godavarthi (ZeoSpec)"
+  language: "en-US"
+  geo_region: "IN-KA"
+  geo_placename: "Bangalore"
+  geo_position: "12.9716;77.5946"

@@ -1,11 +1,26 @@
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.data.settings.google-analytics }}"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.data.general_settings.google-analytics }}"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', '{{ site.data.settings.google-analytics }}');
+  gtag('config', '{{ site.data.general_settings.google-analytics }}', {
+    'page_title': '{{ page.title | default: site.data.general_settings.title }}',
+    'page_location': '{{ page.url | absolute_url }}',
+    'custom_map': {
+      'dimension1': 'author',
+      'dimension2': 'content_type'
+    }
+  });
+  
+  // Enhanced Ecommerce tracking
+  gtag('config', '{{ site.data.general_settings.google-analytics }}', {
+    'send_page_view': true,
+    'anonymize_ip': true,
+    'allow_google_signals': false,
+    'allow_ad_personalization_signals': false
+  });
 </script>
 
   <!-- Google Tag Manager -->

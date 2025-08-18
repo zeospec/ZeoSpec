@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://zeospec.com/sitemap.xml
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /_site/
+Disallow: /.jekyll-cache/
+Disallow: /.forestry/
+
+# Allow important directories
+Allow: /blog/
+Allow: /about/
+Allow: /work/
+Allow: /meet/
+
+# Crawl delay for better server performance
+Crawl-delay: 1

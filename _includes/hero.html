@@ -18,7 +18,13 @@
 
           <div class="c-hero__right">
             <div class="c-hero__image">
-              <img loading="lazy" src="{{ site.data.content.hero.image }}" alt="{{ site.data.content.hero.hero_image_alt }}">
+              <img loading="lazy" 
+                   src="{{ site.data.content.hero.image }}" 
+                   alt="{{ site.data.content.hero.hero_image_alt }}"
+                   width="700" 
+                   height="1050"
+                   decoding="async"
+                   fetchpriority="high">
             </div>
           </div>
 

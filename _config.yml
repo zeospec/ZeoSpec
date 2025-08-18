@@ -11,6 +11,14 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
 
+# Sitemap Configuration
+sitemap:
+  changefreq: weekly
+  priority: 0.8
+  exclude: ['/admin/', '/_site/', '/.jekyll-cache/', '/.forestry/']
+  include_posts: true
+  include_pages: true
+
 # markdown: kramdown
 paginate: 6
 paginate_path: blog/page-:num/
@@ -33,14 +41,20 @@ defaults:
       path: ""
     values:
       layout: default
+      image_alt: "ZeoSpec - Arun Teja Godavarthi"
+      last_modified_at: 2024-01-15
   - scope:
       type: projects
     values:
       layout: project
+      image_alt: "Project by ZeoSpec"
   - scope:
       type: posts
     values:
       layout: post
+      image_alt: "Blog post by ZeoSpec"
+      author: "Arun Teja Godavarthi"
+      last_modified_at: 2024-01-15
 
 # Archives
 jekyll-archives:

@@ -1,0 +1,31 @@
+{
+  "name": "ZeoSpec - Arun Teja Godavarthi",
+  "short_name": "ZeoSpec",
+  "description": "Developer Relations & Community Builder at Google Developers",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1495a7",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/images/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/avatar.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "/images/zeospec.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ],
+  "categories": ["business", "productivity", "education"],
+  "lang": "en-US",
+  "dir": "ltr"
+}

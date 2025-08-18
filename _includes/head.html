@@ -8,6 +8,9 @@
 
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
   <link rel="alternate" type="application/rss+xml" title="{{ site.title | escape }}" href="{{ "/feed.xml" | absolute_url }}">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/svg+xml" href="/images/logo.svg">
+  <link rel="apple-touch-icon" href="/images/avatar.jpg">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
@@ -19,29 +22,79 @@
   <meta name="twitter:url" content="{{ page.url | absolute_url }}">
   <meta name="twitter:domain" content="{{ site.url }}">
 
-  <!-- Facebook OpenGraph -->
+  <!-- Enhanced Facebook OpenGraph -->
   <meta property="og:title" content="{% if page.url == "/" %}{{ site.data.general_settings.title }}{% elsif page.layout == "tag_page" %}{{ page.title | capitalize | replace: "-"," "}} | {{ site.data.general_settings.title }}{% elsif page.title %}{{ page.title }} | {{ site.data.general_settings.title }}{% else %}{{ site.data.general_settings.title }}{% endif %}">
   <meta property="og:description" content="{% if page.description %}{{ page.description | strip_html | strip_newlines }}{% else %}{{ site.data.general_settings.description }}{% endif %}">
   <meta property="og:image" content="{% if page.image %}{{ page.image | absolute_url }}{% else %}{{ site.data.general_settings.social_media_share_image | absolute_url }}{% endif %}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{% if page.title %}{{ page.title }} - {{ site.data.general_settings.title }}{% else %}{{ site.data.general_settings.title }}{% endif %}">
   <meta property="og:url" content="{{ page.url | absolute_url }}">
+  <meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
+  <meta property="og:site_name" content="{{ site.data.general_settings.title }}">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="en_IN">
+  
+  <!-- Additional Social Media -->
+  <meta property="article:author" content="https://www.linkedin.com/in/zeospec/">
+  <meta property="article:publisher" content="https://zeospec.com/">
+  {% if page.tags %}
+  {% for tag in page.tags %}
+  <meta property="article:tag" content="{{ tag }}">
+  {% endfor %}
+  {% endif %}
+  {% if page.date %}
+  <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">
+  <meta property="article:modified_time" content="{{ page.date | date_to_xmlschema }}">
+  {% endif %}
 
-  <meta name="keywords" content="Arun Teja Godavarthi, Arun, ZeoSpec, Teja, Godavarthi, Community Builder" />
-  <meta name="author" content="ZeoSpec" />
-  <meta name="copyright" content="ZeoSpec">
+  <!-- Enhanced SEO Meta Tags -->
+  <meta name="keywords" content="Arun Teja Godavarthi, ZeoSpec, Developer Relations, Google Developers, Community Builder, Open Source, Training, Entrepreneurship, Rotaract, Bangalore, India, Software Engineer, Tech Community" />
+  <meta name="author" content="Arun Teja Godavarthi (ZeoSpec)" />
+  <meta name="copyright" content="© 2024 Arun Teja Godavarthi (ZeoSpec). All rights reserved.">
   <meta name="url" content="https://zeospec.com/">
   <meta name="identifier-URL" content="https://zeospec.com/">
-
-  <meta http-equiv="cache-control" content="public" />
-  <meta http-equiv="Expires" content="0">
+  
+  <!-- Language and Region -->
+  <meta name="language" content="English">
+  <meta name="geo.region" content="IN-KA">
+  <meta name="geo.placename" content="Bangalore">
+  <meta name="geo.position" content="12.9716;77.5946">
+  <meta name="ICBM" content="12.9716, 77.5946">
+  
+  <!-- Cache Control -->
+  <meta http-equiv="cache-control" content="public, max-age=31536000" />
+  <meta http-equiv="Expires" content="31536000">
   <meta name="theme-color" content="#1495a7">
+  
+  <!-- Additional SEO -->
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="googlebot" content="index, follow">
+  <meta name="bingbot" content="index, follow">
+  
+  <!-- Mobile App Meta -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="ZeoSpec">
+  <meta name="application-name" content="ZeoSpec">
+  <meta name="msapplication-TileColor" content="#1495a7">
+  <meta name="msapplication-config" content="/browserconfig.xml">
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"></noscript>
+  
+  <link rel="preload" href="https://unpkg.com/ionicons@4.5.0/dist/css/ionicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://unpkg.com/ionicons@4.5.0/dist/css/ionicons.min.css"></noscript>
 
-  <!-- Ionicons -->
-  <link href="https://unpkg.com/ionicons@4.5.0/dist/css/ionicons.min.css" rel="stylesheet">
-
-  <link rel="stylesheet" href="{{site.baseurl}}/assets/main.css">
+  <link rel="preload" href="{{site.baseurl}}/assets/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="{{site.baseurl}}/assets/main.css"></noscript>
+  
+  <!-- DNS Prefetch for External Resources -->
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="dns-prefetch" href="//unpkg.com">
+  <link rel="dns-prefetch" href="//www.google-analytics.com">
+  <link rel="dns-prefetch" href="//c.clarity.ms">
 
   <link rel="me" href="https://twitter.com/ZeoSpec" />
   <link rel="me" href="https://www.facebook.com/zeospec/" />
