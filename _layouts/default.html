@@ -27,7 +27,13 @@ layout: compress
     <!-- littlefoot fancy notes -->
     <script src="https://cdn.jsdelivr.net/npm/littlefoot@4.0.0/dist/littlefoot.js" type="application/javascript" integrity="sha384-..." crossorigin="anonymous"></script>
     <script type="application/javascript">
-    littlefoot.default()
+    (function(){
+      if (window.littlefoot && typeof window.littlefoot.default === 'function') {
+        window.littlefoot.default();
+      } else if (typeof window.littlefoot === 'function') {
+        window.littlefoot();
+      }
+    })();
     </script>
     {% endif %}
     
