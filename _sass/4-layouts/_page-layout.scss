@@ -224,6 +224,7 @@
 		justify-content: center;
 		align-items: center;
 		width: 100%;
+		flex-wrap: wrap;
 	}
 
 	.share__item {
@@ -245,7 +246,14 @@
 		&.share__facebook,
 		&.share__twitter,
 		&.share__linkedin,
-		&.share__pinterest {
+		&.share__pinterest,
+		&.share__whatsapp,
+		&.share__telegram,
+		&.share__reddit,
+		&.share__email,
+		&.share__pocket,
+		&.share__copy,
+		&.share__native {
 			background: $background-color-alt;
 
 			&:hover {
@@ -275,6 +283,34 @@
 			&:hover {
 				background: #bd081c;
 			}
+		}
+		&.share__whatsapp {
+			color: #25D366;
+			&:hover { background: #25D366; }
+		}
+		&.share__telegram {
+			color: #0088cc;
+			&:hover { background: #0088cc; }
+		}
+		&.share__reddit {
+			color: #ff4500;
+			&:hover { background: #ff4500; }
+		}
+		&.share__email {
+			color: #6e6e6e;
+			&:hover { background: #6e6e6e; }
+		}
+		&.share__pocket {
+			color: #ef4056;
+			&:hover { background: #ef4056; }
+		}
+		&.share__copy {
+			color: $text-color;
+			&:hover { background: $text-color; }
+		}
+		&.share__native {
+			color: $primary-color;
+			&:hover { background: $primary-color; }
 		}
 	}
 

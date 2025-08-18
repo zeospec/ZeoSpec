@@ -170,4 +170,78 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  /* ============================
+  // Share buttons (popups, copy, web share)
+  ============================ */
+  const shareList = document.querySelector('.share__list');
+  if (shareList) {
+    shareList.addEventListener('click', function (e) {
+      const target = e.target.closest('a.share__link');
+      if (!target) return;
+      const platform = target.getAttribute('data-platform');
+      const href = target.getAttribute('href');
+      if (platform === 'copy') {
+        e.preventDefault();
+        const link = window.location.href;
+        navigator.clipboard && navigator.clipboard.writeText(link).then(() => {
+          announce('Link copied to clipboard');
+        }).catch(() => {
+          // Fallback
+          const tmp = document.createElement('input');
+          tmp.value = link;
+          document.body.appendChild(tmp);
+          tmp.select();
+          document.execCommand('copy');
+          document.body.removeChild(tmp);
+          announce('Link copied to clipboard');
+        });
+        return;
+      }
+      if (platform === 'native') {
+        e.preventDefault();
+        if (navigator.share) {
+          navigator.share({ url: window.location.href, title: document.title }).catch(() => {});
+        } else {
+          // fallback to copy
+          const copyBtn = shareList.querySelector('.share__link.share__copy');
+          if (copyBtn) copyBtn.click();
+        }
+        return;
+      }
+      if (href && (
+        platform === 'twitter' || platform === 'facebook' || platform === 'pinterest' || platform === 'linkedin' ||
+        platform === 'whatsapp' || platform === 'telegram' || platform === 'reddit' || platform === 'pocket'
+      )) {
+        e.preventDefault();
+        const w = 600, h = 500;
+        const y = window.top.outerHeight / 2 + window.top.screenY - ( h / 2);
+        const x = window.top.outerWidth / 2 + window.top.screenX - ( w / 2);
+        window.open(href, 'share', `popup,left=${x},top=${y},width=${w},height=${h},toolbar=0,resizable=1,noopener,noreferrer`);
+        if (window.gtag) {
+          window.gtag('event', 'share_click', { 'platform': platform, 'page_location': window.location.href });
+        }
+      }
+    });
+  }
+
+  function announce(message) {
+    let region = document.getElementById('sr-announce');
+    if (!region) {
+      region = document.createElement('div');
+      region.id = 'sr-announce';
+      region.setAttribute('aria-live', 'polite');
+      region.setAttribute('aria-atomic', 'true');
+      region.style.position = 'absolute';
+      region.style.width = '1px';
+      region.style.height = '1px';
+      region.style.margin = '-1px';
+      region.style.border = '0';
+      region.style.padding = '0';
+      region.style.clip = 'rect(0 0 0 0)';
+      region.style.overflow = 'hidden';
+      document.body.appendChild(region);
+    }
+    region.textContent = message;
+  }
+
 });
