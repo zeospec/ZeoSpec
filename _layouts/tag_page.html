@@ -16,7 +16,7 @@ layout: default
               {% if post.image %}
               <div class="image-wrap">
                 <a class="article__image" href="{{ post.url }}">
-                  <img loading="lazy" src="{{ post.image }}" alt="{{ post.title }}">
+                  <img loading="lazy" src="{{ post.image }}" alt="{{ post.title }}" width="1200" height="800" decoding="async">
                 </a>
               </div>
               {% endif %}
@@ -42,7 +42,7 @@ layout: default
           
                 <div class="article__meta">
                   <div class="article__author-image">
-                    <img loading="lazy" src="{{ site.data.author.author_image }}" alt="{{ site.data.author.author_name }}">
+                    <img loading="lazy" src="{{ site.data.author.author_image }}" alt="{{ site.data.author.author_name }}" width="48" height="72" decoding="async">
                   </div>
                   <div class="article-info">
                     <div class="article__author-name">{{ site.data.author.author_name }}</div>

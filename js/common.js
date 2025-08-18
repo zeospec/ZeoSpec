@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Security: Validate elements exist before adding event listeners
   if (menuOpenIcon && menuCloseIcon && menuList) {
+    const nav = document.getElementById('primary-navigation');
 
   menuOpenIcon.addEventListener("click", () => {
     menuOpen();
@@ -22,10 +23,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function menuOpen() {
     menuList.classList.add("is-open");
+    if (nav) {
+      nav.setAttribute('aria-hidden', 'false');
+    }
+    menuOpenIcon.setAttribute('aria-expanded', 'true');
   }
 
   function menuClose() {
     menuList.classList.remove("is-open");
+    if (nav) {
+      nav.setAttribute('aria-hidden', 'true');
+    }
+    menuOpenIcon.setAttribute('aria-expanded', 'false');
   }
   }
 

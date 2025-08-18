@@ -22,9 +22,9 @@
           <form class="c-subscribe__form validate" action="{{ site.data.newsletter.newsletter_identifier }}" target="hidden_iframe" onsubmit="submission=true;" method="POST" novalidate>
             <input type="hidden" name="_honey" style="display:none">
             <label class="screen-reader-text" for="mce-EMAIL">Email address</label>
-            <input class="c-subscribe__form-email required" id="fname" type="text" name="{{ site.data.newsletter.formFNamekey }}" placeholder="First Name" required>
-            <input class="c-subscribe__form-email required" id="lname" type="text" name="{{ site.data.newsletter.formSNamekey }}" placeholder="Last Name" required>
-            <input class="c-subscribe__form-email required email" id="mce-EMAIL" type="email" name="{{ site.data.newsletter.formEmailkey }}" placeholder="Your email address" required>
+            <input class="c-subscribe__form-email required" id="fname" type="text" name="{{ site.data.newsletter.formFNamekey }}" placeholder="First Name" autocomplete="given-name" required>
+            <input class="c-subscribe__form-email required" id="lname" type="text" name="{{ site.data.newsletter.formSNamekey }}" placeholder="Last Name" autocomplete="family-name" required>
+            <input class="c-subscribe__form-email required email" id="mce-EMAIL" type="email" name="{{ site.data.newsletter.formEmailkey }}" placeholder="Your email address" autocomplete="email" required>
 
             <button class="c-button c-button--primary c-button--large" id="membedded-subscribe" type="submit" name="subscribe" value="Subscribe">{{ site.data.newsletter.newsletter_button }}</button>
           </form>

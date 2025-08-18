@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col col-12">
       <div class="c-page-image animate">
-        <img loading="lazy" src="{% if page.layout =="project" %}{{page.image}}{% else %}{{ page.page-image.image }}{% endif %}" alt="{{ page.page-image.image_alt }}">
+        <img loading="lazy" src="{% if page.layout =="project" %}{{page.image}}{% else %}{{ page.page-image.image }}{% endif %}" alt="{{ page.page-image.image_alt }}" width="1200" height="800" decoding="async">
       </div>
     </div>
   </div>

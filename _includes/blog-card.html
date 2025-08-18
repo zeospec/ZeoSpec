@@ -4,7 +4,7 @@
     {% if post.image %}
     <div class="c-blog-card__image-wrap">
       <a class="c-blog-card__image" href="{{ post.url }}">
-        <img loading="lazy" src="{{ post.image }}" alt="{{ post.title }}">
+        <img loading="lazy" src="{{ post.image }}" alt="{{ post.title }}" width="1200" height="800" decoding="async">
       </a>
     </div>
     {% endif %}
@@ -30,7 +30,7 @@
 
       <div class="c-blog-card__meta">
         <div class="c-blog-card__author-image">
-          <img loading="lazy" src="{{ site.data.author.author_image }}" alt="{{ site.data.author.author_name }}">
+          <img loading="lazy" src="{{ site.data.author.author_image }}" alt="{{ site.data.author.author_name }}" width="48" height="72" decoding="async">
         </div>
         <div class="c-blog-card__info">
           <div class="c-blog-card__author-name">{{ site.data.author.author_name }}</div>

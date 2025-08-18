@@ -17,13 +17,15 @@
             <input type="hidden" name="_to" value="{{site.data.content.contact-form.form_submission_email}}">
             <input type="hidden" name="_csrf" value="{{ site.time | date_to_xmlschema | sha256 }}">
             <input type="hidden" name="_honey" style="display:none">
+            <div class="c-contact-form__form-group" aria-live="polite" aria-atomic="true" hidden></div>
+
             <div class="c-contact-form__form-group">
               <label class="c-contact-form__form-label screen-reader-text" for="form-name">Your Name</label>
-              <input class="c-contact-form__form-input" id="form-name" type="text" name="name" placeholder="Your name..." required>
+              <input class="c-contact-form__form-input" id="form-name" type="text" name="name" placeholder="Your name..." autocomplete="name" required>
             </div>
             <div class="c-contact-form__form-group">
               <label class="c-contact-form__form-label screen-reader-text" for="form-email">Your Email</label>
-              <input class="c-contact-form__form-input" id="form-email" type="email" name="_replyto" placeholder="Your email..."
+              <input class="c-contact-form__form-input" id="form-email" type="email" name="_replyto" placeholder="Your email..." autocomplete="email"
                 required>
             </div>
             <div class="c-contact-form__form-group">

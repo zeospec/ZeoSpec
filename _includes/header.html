@@ -14,7 +14,7 @@
           </a>
         </div>
 
-        <nav class="main-nav">
+        <nav class="main-nav" id="primary-navigation" aria-hidden="true">
           <div class="main-nav__box">
 
             <div class="nav__icon-close">
@@ -49,8 +49,8 @@
           {% include social-link.html %}
         </nav>
 
-        <div class="nav-button">
-          <i class="nav__icon nav__icon-menu ion ion-md-menu"></i>
+        <div class="nav-button" aria-controls="primary-navigation">
+          <i class="nav__icon nav__icon-menu ion ion-md-menu" role="button" tabindex="0" aria-controls="primary-navigation" aria-expanded="false" aria-label="Open menu"></i>
         </div>
 
       </div>
