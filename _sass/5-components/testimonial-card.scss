@@ -1,11 +1,22 @@
 .c-testimonial-card {
+	transition: all .3s cubic-bezier(0.4, 0, 0.2, 1);
+
+	&:hover {
+		transform: translateY(-4px);
+	}
 
 	&__content {
 		width: 100%;
 		padding: 32px;
 		border-radius: 16px;
 		color: $white;
-		background: linear-gradient(90deg, $primary-color 0%, $secondary-color 167%);
+		background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
+		box-shadow: 0px 4px 20px rgba($primary-color, 0.2);
+		transition: all .3s cubic-bezier(0.4, 0, 0.2, 1);
+
+		&:hover {
+			box-shadow: 0px 8px 32px rgba($primary-color, 0.3);
+		}
 	}
 
 	&__client-meta {

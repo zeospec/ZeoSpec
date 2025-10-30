@@ -66,13 +66,15 @@
     margin: 0;
     opacity: 0;
     overflow: auto;
-    background: $white;
-    transition: all .25s ease;
+    background: rgba($white, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transition: all .3s cubic-bezier(0.4, 0, 0.2, 1);
 
     &.is-open {
       z-index: 999;
       opacity: 1;
-      transition: all .25s ease;
+      transition: all .3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .nav__list {

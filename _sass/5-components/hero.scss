@@ -96,9 +96,15 @@
 	}
 
 	&__title {
-		margin-bottom: 20px;
+		margin-bottom: 24px;
 		font-size: 58px;
 		color: $heading-font-color;
+		line-height: 1.1;
+		letter-spacing: -0.02em;
+		background: linear-gradient(135deg, $heading-font-color 0%, lighten($heading-font-color, 20%) 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
 
 		@media only screen and (max-width: 1130px) {
 			font-size: 44px;
@@ -106,11 +112,12 @@
 
 		@media only screen and (max-width: $desktop) {
 			font-size: 38px;
-			margin-bottom: 24px;
+			margin-bottom: 28px;
 		}
 
 		@media only screen and (max-width: $mobile) {
 			font-size: 32px;
+			margin-bottom: 20px;
 		}
 	}
 
@@ -118,11 +125,30 @@
 		p {
 			margin-bottom: 0;
 			font-size: 18px;
-			line-height: 1.6;
-			color: $text-color;
+			line-height: 1.7;
+			color: lighten($text-color, 10%);
+			font-weight: 400;
 
 			@media only screen and (max-width: $desktop) {
 				font-size: 16px;
+				line-height: 1.6;
+			}
+
+			strong {
+				color: $text-color;
+				font-weight: 600;
+			}
+
+			a {
+				color: $primary-color;
+				text-decoration: none;
+				font-weight: 500;
+				transition: color 0.3s ease;
+
+				&:hover {
+					color: $secondary-color;
+					text-decoration: underline;
+				}
 			}
 		}
 	}
