@@ -6,8 +6,8 @@ page-heading:
   title: About
   description:
 page-image:
-  image: /images/zeospec-3.jpg
-  image_alt: My best photo
+  image: /images/aboutbg.png
+  image_alt: ZeoSpec Photo with Logo
 ---
 
 Hi, my name is Arun Teja Godavarthi aka' **ZeoSpec**.
