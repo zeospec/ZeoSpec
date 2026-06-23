@@ -1,0 +1,686 @@
+---
+layout: compress
+title: Schedule a Meeting 🤝
+description: Schedule a Meeting with Arun Teja Godavarthi aka. ZeoSpec, a Community Builder, a Rotaractor, and an Entrepreneur, with deep love towards Open Source, Training, and exploring the uncharted paths.
+---
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+      
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>{% if page.url == "/" %}{{ site.data.general_settings.title }}{% elsif page.layout == "tag_page" %}{{ page.title | capitalize | replace: "-"," "}} | {{ site.data.general_settings.title }}{% elsif page.title %}{{ page.title }} | {{ site.data.general_settings.title }}{% else %}{{ site.data.general_settings.title }}{% endif %}</title>
+    <meta name='description' content='{% if page.description %}{{ page.description | strip_html | strip_newlines }}{% else %}{{ site.data.general_settings.description }}{% endif %}'>
+
+    <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
+    <link rel="icon" type="image/svg+xml" href="{{site.baseurl}}/images/logo.svg">
+    <link rel="apple-touch-icon" href="{{site.baseurl}}/images/avatar.jpg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:creator" content="@ZeoSpec">
+    <meta name="twitter:site" content="@ZeoSpec">
+    <meta name="twitter:title" content="{% if page.url == "/" %}{{ site.data.general_settings.title }}{% elsif page.layout == "tag_page" %}{{ page.title | capitalize | replace: "-"," "}} | {{ site.data.general_settings.title }}{% elsif page.title %}{{ page.title }} | {{ site.data.general_settings.title }}{% else %}{{ site.data.general_settings.title }}{% endif %}">
+    <meta name="twitter:description" content="{% if page.description %}{{ page.description | strip_html | strip_newlines }}{% else %}{{ site.data.general_settings.description }}{% endif %}">
+    <meta name="twitter:image:src" content="{% if page.image %}{{ page.image | absolute_url }}{% else %}{{ site.data.general_settings.social_media_share_image | absolute_url }}{% endif %}">
+    <meta name="twitter:url" content="{{ page.url | absolute_url }}">
+    <meta name="twitter:domain" content="{{ site.url }}">
+    
+    <!-- Enhanced Facebook OpenGraph -->
+    <meta property="og:title" content="{% if page.url == "/" %}{{ site.data.general_settings.title }}{% elsif page.layout == "tag_page" %}{{ page.title | capitalize | replace: "-"," "}} | {{ site.data.general_settings.title }}{% elsif page.title %}{{ page.title }} | {{ site.data.general_settings.title }}{% else %}{{ site.data.general_settings.title }}{% endif %}">
+    <meta property="og:description" content="{% if page.description %}{{ page.description | strip_html | strip_newlines }}{% else %}{{ site.data.general_settings.description }}{% endif %}">
+    <meta property="og:image" content="{% if page.image %}{{ page.image | absolute_url }}{% else %}{{ site.data.general_settings.social_media_share_image | absolute_url }}{% endif %}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="{% if page.title %}{{ page.title }} - {{ site.data.general_settings.title }}{% else %}{{ site.data.general_settings.title }}{% endif %}">
+    <meta property="og:url" content="{{ page.url | absolute_url }}">
+    <meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
+    <meta property="og:site_name" content="{{ site.data.general_settings.title }}">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="en_IN">
+    
+    <!-- Additional Social Media -->
+    <meta property="article:author" content="https://www.linkedin.com/in/zeospec/">
+    <meta property="article:publisher" content="https://zeospec.com/">
+
+    <!-- Enhanced SEO Meta Tags -->
+    <meta name="keywords" content="Arun Teja Godavarthi, ZeoSpec, Developer Relations, Google Developers, Community Builder, Open Source, Training, Entrepreneurship, Rotaract, Bangalore, India, Software Engineer, Tech Community" />
+    <meta name="author" content="Arun Teja Godavarthi (ZeoSpec)" />
+    <meta name="copyright" content="© 2024 Arun Teja Godavarthi (ZeoSpec). All rights reserved.">
+    <meta name="url" content="https://zeospec.com/">
+    <meta name="identifier-URL" content="https://zeospec.com/">
+
+
+    <!-- Language and Region -->
+    <meta name="language" content="English">
+    <meta name="geo.region" content="IN-KA">
+    <meta name="geo.placename" content="Bangalore">
+    <meta name="geo.position" content="12.9716;77.5946">
+    <meta name="ICBM" content="12.9716, 77.5946">
+
+    <!-- Cache Control -->
+    <meta http-equiv="cache-control" content="public, max-age=31536000" />
+    <meta http-equiv="Expires" content="31536000">
+    <meta name="theme-color" content="#1495a7">
+    
+    <!-- Additional SEO -->
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow">
+    <meta name="bingbot" content="index, follow">
+    
+    <!-- Mobile App Meta -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ZeoSpec">
+    <meta name="application-name" content="ZeoSpec">
+    <meta name="msapplication-TileColor" content="#1495a7">
+
+    <!-- Resource Hints for External Resources -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="//www.google-analytics.com">
+    <link rel="dns-prefetch" href="//c.clarity.ms">
+  
+    <link rel="me" href="https://twitter.com/ZeoSpec" />
+    <link rel="me" href="https://www.facebook.com/zeospec/" />
+    <link rel="me" href="https://www.instagram.com/ZeoSpec/" />
+    <link rel="me" href="https://www.linkedin.com/in/zeospec/" />
+    <link rel="me" href="https://rtr.zeospec.com/" />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary": "#263143",
+                        "on-primary-container": "#00285d",
+                        "secondary": "#bcc7de",
+                        "on-primary-fixed-variant": "#004395",
+                        "primary-container": "#4d8eff",
+                        "secondary-fixed": "#d8e3fb",
+                        "on-error": "#690005",
+                        "surface-bright": "#2c3a4c",
+                        "glass-border": "rgba(255, 255, 255, 0.1)",
+                        "on-surface": "#d4e4fa",
+                        "surface-container": "#122131",
+                        "outline-variant": "#424754",
+                        "primary-fixed-dim": "#adc6ff",
+                        "on-surface-variant": "#c2c6d6",
+                        "on-primary": "#002e6a",
+                        "error": "#ffb4ab",
+                        "tertiary": "#4edea3",
+                        "outline": "#8c909f",
+                        "on-tertiary": "#003824",
+                        "secondary-container": "#3e495d",
+                        "bg-midnight": "#020617",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "electric-blue": "#3B82F6",
+                        "on-background": "#d4e4fa",
+                        "surface-dim": "#051424",
+                        "surface-slate": "#1E293B",
+                        "surface": "#051424",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "tertiary-fixed": "#6ffbbe",
+                        "inverse-surface": "#d4e4fa",
+                        "surface-tint": "#adc6ff",
+                        "secondary-fixed-dim": "#bcc7de",
+                        "surface-container-highest": "#273647",
+                        "inverse-on-surface": "#233143",
+                        "tertiary-container": "#00a572",
+                        "surface-container-low": "#0d1c2d",
+                        "on-primary-fixed": "#001a42",
+                        "primary": "#adc6ff",
+                        "success-emerald": "#10B981",
+                        "inverse-primary": "#005ac2",
+                        "on-tertiary-container": "#00311f",
+                        "on-error-container": "#ffdad6",
+                        "surface-variant": "#273647",
+                        "on-tertiary-fixed": "#002113",
+                        "background": "#051424",
+                        "on-secondary-container": "#aeb9d0",
+                        "on-secondary-fixed": "#111c2d",
+                        "on-secondary-fixed-variant": "#3c475a",
+                        "primary-fixed": "#d8e2ff",
+                        "surface-container-high": "#1c2b3c",
+                        "error-container": "#93000a",
+                        "surface-container-lowest": "#010f1f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "unit": "4px",
+                        "container-max": "1280px",
+                        "margin-mobile": "20px",
+                        "margin-desktop": "64px"
+                    },
+                    "fontFamily": {
+                        "body-md": [
+                            "Plus Jakarta Sans"
+                        ],
+                        "label-sm": [
+                            "Plus Jakarta Sans"
+                        ],
+                        "headline-md": [
+                            "Plus Jakarta Sans"
+                        ],
+                        "body-lg": [
+                            "Plus Jakarta Sans"
+                        ],
+                        "headline-lg": [
+                            "Plus Jakarta Sans"
+                        ],
+                        "headline-lg-mobile": [
+                            "Plus Jakarta Sans"
+                        ],
+                        "label-md": [
+                            "Plus Jakarta Sans"
+                        ],
+                        "headline-xl": [
+                            "Plus Jakarta Sans"
+                        ]
+                    },
+                    "fontSize": {
+                        "body-md": [
+                            "16px",
+                            {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                            }
+                        ],
+                        "label-sm": [
+                            "12px",
+                            {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.02em",
+                                "fontWeight": "500"
+                            }
+                        ],
+                        "headline-md": [
+                            "24px",
+                            {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                            }
+                        ],
+                        "body-lg": [
+                            "18px",
+                            {
+                                "lineHeight": "28px",
+                                "fontWeight": "400"
+                            }
+                        ],
+                        "headline-lg": [
+                            "32px",
+                            {
+                                "lineHeight": "40px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                            }
+                        ],
+                        "headline-lg-mobile": [
+                            "24px",
+                            {
+                                "lineHeight": "32px",
+                                "fontWeight": "700"
+                            }
+                        ],
+                        "label-md": [
+                            "14px",
+                            {
+                                "lineHeight": "20px",
+                                "letterSpacing": "0.01em",
+                                "fontWeight": "600"
+                            }
+                        ],
+                        "headline-xl": [
+                            "40px",
+                            {
+                                "lineHeight": "48px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                            }
+                        ]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .glow-effect {
+            position: relative;
+        }
+
+        .glow-effect::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            background: linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.3), transparent);
+            border-radius: inherit;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .glow-effect:hover::before {
+            opacity: 1;
+        }
+
+        .step-hidden {
+            display: none !important;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .time-slot:hover {
+            transform: translateY(-2px);
+            border-color: rgba(59, 130, 246, 0.5);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+        }
+
+        .pill-active {
+            background-color: #3B82F6;
+            color: #ffffff;
+        }
+
+        .pill-inactive {
+            color: #4b5563;
+        }
+
+        .pill-inactive:hover {
+            background-color: #f3f4f6;
+            color: #111827;
+        }
+
+        /* Custom Checkmark Animation */
+        .checkmark-circle {
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            stroke-width: 2;
+            stroke-miterlimit: 10;
+            stroke: #10B981;
+            fill: none;
+            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        }
+
+        .checkmark {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: block;
+            stroke-width: 2;
+            stroke: #10B981;
+            stroke-miterlimit: 10;
+            box-shadow: inset 0px 0px 0px #10B981;
+            animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+        }
+
+        .checkmark-check {
+            transform-origin: 50% 50%;
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+        }
+
+        @keyframes stroke {
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes scale {
+
+            0%,
+            100% {
+                transform: none;
+            }
+
+            50% {
+                transform: scale3d(1.1, 1.1, 1);
+            }
+        }
+
+        @keyframes fill {
+            100% {
+                box-shadow: inset 0px 0px 0px 30px rgba(16, 185, 129, 0.1);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900 min-h-screen flex items-center justify-center p-4 md:p-8 font-body-md">
+
+    {% if site.data.general_settings.google-analytics %}
+        {% include google-analytics-tag.html %}
+    {% endif %}
+
+    <!-- Main Container -->
+    <main class="w-full max-w-container-max mx-auto relative z-10">
+
+        <!-- Manage Booking Container (Hidden by Default) -->
+        <div id="manage-container"
+            class="hidden flex-col bg-white rounded-2xl overflow-hidden shadow-xl max-w-2xl mx-auto border border-gray-200 p-8 text-center animate-fade-in">
+            <div id="manage-loading" class="py-12">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-electric-blue mx-auto mb-4"></div>
+                <p class="text-gray-600 font-body-md">Loading your booking details...</p>
+            </div>
+
+            <div id="manage-content" class="hidden flex-col items-center">
+                <h1 class="font-headline-lg text-headline-lg font-bold text-gray-900 mb-2">Manage Your Meeting</h1>
+                <p id="manage-meeting-time" class="font-body-lg text-electric-blue font-semibold mb-8">Loading date...
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 w-full justify-center">
+                    <button id="manage-reschedule-btn"
+                        class="flex-1 bg-electric-blue hover:bg-blue-600 text-white font-label-md py-4 px-6 rounded-lg transition-all shadow-md active:scale-[0.98]">
+                        Reschedule Meeting
+                    </button>
+                    <button id="manage-cancel-btn"
+                        class="flex-1 bg-white border-2 border-red-500 text-red-500 hover:bg-red-50 font-label-md py-4 px-6 rounded-lg transition-all active:scale-[0.98]">
+                        Cancel Meeting
+                    </button>
+                </div>
+            </div>
+
+            <div id="manage-success" class="hidden flex-col items-center py-8">
+                <div class="mb-6">
+                    <svg class="w-16 h-16 text-success-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h2 class="font-headline-md text-gray-900 font-bold mb-2" id="manage-success-title">Meeting Canceled
+                </h2>
+                <p class="font-body-md text-gray-600 mb-6" id="manage-success-desc">Your meeting has been successfully
+                    canceled.</p>
+                <button id="manage-book-new-btn" class="text-electric-blue hover:underline font-label-md">Book a New
+                    Meeting</button>
+            </div>
+        </div>
+
+        <div id="booking-container"
+            class="flex flex-col lg:flex-row bg-white rounded-2xl overflow-hidden shadow-xl max-w-5xl mx-auto border border-gray-200">
+            <!-- Left Pane: Static Profile -->
+            <section
+                class="lg:w-1/3 bg-gray-50 p-8 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-gray-200">
+                <div>
+                    <!-- Avatar & Info -->
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-gray-200 flex-shrink-0">
+                            <img alt="Arun Teja Godavarthi" class="w-full h-full object-cover" src="./arunphoto.jpeg" />
+                        </div>
+                        <div>
+                            <p class="font-label-sm text-label-sm text-gray-500 uppercase tracking-widest mb-1">ZeoSpec
+                            </p>
+                            <h2 class="font-headline-md text-headline-md font-semibold text-gray-900">Arun Teja
+                                Godavarthi</h2>
+                        </div>
+                    </div>
+                    <!-- Meeting Details -->
+                    <p class="font-label-sm text-label-sm text-gray-500 mb-3 uppercase tracking-wider">Meeting Details
+                    </p>
+                    <div class="flex flex-col gap-3 mb-8">
+                        <div class="flex items-center gap-3 text-gray-600">
+                            <span class="material-symbols-outlined text-electric-blue"
+                                style="font-variation-settings: 'FILL' 1;">videocam</span>
+                            <span class="font-body-md text-body-md">Google Meet</span>
+                        </div>
+                        <div class="flex items-start gap-3 text-gray-600">
+                            <span class="material-symbols-outlined text-electric-blue"
+                                style="font-variation-settings: 'FILL' 1;">info</span>
+                            <p class="font-body-md text-body-md leading-relaxed text-sm">Schedule a time for an introductory call, a consultation, or a discussion of potential opportunities. Please share a brief agenda when booking.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Duration Selector (Pill) -->
+                <div>
+                    <p class="font-label-sm text-label-sm text-gray-500 mb-3 uppercase tracking-wider">Duration</p>
+                    <div class="flex bg-gray-100 p-1 rounded-full w-fit border border-gray-200">
+                        <button
+                            class="duration-btn px-4 py-2 rounded-full font-label-md text-label-md transition-all duration-200 pill-active shadow-sm"
+                            data-duration="15">15</button>
+                        <button
+                            class="duration-btn px-4 py-2 rounded-full font-label-md text-label-md transition-all duration-200 pill-inactive"
+                            data-duration="30">30</button>
+                        <button
+                            class="duration-btn px-4 py-2 rounded-full font-label-md text-label-md transition-all duration-200 pill-inactive"
+                            data-duration="45">45</button>
+                        <button
+                            class="duration-btn px-4 py-2 rounded-full font-label-md text-label-md transition-all duration-200 pill-inactive"
+                            data-duration="60">60</button>
+                    </div>
+                </div>
+            </section>
+            <!-- Right Pane: Dynamic Content -->
+            <section class="lg:w-2/3 bg-white p-8 relative min-h-[600px]">
+                <!-- STEP 1: Calendar Selection -->
+                <div class="animate-fade-in h-full flex flex-col" id="step-1">
+                    <div class="flex items-center justify-between mb-8">
+                        <h2 class="font-headline-md text-headline-md font-semibold text-gray-900">Select a Date &amp;
+                            Time</h2>
+                        <div
+                            class="flex items-center gap-2 text-gray-600 bg-gray-100 px-3 py-1.5 rounded-full border border-gray-200">
+                            <span class="material-symbols-outlined text-[18px]">public</span>
+                            <select id="timezone-select"
+                                class="bg-transparent border-none text-gray-600 font-label-sm text-label-sm outline-none cursor-pointer focus:ring-0 appearance-none pr-4"
+                                style="background-image: url('data:image/svg+xml;utf8,<svg fill=%22none%22 stroke=%22currentColor%22 viewBox=%220 0 24 24%22 xmlns=%22http://www.w3.org/2000/svg%22><path stroke-linecap=%22round%22 stroke-linejoin=%22round%22 stroke-width=%222%22 d=%22M19 9l-7 7-7-7%22></path></svg>'); background-repeat: no-repeat; background-position: right center; background-size: 12px;">
+                                <option value="Loading...">Loading timezone...</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flex flex-col md:flex-row gap-8 flex-grow">
+                        <!-- Calendar Widget -->
+                        <div class="md:w-1/2">
+                            <div class="flex items-center justify-between mb-6">
+                                <span class="font-body-lg text-body-lg font-medium text-gray-900"
+                                    id="current-month">October 2023</span>
+                                <div class="flex gap-2">
+                                    <button id="prev-month" aria-label="Previous Month"
+                                        class="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-900 transition-colors flex items-center justify-center">
+                                        <span class="material-symbols-outlined">chevron_left</span>
+                                    </button>
+                                    <button id="next-month" aria-label="Next Month"
+                                        class="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-900 transition-colors flex items-center justify-center">
+                                        <span class="material-symbols-outlined">chevron_right</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-7 gap-y-4 gap-x-2 text-center mb-2">
+                                <span class="font-label-sm text-label-sm text-gray-500">S</span>
+                                <span class="font-label-sm text-label-sm text-gray-500">M</span>
+                                <span class="font-label-sm text-label-sm text-gray-500">T</span>
+                                <span class="font-label-sm text-label-sm text-gray-500">W</span>
+                                <span class="font-label-sm text-label-sm text-gray-500">T</span>
+                                <span class="font-label-sm text-label-sm text-gray-500">F</span>
+                                <span class="font-label-sm text-label-sm text-gray-500">S</span>
+                            </div>
+                            <!-- Minimalist Grid -->
+                            <div class="relative min-h-[250px]">
+                                <div id="calendar-overlay"
+                                    class="absolute inset-0 bg-white/60 z-10 flex items-center justify-center rounded-xl transition-opacity duration-300">
+                                    <svg class="animate-spin h-8 w-8 text-electric-blue"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                            stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor"
+                                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <div id="calendar-days" class="grid grid-cols-7 gap-y-2 gap-x-2 text-center">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Time Slots -->
+                        <div class="md:w-1/2 flex flex-col" id="time-slots-container">
+                            <div class="mb-6">
+                                <span class="font-body-lg text-body-lg font-medium text-electric-blue"
+                                    id="selected-date-text">Select a date</span>
+                            </div>
+                            <div id="loading-slots" class="hidden font-body-md text-gray-500 text-center py-4">Loading
+                                available slots...</div>
+                            <div class="relative w-full">
+                                <div id="time-slots"
+                                    class="overflow-y-auto max-h-[350px] md:max-h-[320px] pr-2 custom-scrollbar flex flex-col gap-3">
+                                </div>
+                                <div id="scroll-fade"
+                                    class="hidden absolute bottom-0 left-0 right-3 h-12 bg-gradient-to-t from-white to-transparent pointer-events-none rounded-b-lg transition-opacity duration-300">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- STEP 2: Details Form -->
+                <div class="step-hidden animate-fade-in h-full flex flex-col" id="step-2">
+                    <div class="mb-8">
+                        <button id="back-btn"
+                            class="flex items-center gap-2 text-gray-600 hover:text-electric-blue transition-colors mb-6 group w-fit">
+                            <span
+                                class="material-symbols-outlined text-[20px] group-hover:-translate-x-1 transition-transform">arrow_back</span>
+                            <span class="font-label-md text-label-md">Back to Calendar</span>
+                        </button>
+                        <h2 class="font-headline-md text-headline-md font-semibold text-gray-900">Confirm Details</h2>
+                        <p id="booking-summary" class="font-body-md text-body-md text-gray-600 mt-1">Select a time to
+                            continue</p>
+                    </div>
+                    <form id="booking-form" class="flex flex-col gap-5 flex-grow">
+                        <div class="flex flex-col gap-1.5">
+                            <label for="name" class="font-label-sm text-gray-700 font-semibold">Full Name *</label>
+                            <input id="name" type="text" required
+                                class="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 text-gray-900 font-body-md focus:outline-none focus:border-electric-blue focus:ring-1 focus:ring-electric-blue transition-all"
+                                placeholder="eg. First Name Last Name" />
+                        </div>
+                        <div class="flex flex-col gap-1.5">
+                            <label for="email" class="font-label-sm text-gray-700 font-semibold">Email Address *</label>
+                            <input id="email" type="email" required
+                                class="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 text-gray-900 font-body-md focus:outline-none focus:border-electric-blue focus:ring-1 focus:ring-electric-blue transition-all"
+                                placeholder="eg. example@gmail.com" />
+                        </div>
+                        <div class="flex flex-col gap-1.5">
+                            <label for="phone" class="font-label-sm text-gray-700 font-semibold">Phone Number *</label>
+                            <input id="phone" type="tel" required
+                                class="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 text-gray-900 font-body-md focus:outline-none focus:border-electric-blue focus:ring-1 focus:ring-electric-blue transition-all"
+                                placeholder="eg. +91 90000 00001" />
+                        </div>
+                        <div class="flex flex-col gap-1.5">
+                            <label for="notes" class="font-label-sm text-gray-700 font-semibold">Purpose of the meeting
+                                *</label>
+                            <textarea id="notes" required
+                                class="w-full h-24 resize-none bg-white border border-gray-300 rounded-lg px-4 py-3 text-gray-900 font-body-md focus:outline-none focus:border-electric-blue focus:ring-1 focus:ring-electric-blue transition-all"
+                                placeholder="Please describe the agenda..."></textarea>
+                        </div>
+                        <div class="flex flex-col gap-1.5" id="guests-container">
+                            <button type="button" id="add-guests-btn"
+                                class="w-fit flex items-center gap-2 text-electric-blue font-label-md hover:underline transition-colors">
+                                <span class="material-symbols-outlined text-[18px]">person_add</span> Add additional
+                                guests
+                            </button>
+                            <div id="guests-input-wrapper" class="hidden flex-col gap-1.5 mt-1">
+                                <label for="guests" class="font-label-sm text-gray-700 font-semibold">Guest
+                                    Emails</label>
+                                <input id="guests" type="text"
+                                    class="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 text-gray-900 font-body-md focus:outline-none focus:border-electric-blue focus:ring-1 focus:ring-electric-blue transition-all"
+                                    placeholder="comma, separated, emails" />
+                            </div>
+                        </div>
+                        <div class="mt-auto pt-4">
+                            <button id="submit-btn"
+                                class="w-full flex items-center justify-center gap-2 bg-electric-blue hover:bg-blue-600 text-white font-label-md text-label-md py-4 rounded-lg transition-all duration-300 shadow-[0_0_15px_rgba(59,130,246,0.3)] hover:shadow-[0_0_25px_rgba(59,130,246,0.5)] active:scale-[0.98]"
+                                type="submit">
+                                <svg id="submit-spinner" class="animate-spin h-5 w-5 text-white hidden"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                        stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor"
+                                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                    </path>
+                                </svg>
+                                <span id="submit-text">Confirm Booking</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <!-- STEP 3: Success -->
+                <div class="step-hidden animate-fade-in h-full flex flex-col items-center justify-center text-center"
+                    id="step-3">
+                    <div class="mb-8">
+                        <svg class="checkmark" viewbox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+                            <circle class="checkmark-circle" cx="26" cy="26" fill="none" r="25"></circle>
+                            <path class="checkmark-check" d="M14.1 27.2l7.1 7.2 16.7-16.8" fill="none"></path>
+                        </svg>
+                    </div>
+                    <h2 class="font-headline-xl text-headline-xl font-bold text-gray-900 mb-4">You're Scheduled!</h2>
+                    <p class="font-body-lg text-body-lg text-gray-600 mb-8 max-w-md">
+                        A calendar invitation has been sent to your email address with the Google Meet details.
+                    </p>
+                    <div
+                        class="bg-white border border-gray-200 shadow-sm rounded-xl p-6 mb-8 w-full max-w-sm text-left">
+
+                        <div class="mb-4">
+                            <p class="font-label-sm text-label-sm text-gray-500 uppercase mb-1">When</p>
+                            <p class="font-body-md text-body-md font-medium text-gray-900">Thursday, Oct 13, 2023</p>
+                            <p class="font-body-md text-body-md text-gray-600">10:00 AM - 10:30 AM (GMT+1)</p>
+                        </div>
+                        <div>
+                            <p class="font-label-sm text-label-sm text-gray-500 uppercase mb-1">Where</p>
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-electric-blue text-[18px]">videocam</span>
+                                <p class="font-body-md text-body-md font-medium text-gray-900">Google Meet</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="book-another-btn"
+                        class="text-electric-blue hover:text-blue-600 font-label-md text-label-md transition-colors border border-electric-blue/30 hover:border-electric-blue rounded-full px-6 py-3">
+                        Book Another Meeting
+                    </button>
+                </div>
+            </section>
+        </div>
+    </main>
+    <!-- Background Ambient Effects -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div
+            class="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-blue-100 rounded-full blur-[120px] opacity-60">
+        </div>
+        <div
+            class="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-gray-200 rounded-full blur-[150px] opacity-60">
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>

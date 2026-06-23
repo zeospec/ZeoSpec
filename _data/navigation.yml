@@ -9,7 +9,7 @@ menu__settings:
     - title: 'Blog'
       url: '/blog/'
     - title: 'Schedule a Meeting 🤝'
-      url: '/meet/'
+      url: 'https://zeospec.com/meet/'
     - title: 'More'
       submenu:
       - url: '/about/'
