@@ -1,5 +1,5 @@
 // TODO: Replace this with your Google Apps Script Web App URL after deployment
-const APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzg96MM4BKwD6Mu7dvMzh62G2V0hVHVP8mnUXBy17sSOmYD8p4qfPFe36vgPJej_Yk0KA/exec';
+const APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyc5a9eyJrsqNmzIxfhG_3U-YvADtwrhZf2iBtqPxVioVk21Drfq37IlXDoTcE1yLMhOg/exec';
 
 let currentDate = new Date();
 let selectedDate = null;
