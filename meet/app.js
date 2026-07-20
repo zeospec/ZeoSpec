@@ -109,16 +109,16 @@ function initCalendar() {
             });
             e.target.classList.remove('pill-inactive');
             e.target.classList.add('pill-active', 'shadow-sm');
-            
+
             // Update duration global variable
             selectedDuration = parseInt(e.target.dataset.duration, 10);
-            
+
             // Reset selected date UI
             selectedDate = null;
             selectedTime = null;
             selectedDateText.textContent = "Select a date";
             timeSlotsContainer.innerHTML = '';
-            
+
             // Re-fetch slots instantly from cache for the new duration
             fetchMonthAvailability(currentDate.getFullYear(), currentDate.getMonth() + 1);
         });
@@ -159,9 +159,9 @@ function renderCalendar(date) {
         const dayDate = new Date(year, month, i);
         const dayEl = document.createElement('button');
         dayEl.textContent = i;
-        
+
         let baseClass = 'aspect-square flex items-center justify-center rounded-full font-body-md transition-colors';
-        
+
         if (dayDate < today) {
             dayEl.className = baseClass + ' text-gray-400 cursor-not-allowed opacity-50';
         } else {
@@ -177,7 +177,7 @@ function renderCalendar(date) {
 
         daysContainer.appendChild(dayEl);
     }
-    
+
     fetchMonthAvailability(year, month + 1);
 }
 
@@ -191,7 +191,7 @@ async function fetchMonthAvailability(year, month) {
 
     try {
         let availability;
-        
+
         if (cachedMonthAvailability[fetchStr]) {
             availability = cachedMonthAvailability[fetchStr];
         } else {
@@ -204,27 +204,27 @@ async function fetchMonthAvailability(year, month) {
                 response = await fetch(`${APP_SCRIPT_URL}?action=getMonthAvailability&year=${year}&month=${month}&duration=${selectedDuration}`);
                 data = await response.json();
             }
-            
+
             if (currentMonthFetchStr !== fetchStr) return; // Month changed while fetching
-            
+
             if (data.status === 'error') {
                 throw new Error(data.message || "Backend error");
             }
-            
+
             if (data.status === 'success') {
                 availability = data.availability;
                 cachedMonthAvailability[fetchStr] = availability;
             }
         }
-        
+
         if (availability) {
             const dayBtns = document.querySelectorAll('.day-btn');
             dayBtns.forEach(btn => {
                 const dateStr = btn.dataset.dateStr;
                 if (selectedDate && new Date(btn.dataset.fullDate).toDateString() === selectedDate.toDateString()) {
-                    return; 
+                    return;
                 }
-                
+
                 if (dateStr && availability[dateStr] && availability[dateStr].length > 0) {
                     btn.className = 'aspect-square flex items-center justify-center rounded-full font-body-md transition-colors text-gray-600 hover:bg-gray-100 cursor-pointer day-btn';
                 } else if (dateStr) {
@@ -250,7 +250,7 @@ async function fetchMonthAvailability(year, month) {
 
 function selectDate(date) {
     selectedDate = date;
-    
+
     const dayBtns = document.querySelectorAll('.day-btn');
     dayBtns.forEach(btn => {
         const btnDate = new Date(btn.dataset.fullDate);
@@ -273,12 +273,12 @@ function selectDate(date) {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
     const dateStr = `${year}-${month}-${day}`;
-    
+
     let slots = [];
     if (cachedMonthAvailability[currentMonthFetchStr] && cachedMonthAvailability[currentMonthFetchStr][dateStr]) {
         slots = cachedMonthAvailability[currentMonthFetchStr][dateStr];
     }
-    
+
     loadingSlots.classList.add('hidden');
     renderTimeSlots(slots);
 }
@@ -304,14 +304,14 @@ function renderTimeSlots(slots) {
         slotEl.addEventListener('click', () => {
             selectedTime = timeStr;
             selectedIsoTime = isoTime;
-            
+
             // Auto progress to next step
             goToBookingForm();
         });
 
         timeSlotsContainer.appendChild(slotEl);
     });
-    
+
     // Update scroll fade indicator after rendering slots
     requestAnimationFrame(updateScrollFade);
 }
@@ -319,7 +319,7 @@ function renderTimeSlots(slots) {
 function goToBookingForm() {
     step1.classList.add('step-hidden');
     step2.classList.remove('step-hidden');
-    
+
     // Disable duration buttons so user cannot change them in step 2
     durationBtns.forEach(btn => {
         btn.disabled = true;
@@ -328,11 +328,11 @@ function goToBookingForm() {
 
     const options = { weekday: 'long', month: 'long', day: 'numeric' };
     const dateStr = selectedDate.toLocaleDateString('en-US', options);
-    
+
     const selectedTz = document.getElementById('timezone-select').value;
     const startDateObj = new Date(selectedIsoTime);
     const endDateObj = new Date(startDateObj.getTime() + selectedDuration * 60000);
-    
+
     const startTimeStr = startDateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', timeZone: selectedTz });
     const endTimeStr = endDateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', timeZone: selectedTz });
 
@@ -348,7 +348,7 @@ async function handleBookingSubmit(e) {
     const guests = document.getElementById('guests').value;
     const notes = document.getElementById('notes').value;
     const selectedTz = document.getElementById('timezone-select').value;
-    
+
     submitBtn.disabled = true;
     document.getElementById('submit-spinner').classList.remove('hidden');
     document.getElementById('submit-text').textContent = 'Confirming...';
@@ -363,7 +363,7 @@ async function handleBookingSubmit(e) {
         duration: selectedDuration,
         timezone: selectedTz
     };
-    
+
     if (reschedulingId) {
         payload.action = 'reschedule';
         payload.id = reschedulingId;
@@ -388,25 +388,33 @@ async function handleBookingSubmit(e) {
         }
 
         // Success
+        if (data && data.bookingStatus === 'Pending') {
+            document.getElementById('success-title').innerText = 'Request Received!';
+            document.getElementById('success-message').innerText = 'Your booking request has been received and is pending approval. We will notify you once it is confirmed.';
+        } else {
+            document.getElementById('success-title').innerText = "You're Scheduled!";
+            document.getElementById('success-message').innerText = 'A calendar invitation has been sent to your email address with the Google Meet details.';
+        }
+        
         step2.classList.add('step-hidden');
         step3.classList.remove('step-hidden');
 
     } catch (error) {
         console.error("Submission failed:", error);
-        
+
         // Remove existing error if any
         const existingErr = document.getElementById('submit-error-msg');
         if (existingErr) existingErr.remove();
-        
+
         // Create inline error message
         const errorMsg = document.createElement('div');
         errorMsg.id = 'submit-error-msg';
         errorMsg.className = 'text-red-500 font-body-sm text-center mt-2 p-2 bg-red-50 rounded-lg border border-red-200';
         errorMsg.textContent = error.message;
-        
+
         // Insert right below the submit button
         submitBtn.parentElement.appendChild(errorMsg);
-        
+
     } finally {
         submitBtn.disabled = false;
         document.getElementById('submit-spinner').classList.add('hidden');
@@ -435,15 +443,15 @@ async function initManageFlow(id) {
             body: JSON.stringify({ action: 'get_booking', id: id })
         });
         const data = await response.json();
-        
+
         document.getElementById('manage-loading').classList.add('hidden');
-        
+
         if (data.status === 'success') {
             const booking = data.booking;
             document.getElementById('manage-content').classList.remove('hidden');
             document.getElementById('manage-content').classList.add('flex');
             document.getElementById('manage-meeting-time').textContent = `${booking.date} at ${booking.time}`;
-            
+
             // Setup Cancel
             document.getElementById('manage-cancel-btn').addEventListener('click', async () => {
                 document.getElementById('manage-cancel-btn').disabled = true;
@@ -458,7 +466,7 @@ async function initManageFlow(id) {
                         document.getElementById('manage-content').classList.add('hidden');
                         document.getElementById('manage-success').classList.remove('hidden');
                         document.getElementById('manage-success').classList.add('flex');
-                        
+
                         document.getElementById('manage-book-new-btn').addEventListener('click', () => {
                             window.location.href = window.location.pathname;
                         });
@@ -473,7 +481,7 @@ async function initManageFlow(id) {
                     document.getElementById('manage-cancel-btn').textContent = 'Cancel Meeting';
                 }
             });
-            
+
             // Setup Reschedule
             document.getElementById('manage-reschedule-btn').addEventListener('click', () => {
                 reschedulingId = id;
@@ -481,20 +489,20 @@ async function initManageFlow(id) {
                 document.getElementById('manage-container').classList.remove('flex');
                 document.getElementById('booking-container').classList.remove('hidden');
                 initCalendar();
-                
+
                 // Pre-fill form
                 document.getElementById('name').value = booking.name;
                 document.getElementById('email').value = booking.email;
                 document.getElementById('phone').value = booking.phone;
                 document.getElementById('notes').value = booking.notes;
-                
+
                 // Show banner
                 const banner = document.createElement('div');
                 banner.className = 'w-full bg-blue-50 text-blue-800 p-4 text-center font-body-md border-b border-blue-200 absolute top-0 left-0 z-50';
                 banner.textContent = 'Please select a new time for your meeting.';
                 document.body.appendChild(banner);
             });
-            
+
         } else {
             document.getElementById('manage-success').classList.remove('hidden');
             document.getElementById('manage-success').classList.add('flex');
@@ -509,20 +517,20 @@ async function initManageFlow(id) {
 function populateTimezones() {
     const select = document.getElementById('timezone-select');
     if (!select) return;
-    
+
     select.innerHTML = '';
     const userTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    
+
     const commonTzs = [
         "America/Los_Angeles", "America/Denver", "America/Chicago", "America/New_York",
-        "Europe/London", "Europe/Paris", "Asia/Dubai", "Asia/Kolkata", 
+        "Europe/London", "Europe/Paris", "Asia/Dubai", "Asia/Kolkata",
         "Asia/Singapore", "Asia/Tokyo", "Australia/Sydney"
     ];
-    
+
     if (!commonTzs.includes(userTz)) {
         commonTzs.unshift(userTz);
     }
-    
+
     commonTzs.forEach(tz => {
         const option = document.createElement('option');
         option.value = tz;
@@ -530,7 +538,7 @@ function populateTimezones() {
         if (tz === userTz) option.selected = true;
         select.appendChild(option);
     });
-    
+
     // Re-render slots if timezone changes
     select.addEventListener('change', () => {
         if (selectedDate) fetchAvailableSlots(selectedDate);

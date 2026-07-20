@@ -2,9 +2,9 @@
  * Google Apps Script - Calendar Booking Backend
  * 
  * SETUP INSTRUCTIONS:
- * 1. Go to script.google.com and create a new project.
- * 2. Paste this code into Code.gs.
- * 3. Create a Google Sheet and copy its ID from the URL. Paste the ID into SHEET_ID below.
+ * 1. Create or open a Google Sheet.
+ * 2. Click "Extensions" -> "Apps Script" from the top menu.
+ * 3. Paste this code into Code.gs.
  * 4. Run setupSheet() once from the editor to add headers to the sheet.
  * 5. ENABLE ADVANCED CALENDAR SERVICE:
  *    - On the left sidebar, click the "+" next to "Services".
@@ -16,45 +16,16 @@
  */
 
 // CONFIGURATION
-const SHEET_ID = '1MI1y0zj2C5lRWX77VrcDxl8TjzWpiv3e8NTb3t6mMVg'; // e.g., '1BxiMVs0XRYFgwnTE...'
+let GLOBAL_CONFIG = null;
+
 const SHEET_NAME = 'Bookings';
 
-// CALENDAR CONFIGURATION
-const PRIMARY_CALENDAR_ID = 'primary'; // The calendar where new bookings will be created
-const CHECK_CALENDAR_IDS = ['primary']; // Add more calendar emails here to check availability across multiple calendars: e.g. ['primary', 'work@company.com']
-
-// FRONTEND CONFIGURATION
-const FRONTEND_URL = 'http://localhost:5500/'; // Update this to your deployed frontend website URL
-
-// ADVANCED WEEKLY SCHEDULE (24-hour format "HH:MM")
-// Days: 0=Sunday, 1=Monday, 2=Tuesday, 3=Wednesday, 4=Thursday, 5=Friday, 6=Saturday
-// Leave the array empty `[]` if you are completely unavailable that day.
-const WEEKLY_SCHEDULE = {
-  1: [{ start: "11:00", end: "17:00" }], // Monday: 11 AM to 5 PM
-  2: [
-       { start: "09:00", end: "12:00" }, 
-       { start: "13:00", end: "17:00" }  // Tuesday: 9 AM to 12 PM, and 1 PM to 5 PM
-     ], 
-  3: [], // Wednesday: Not available at all
-  4: [{ start: "09:00", end: "17:00" }], // Thursday
-  5: [{ start: "09:00", end: "15:00" }], // Friday: Half day
-  6: [], // Saturday: Off
-  0: []  // Sunday: Off
-};
-
-// BOOKING RULES CONFIGURATION
-const BUFFER_MINUTES = 15; // Time required to be left free between meetings
-const MIN_ADVANCE_DAYS = 1; // 1 = cannot book for today, must be tomorrow or later
-const MAX_ADVANCE_DAYS = 30; // Cannot book more than 30 days in advance
-const AUTO_APPROVE_BOOKINGS = true; // Set to true to bypass "Pending" state and instantly create the calendar event
-
-// EMAIL CONFIGURATION
-const SENDER_NAME = 'Arun Teja Godavarthi'; // The name displayed on emails sent by this script
-const NOTIFICATION_EMAIL = 'helloaruntg@gmail.com'; // Leave blank to send to the script owner, or enter an email here
-
-// REMINDER CONFIGURATION
-const REMINDER_EMAIL_MINUTES = 60; // Send email reminder X minutes before (set to 0 to disable)
-const REMINDER_POPUP_MINUTES = 10; // Show popup reminder X minutes before (set to 0 to disable)
+function getConfig() {
+  if (!GLOBAL_CONFIG) {
+    GLOBAL_CONFIG = loadConfig();
+  }
+  return GLOBAL_CONFIG;
+}
 
 /**
  * Handles GET requests from the frontend to fetch available slots.
@@ -131,7 +102,7 @@ function doPost(e) {
     const bookingDate = Utilities.formatDate(eventDateObj, scriptTz, "yyyy-MM-dd");
     const bookingTime = Utilities.formatDate(eventDateObj, scriptTz, "hh:mm a");
     
-    const spreadsheet = SpreadsheetApp.openById(SHEET_ID);
+    const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
     let sheet = spreadsheet.getSheetByName(SHEET_NAME);
     
     // Create sheet if it doesn't exist
@@ -181,7 +152,7 @@ function doPost(e) {
 
     // Generate a unique ID
     const bookingId = Utilities.getUuid();
-    let finalStatus = AUTO_APPROVE_BOOKINGS ? 'Approved' : 'Pending';
+    let finalStatus = getConfig().AUTO_APPROVE_BOOKINGS ? 'Approved' : 'Pending';
     
     // Append the row with Status and Duration
     sheet.appendRow([
@@ -207,8 +178,9 @@ function doPost(e) {
     
     // Send email notification to admin/owner
     try {
-      const ownerEmail = NOTIFICATION_EMAIL || Session.getEffectiveUser().getEmail();
-      const sheetUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit`;
+      const CONFIG = getConfig();
+      const ownerEmail = CONFIG.NOTIFICATION_EMAIL || Session.getEffectiveUser().getEmail();
+      const sheetUrl = SpreadsheetApp.getActiveSpreadsheet().getUrl();
       const adminSubject = `New Booking Request: ${name} on ${bookingDate}`;
       const adminBody = `You have a new booking request!
       
@@ -219,26 +191,27 @@ Time: ${bookingTime} (Your Timezone)
 User's Timezone: ${userTimezone}
 Duration: ${duration} mins
 Guests: ${guests || 'None'}
-Notes: ${notes || 'None'}
+Purpose of the meeting: ${notes || 'None'}
 
 Please review and approve or reject the request here:
 ${sheetUrl}`;
 
       GmailApp.sendEmail(ownerEmail, adminSubject, adminBody, {
-        name: SENDER_NAME
+        name: getConfig().SENDER_NAME
       });
     } catch (emailErr) {
       Logger.log("Failed to send admin notification: " + emailErr);
     }
     
     // Auto Approval or Pending Email
-    if (AUTO_APPROVE_BOOKINGS) {
+    const CONFIG = getConfig();
+    if (CONFIG.AUTO_APPROVE_BOOKINGS) {
       approveBooking(sheet, lastRow);
     } else {
       try {
         const subject = `Booking Request Received: ${bookingDate} at ${bookingTime}`;
-        const body = `Hi ${name},\n\nYour request for a meeting on ${bookingDate} at ${bookingTime} has been received and is currently pending approval. We will notify you once it is confirmed.\n\nBest regards,\n${SENDER_NAME}`;
-        GmailApp.sendEmail(email, subject, body, { name: SENDER_NAME });
+        const body = `Hi ${name},\n\nYour request for a meeting on ${bookingDate} at ${bookingTime} has been received and is currently pending approval. We will notify you once it is confirmed.\n\nBest regards,\n${getConfig().SENDER_NAME}`;
+        GmailApp.sendEmail(email, subject, body, { name: getConfig().SENDER_NAME });
       } catch (e) {
         Logger.log("Failed to send pending email to user: " + e);
       }
@@ -253,7 +226,8 @@ ${sheetUrl}`;
     
     return ContentService.createTextOutput(JSON.stringify({
       status: 'success',
-      message: 'Booking request saved.'
+      message: 'Booking request saved.',
+      bookingStatus: finalStatus
     })).setMimeType(ContentService.MimeType.JSON);
     
   } catch (error) {
@@ -348,7 +322,7 @@ function approveBooking(sheet, row) {
   
   try {
     // Create Calendar Event
-    const calendar = CalendarApp.getCalendarById(PRIMARY_CALENDAR_ID);
+    const calendar = CalendarApp.getCalendarById(getConfig().PRIMARY_CALENDAR_ID);
     
     let allGuests = email;
     if (guests && guests.trim() !== '') {
@@ -356,26 +330,26 @@ function approveBooking(sheet, row) {
     }
     
     const bookingId = data[0];
-    const cancelLink = FRONTEND_URL + "?action=manage&id=" + bookingId;
+    const cancelLink = getConfig().FRONTEND_URL + "?action=manage&id=" + bookingId;
     
-    const event = calendar.createEvent(`Meeting with ${name}`, startTime, endTime, {
-      description: `Notes: ${notes}\n\nCancel or Reschedule: ${cancelLink}`,
+    const event = calendar.createEvent(`${name} <> Arun Teja Godavarthi`, startTime, endTime, {
+      description: `Purpose of the meeting:\n${notes}\n\nContact Details:\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nCancel or Reschedule:\n${cancelLink}`,
       guests: allGuests,
       sendInvites: true // This automatically emails the user an invite with Google Meet link if default
     });
     
     // Configure Custom Reminders
     event.removeAllReminders();
-    if (REMINDER_EMAIL_MINUTES > 0) {
-      event.addEmailReminder(REMINDER_EMAIL_MINUTES);
+    if (getConfig().REMINDER_EMAIL_MINUTES > 0) {
+      event.addEmailReminder(getConfig().REMINDER_EMAIL_MINUTES);
     }
-    if (REMINDER_POPUP_MINUTES > 0) {
-      event.addPopupReminder(REMINDER_POPUP_MINUTES);
+    if (getConfig().REMINDER_POPUP_MINUTES > 0) {
+      event.addPopupReminder(getConfig().REMINDER_POPUP_MINUTES);
     }
     
     // Save the event ID and calendar ID for potential future cancellation
     sheet.getRange(row, 12).setValue(event.getId());
-    sheet.getRange(row, 13).setValue(PRIMARY_CALENDAR_ID);
+    sheet.getRange(row, 13).setValue(getConfig().PRIMARY_CALENDAR_ID);
     
     // Update sheet to reflect success (e.g. background color)
     sheet.getRange(row, 9).setBackground('#d4edda'); // Green
@@ -388,7 +362,7 @@ function approveBooking(sheet, row) {
 }
 
 function rejectBooking(sheet, row) {
-  const data = sheet.getRange(row, 1, 1, 13).getValues()[0];
+  const data = sheet.getRange(row, 1, 1, 14).getValues()[0];
   const name = data[2];
   const email = data[3];
   const phone = data[4];
@@ -396,6 +370,7 @@ function rejectBooking(sheet, row) {
   const timeCell = data[6];
   const eventId = data[11]; // Col 12
   const calendarId = data[12]; // Col 13
+  const adminNote = data[13]; // Col 14
   
   // If an event was previously created, delete it
   if (eventId && calendarId) {
@@ -420,10 +395,16 @@ function rejectBooking(sheet, row) {
   
   try {
     const subject = `Your booking request for ${formattedDate} at ${formattedTime}`;
-    const body = `Hi ${name},\n\nUnfortunately, I won't be able to make it for our requested meeting on ${formattedDate} at ${formattedTime}. \n\nPlease let me know if another time works better or feel free to submit another request on the booking page.\n\nBest regards.`;
+    let body = '';
+    
+    if (adminNote && adminNote.toString().trim() !== '') {
+      body = `Hi ${name},\n\nRegarding your meeting request on ${formattedDate} at ${formattedTime}:\n\n${adminNote}\n\nBest regards,\n${getConfig().SENDER_NAME}`;
+    } else {
+      body = `Hi ${name},\n\nUnfortunately, I won't be able to make it for our requested meeting on ${formattedDate} at ${formattedTime}. \n\nPlease let me know if another time works better or feel free to submit another request on the booking page.\n\nBest regards,\n${getConfig().SENDER_NAME}`;
+    }
     
     GmailApp.sendEmail(email, subject, body, {
-      name: SENDER_NAME
+      name: getConfig().SENDER_NAME
     });
     
     sheet.getRange(row, 9).setBackground('#fff3cd'); // Yellow
@@ -435,13 +416,14 @@ function rejectBooking(sheet, row) {
 }
 
 function adminCancelBooking(sheet, row) {
-  const data = sheet.getRange(row, 1, 1, 13).getValues()[0];
+  const data = sheet.getRange(row, 1, 1, 14).getValues()[0];
   const name = data[2];
   const email = data[3];
   const dateCell = data[5];
   const timeCell = data[6];
   const eventId = data[11];
   const calendarId = data[12];
+  const adminNote = data[13];
   
   // If an event was previously created, delete it
   if (eventId && calendarId) {
@@ -465,9 +447,15 @@ function adminCancelBooking(sheet, row) {
   
   try {
     const subject = `Update: Your meeting on ${formattedDate} has been canceled`;
-    const body = `Hi ${name},\n\nThis is to let you know that our scheduled meeting on ${formattedDate} at ${formattedTime} has been canceled.\n\nPlease feel free to book another time if needed.\n\nBest regards,\n${SENDER_NAME}`;
+    let body = '';
     
-    GmailApp.sendEmail(email, subject, body, { name: SENDER_NAME });
+    if (adminNote && adminNote.toString().trim() !== '') {
+      body = `Hi ${name},\n\nThis is to let you know that our scheduled meeting on ${formattedDate} at ${formattedTime} has been canceled.\n\nReason: ${adminNote}\n\nBest regards,\n${getConfig().SENDER_NAME}`;
+    } else {
+      body = `Hi ${name},\n\nThis is to let you know that our scheduled meeting on ${formattedDate} at ${formattedTime} has been canceled.\n\nPlease feel free to book another time if needed.\n\nBest regards,\n${getConfig().SENDER_NAME}`;
+    }
+    
+    GmailApp.sendEmail(email, subject, body, { name: getConfig().SENDER_NAME });
     sheet.getRange(row, 9).setBackground('#e2e3e5'); // Gray
     
   } catch (err) {
@@ -480,17 +468,23 @@ function adminCancelBooking(sheet, row) {
  * Utility to set up the headers on the sheet. Run once.
  */
 function setupSheet() {
-  const spreadsheet = SpreadsheetApp.getActiveSpreadsheet() || SpreadsheetApp.openById(SHEET_ID);
+  const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   let sheet = spreadsheet.getSheetByName(SHEET_NAME);
   
   if (!sheet) {
     sheet = spreadsheet.insertSheet(SHEET_NAME);
   }
   setupSheetHeaders(sheet);
+  
+  let configSheet = spreadsheet.getSheetByName('Config');
+  if (!configSheet) {
+    configSheet = spreadsheet.insertSheet('Config');
+    setupConfigSheet(configSheet);
+  }
 }
 
 function setupSheetHeaders(sheet) {
-  const headers = ['Booking ID', 'Timestamp', 'Name', 'Email', 'Phone', 'Date', 'Time', 'Notes', 'Status', 'Duration (Min)', 'Guests', 'Event ID', 'Calendar ID'];
+  const headers = ['Booking ID', 'Timestamp', 'Name', 'Email', 'Phone', 'Date', 'Time', 'Notes', 'Status', 'Duration (Min)', 'Guests', 'Event ID', 'Calendar ID', 'Admin Note / Rejection Reason'];
   sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
   sheet.getRange(1, 1, 1, headers.length).setFontWeight('bold');
   
@@ -498,8 +492,79 @@ function setupSheetHeaders(sheet) {
   sheet.setFrozenRows(1);
 }
 
+function setupConfigSheet(sheet) {
+  const defaults = [
+    ['Setting', 'Value (Edit this column)'],
+    ['FRONTEND_URL', 'https://zeospec.com/meet/'],
+    ['PRIMARY_CALENDAR_ID', 'primary'],
+    ['CHECK_CALENDAR_IDS', 'primary,president2627rsamdio@gmail.com,rotaract3191drr@gmail.com,helloaruntg@gmail.com,e6v16rel4smu5brcutroe1ai42s2ct0r@import.calendar.google.com,tugbcn784n0goql6srqm56jae0@group.calendar.google.com'],
+    ['AUTO_APPROVE_BOOKINGS', 'FALSE'],
+    ['BUFFER_MINUTES', '15'],
+    ['MIN_ADVANCE_DAYS', '1'],
+    ['MAX_ADVANCE_DAYS', '30'],
+    ['SENDER_NAME', 'Arun Teja Godavarthi'],
+    ['NOTIFICATION_EMAIL', 'hi@zeospec.com'],
+    ['REMINDER_EMAIL_MINUTES', '60'],
+    ['REMINDER_POPUP_MINUTES', '10'],
+    ['Sunday Schedule', ''],
+    ['Monday Schedule', '11:00-18:00'],
+    ['Tuesday Schedule', '11:00-12:00, 13:00-18:00'],
+    ['Wednesday Schedule', '11:00-18:00'],
+    ['Thursday Schedule', '11:00-18:00'],
+    ['Friday Schedule', '11:00-18:00'],
+    ['Saturday Schedule', '']
+  ];
+  sheet.getRange(1, 1, defaults.length, 2).setValues(defaults);
+  sheet.getRange(1, 1, 1, 2).setFontWeight('bold');
+  sheet.setFrozenRows(1);
+  sheet.setColumnWidth(1, 250);
+  sheet.setColumnWidth(2, 400);
+}
+
+function loadConfig() {
+  const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  const sheet = spreadsheet.getSheetByName('Config');
+  if (!sheet) throw new Error("Config sheet not found. Please run setupSheet() first.");
+  
+  const data = sheet.getDataRange().getValues();
+  const config = {};
+  for (let i = 1; i < data.length; i++) {
+    const key = data[i][0];
+    const value = data[i][1];
+    config[key] = value;
+  }
+  
+  config['AUTO_APPROVE_BOOKINGS'] = String(config['AUTO_APPROVE_BOOKINGS']).toUpperCase() === 'TRUE';
+  config['BUFFER_MINUTES'] = parseInt(config['BUFFER_MINUTES'], 10) || 0;
+  config['MIN_ADVANCE_DAYS'] = parseInt(config['MIN_ADVANCE_DAYS'], 10) || 0;
+  config['MAX_ADVANCE_DAYS'] = parseInt(config['MAX_ADVANCE_DAYS'], 10) || 30;
+  config['REMINDER_EMAIL_MINUTES'] = parseInt(config['REMINDER_EMAIL_MINUTES'], 10) || 0;
+  config['REMINDER_POPUP_MINUTES'] = parseInt(config['REMINDER_POPUP_MINUTES'], 10) || 0;
+  
+  config['CHECK_CALENDAR_IDS'] = config['CHECK_CALENDAR_IDS'] ? config['CHECK_CALENDAR_IDS'].toString().split(',').map(id => id.trim()).filter(id => id) : [];
+  
+  const days = ['Sunday Schedule', 'Monday Schedule', 'Tuesday Schedule', 'Wednesday Schedule', 'Thursday Schedule', 'Friday Schedule', 'Saturday Schedule'];
+  config['WEEKLY_SCHEDULE'] = {};
+  
+  days.forEach((dayKey, index) => {
+    config['WEEKLY_SCHEDULE'][index] = [];
+    const val = config[dayKey] ? String(config[dayKey]).trim() : '';
+    if (val !== '') {
+      const windows = val.split(',');
+      windows.forEach(win => {
+        const parts = win.split('-');
+        if (parts.length === 2) {
+          config['WEEKLY_SCHEDULE'][index].push({ start: parts[0].trim(), end: parts[1].trim() });
+        }
+      });
+    }
+  });
+  
+  return config;
+}
+
 function cancelBooking(id) {
-  const spreadsheet = SpreadsheetApp.openById(SHEET_ID);
+  const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   const sheet = spreadsheet.getSheetByName(SHEET_NAME);
   const data = sheet.getDataRange().getValues();
   
@@ -530,7 +595,7 @@ function cancelBooking(id) {
 }
 
 function getBookingDetails(id) {
-  const spreadsheet = SpreadsheetApp.openById(SHEET_ID);
+  const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   const sheet = spreadsheet.getSheetByName(SHEET_NAME);
   const data = sheet.getDataRange().getValues();
   
@@ -576,6 +641,11 @@ function processRescheduleBooking(data) {
   const newDuration = data.duration || 15;
   const userTimezone = data.timezone || 'Unknown';
   
+  const newName = data.name;
+  const newEmail = data.email;
+  const newPhone = data.phone;
+  const newNotes = data.notes;
+  
   const scriptTz = Session.getScriptTimeZone();
   const eventDateObj = new Date(newIsoTime);
   const eventEndObj = new Date(eventDateObj.getTime() + newDuration * 60000);
@@ -586,7 +656,7 @@ function processRescheduleBooking(data) {
   const request = {
     timeMin: eventDateObj.toISOString(),
     timeMax: eventEndObj.toISOString(),
-    items: CHECK_CALENDAR_IDS.map(calId => ({ id: calId }))
+    items: getConfig().CHECK_CALENDAR_IDS.map(calId => ({ id: calId }))
   };
   const response = Calendar.Freebusy.query(request);
   for (const calId in response.calendars) {
@@ -596,7 +666,7 @@ function processRescheduleBooking(data) {
     }
   }
 
-  const spreadsheet = SpreadsheetApp.openById(SHEET_ID);
+  const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   const sheet = spreadsheet.getSheetByName(SHEET_NAME);
   const sheetData = sheet.getDataRange().getValues();
 
@@ -608,8 +678,12 @@ function processRescheduleBooking(data) {
       const calId = sheetData[i][12];
       
       // Update spreadsheet row
+      sheet.getRange(row, 3).setValue(newName);
+      sheet.getRange(row, 4).setValue(newEmail);
+      sheet.getRange(row, 5).setValue(newPhone);
       sheet.getRange(row, 6).setValue(bookingDate);
       sheet.getRange(row, 7).setValue(bookingTime);
+      sheet.getRange(row, 8).setValue(newNotes);
       sheet.getRange(row, 10).setValue(newDuration);
       
       // Update event natively if Approved
@@ -617,6 +691,12 @@ function processRescheduleBooking(data) {
         try {
           const event = CalendarApp.getCalendarById(calId).getEventById(eventId);
           event.setTime(eventDateObj, eventEndObj);
+          
+          if (newName) event.setTitle(`${newName} <> Arun Teja Godavarthi`);
+          
+          const cancelLink = getConfig().FRONTEND_URL + "?action=manage&id=" + id;
+          event.setDescription(`Purpose of the meeting:\n${newNotes}\n\nContact Details:\nName: ${newName}\nEmail: ${newEmail}\nPhone: ${newPhone}\n\nCancel or Reschedule:\n${cancelLink}`);
+          
         } catch (e) {
           Logger.log("Error rescheduling event: " + e);
         }
@@ -624,11 +704,11 @@ function processRescheduleBooking(data) {
       
       // Send email
       try {
-        const name = sheetData[i][2];
-        const email = sheetData[i][3];
+        const emailTarget = newEmail || sheetData[i][3];
+        const nameTarget = newName || sheetData[i][2];
         const subject = `Update: Your meeting has been rescheduled to ${bookingDate}`;
-        const body = `Hi ${name},\n\nYour meeting has been successfully rescheduled to ${bookingDate} at ${bookingTime}.\n\nBest regards,\n${SENDER_NAME}`;
-        GmailApp.sendEmail(email, subject, body, { name: SENDER_NAME });
+        const body = `Hi ${nameTarget},\n\nYour meeting has been successfully rescheduled to ${bookingDate} at ${bookingTime}.\n\nBest regards,\n${getConfig().SENDER_NAME}`;
+        GmailApp.sendEmail(emailTarget, subject, body, { name: getConfig().SENDER_NAME });
       } catch (e) {
         Logger.log("Email fail on reschedule: " + e);
       }
@@ -647,8 +727,8 @@ function getMonthAvailability(year, month, duration) {
   
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-  const minDate = new Date(today.getTime() + MIN_ADVANCE_DAYS * 86400000);
-  const maxDate = new Date(today.getTime() + MAX_ADVANCE_DAYS * 86400000);
+  const minDate = new Date(today.getTime() + getConfig().MIN_ADVANCE_DAYS * 86400000);
+  const maxDate = new Date(today.getTime() + getConfig().MAX_ADVANCE_DAYS * 86400000);
 
   if (endDate < minDate || startDate > maxDate) {
     return {};
@@ -663,7 +743,7 @@ function getMonthAvailability(year, month, duration) {
   const request = {
     timeMin: queryStart.toISOString(),
     timeMax: queryEnd.toISOString(),
-    items: CHECK_CALENDAR_IDS.map(id => ({ id: id }))
+    items: getConfig().CHECK_CALENDAR_IDS.map(id => ({ id: id }))
   };
   
   try {
@@ -685,7 +765,7 @@ function getMonthAvailability(year, month, duration) {
   
   // 2. Fetch from Spreadsheet to capture "Pending" and "Approved" bookings not synced
   try {
-    const spreadsheet = SpreadsheetApp.openById(SHEET_ID);
+    const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
     const sheet = spreadsheet.getSheetByName(SHEET_NAME);
     const dataRange = sheet.getDataRange().getValues();
     const scriptTz = Session.getScriptTimeZone();
@@ -728,7 +808,7 @@ function getMonthAvailability(year, month, duration) {
     }
     
     const dayOfWeek = checkDate.getDay();
-    const dailyWindows = WEEKLY_SCHEDULE[dayOfWeek];
+    const dailyWindows = getConfig().WEEKLY_SCHEDULE[dayOfWeek];
     if (!dailyWindows || dailyWindows.length === 0) {
       continue;
     }
@@ -764,8 +844,8 @@ function getMonthAvailability(year, month, duration) {
         
         let collision = false;
         for (const busy of allBusyTimes) {
-          const busyStartBuffered = new Date(busy.start.getTime() - BUFFER_MINUTES * 60000);
-          const busyEndBuffered = new Date(busy.end.getTime() + BUFFER_MINUTES * 60000);
+          const busyStartBuffered = new Date(busy.start.getTime() - getConfig().BUFFER_MINUTES * 60000);
+          const busyEndBuffered = new Date(busy.end.getTime() + getConfig().BUFFER_MINUTES * 60000);
           
           if (currentSlot < busyEndBuffered && slotEndExact > busyStartBuffered) {
             collision = true;
