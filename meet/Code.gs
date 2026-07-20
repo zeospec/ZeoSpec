@@ -111,43 +111,9 @@ function doPost(e) {
       setupSheetHeaders(sheet);
     }
     
-    // Double Booking Protection
-    const dataRange = sheet.getDataRange().getValues();
-    for (let i = 1; i < dataRange.length; i++) {
-      const rowDate = dataRange[i][5]; // Date (Col 6)
-      const rowTime = dataRange[i][6]; // Time (Col 7)
-      const rowStatus = dataRange[i][8]; // Status (Col 9)
-      
-      let formattedRowDate = rowDate;
-      if (rowDate instanceof Date) {
-        formattedRowDate = Utilities.formatDate(rowDate, scriptTz, "yyyy-MM-dd");
-      }
-      let formattedRowTime = rowTime;
-      if (rowTime instanceof Date) {
-        formattedRowTime = Utilities.formatDate(rowTime, scriptTz, "hh:mm a");
-      }
-      
-      if (formattedRowDate === bookingDate && formattedRowTime.toLowerCase() === bookingTime.toLowerCase() && (rowStatus === 'Pending' || rowStatus === 'Approved')) {
-        throw new Error("This exact time slot is already pending or approved. Please refresh and select a different slot.");
-      }
-    }
-    
-    // Double Booking Protection from Google Calendar (Race Condition Check)
+    // Unified Double Booking Protection (Checks both Spreadsheet and Google Calendar)
     if (eventDateObj) {
-      const eventEndObj = new Date(eventDateObj.getTime() + duration * 60000);
-      const request = {
-        timeMin: eventDateObj.toISOString(),
-        timeMax: eventEndObj.toISOString(),
-        items: CHECK_CALENDAR_IDS.map(id => ({ id: id }))
-      };
-      const response = Calendar.Freebusy.query(request);
-      for (const calId in response.calendars) {
-        const busy = response.calendars[calId].busy;
-        if (busy && busy.length > 0) {
-          // Verify if the busy block overlaps with our specific slot considering buffer
-          throw new Error("This time slot is no longer available. Please select a different time.");
-        }
-      }
+      verifySlotIsFree(sheet, eventDateObj, duration, null, null);
     }
 
     // Generate a unique ID
@@ -182,23 +148,24 @@ function doPost(e) {
       const ownerEmail = CONFIG.NOTIFICATION_EMAIL || Session.getEffectiveUser().getEmail();
       const sheetUrl = SpreadsheetApp.getActiveSpreadsheet().getUrl();
       const adminSubject = `New Booking Request: ${name} on ${bookingDate}`;
-      const adminBody = `You have a new booking request!
-      
-Name: ${name}
-Email: ${email}
-Date: ${bookingDate} (Your Timezone)
-Time: ${bookingTime} (Your Timezone)
-User's Timezone: ${userTimezone}
-Duration: ${duration} mins
-Guests: ${guests || 'None'}
-Purpose of the meeting: ${notes || 'None'}
-
-Please review and approve or reject the request here:
-${sheetUrl}`;
-
-      GmailApp.sendEmail(ownerEmail, adminSubject, adminBody, {
-        name: getConfig().SENDER_NAME
-      });
+      const plainTextFallback = `You have a new booking request!\nName: ${name}\nEmail: ${email}\nDate: ${bookingDate}\nTime: ${bookingTime}\nDuration: ${duration} mins\nPlease review the sheet.`;
+      const htmlContent = `
+        <p>You have a new booking request pending approval!</p>
+        <p>
+          <strong>Name:</strong> ${name}<br>
+          <strong>Email:</strong> ${email}<br>
+          <strong>Date:</strong> ${bookingDate} (${scriptTz})<br>
+          <strong>Time:</strong> ${bookingTime} (${scriptTz})<br>
+          <strong>User's Timezone:</strong> ${userTimezone}<br>
+          <strong>Duration:</strong> ${duration} mins<br>
+          <strong>Guests:</strong> ${guests || 'None'}
+        </p>
+        <p><strong>Purpose of the meeting:</strong><br>${notes || 'None'}</p>
+        <div class="btn-container">
+          <a href="${sheetUrl}" class="btn">Review in Google Sheets</a>
+        </div>
+      `;
+      sendBrandedEmail(ownerEmail, adminSubject, "New Booking Request", htmlContent, plainTextFallback);
     } catch (emailErr) {
       Logger.log("Failed to send admin notification: " + emailErr);
     }
@@ -210,8 +177,13 @@ ${sheetUrl}`;
     } else {
       try {
         const subject = `Booking Request Received: ${bookingDate} at ${bookingTime}`;
-        const body = `Hi ${name},\n\nYour request for a meeting on ${bookingDate} at ${bookingTime} has been received and is currently pending approval. We will notify you once it is confirmed.\n\nBest regards,\n${getConfig().SENDER_NAME}`;
-        GmailApp.sendEmail(email, subject, body, { name: getConfig().SENDER_NAME });
+        const plainTextFallback = `Hi ${name},\n\nYour request for a meeting on ${bookingDate} at ${bookingTime} has been received and is currently pending approval.\n\nOnce approved, you will receive a Google Calendar invitation containing the Google Meet link.`;
+        const htmlContent = `
+          <p>Hi <strong>${name}</strong>,</p>
+          <p>Your request for a meeting on <strong>${bookingDate}</strong> at <strong>${bookingTime} (${Session.getScriptTimeZone()})</strong> has been received and is currently pending approval.</p>
+          <p>Once approved, you will receive a <strong>Google Calendar invitation</strong> containing the Google Meet link.</p>
+        `;
+        sendBrandedEmail(email, subject, "Request Pending", htmlContent, plainTextFallback);
       } catch (e) {
         Logger.log("Failed to send pending email to user: " + e);
       }
@@ -219,7 +191,7 @@ ${sheetUrl}`;
     
     // Add data validation to the status column for the new row
     const rule = SpreadsheetApp.newDataValidation()
-      .requireValueInList(['Pending', 'Approved', 'Rejected', 'Canceled'], true)
+      .requireValueInList(['Pending', 'Approved', 'Rejected', 'Canceled', 'Rescheduled'], true)
       .setAllowInvalid(false)
       .build();
     sheet.getRange(lastRow, 9).setDataValidation(rule);
@@ -268,6 +240,10 @@ function onEditTrigger(e) {
     // If it was changed to Canceled manually by the admin
     else if (newValue === 'Canceled' && oldValue !== 'Canceled') {
       adminCancelBooking(sheet, row);
+    }
+    // If it was changed to Rescheduled manually by the admin
+    else if (newValue === 'Rescheduled' && oldValue !== 'Rescheduled') {
+      adminRescheduleBooking(sheet, row);
     }
   }
 }
@@ -394,18 +370,28 @@ function rejectBooking(sheet, row) {
   }
   
   try {
-    const subject = `Your booking request for ${formattedDate} at ${formattedTime}`;
-    let body = '';
+    const subject = `Update: Your booking request for ${formattedDate}`;
+    
+    let plainTextFallback = '';
+    let htmlContent = '';
     
     if (adminNote && adminNote.toString().trim() !== '') {
-      body = `Hi ${name},\n\nRegarding your meeting request on ${formattedDate} at ${formattedTime}:\n\n${adminNote}\n\nBest regards,\n${getConfig().SENDER_NAME}`;
+      plainTextFallback = `Hi ${name},\n\nRegarding your meeting request on ${formattedDate} at ${formattedTime}:\n\n${adminNote}\n\nBest regards,\n${getConfig().SENDER_NAME}`;
+      htmlContent = `
+        <p>Hi <strong>${name}</strong>,</p>
+        <p>Regarding your meeting request on <strong>${formattedDate}</strong> at <strong>${formattedTime} (${Session.getScriptTimeZone()})</strong>:</p>
+        <p style="padding-left: 15px; border-left: 4px solid #e5e7eb; color: #4b5563;"><em>${adminNote}</em></p>
+      `;
     } else {
-      body = `Hi ${name},\n\nUnfortunately, I won't be able to make it for our requested meeting on ${formattedDate} at ${formattedTime}. \n\nPlease let me know if another time works better or feel free to submit another request on the booking page.\n\nBest regards,\n${getConfig().SENDER_NAME}`;
+      plainTextFallback = `Hi ${name},\n\nUnfortunately, I won't be able to make it for our requested meeting on ${formattedDate} at ${formattedTime}.\n\nPlease let me know if another time works better or feel free to submit another request on the booking page.`;
+      htmlContent = `
+        <p>Hi <strong>${name}</strong>,</p>
+        <p>Unfortunately, I won't be able to make it for our requested meeting on <strong>${formattedDate}</strong> at <strong>${formattedTime} (${Session.getScriptTimeZone()})</strong>.</p>
+        <p>Please let me know if another time works better or feel free to submit another request on the booking page.</p>
+      `;
     }
     
-    GmailApp.sendEmail(email, subject, body, {
-      name: getConfig().SENDER_NAME
-    });
+    sendBrandedEmail(email, subject, "Booking Update", htmlContent, plainTextFallback);
     
     sheet.getRange(row, 9).setBackground('#fff3cd'); // Yellow
     
@@ -446,22 +432,136 @@ function adminCancelBooking(sheet, row) {
   }
   
   try {
-    const subject = `Update: Your meeting on ${formattedDate} has been canceled`;
-    let body = '';
+    const subject = `Canceled: Your meeting on ${formattedDate}`;
+    let plainTextFallback = '';
+    let htmlContent = '';
     
     if (adminNote && adminNote.toString().trim() !== '') {
-      body = `Hi ${name},\n\nThis is to let you know that our scheduled meeting on ${formattedDate} at ${formattedTime} has been canceled.\n\nReason: ${adminNote}\n\nBest regards,\n${getConfig().SENDER_NAME}`;
+      plainTextFallback = `Hi ${name},\n\nThis is to let you know that our scheduled meeting on ${formattedDate} at ${formattedTime} has been canceled.\n\nReason: ${adminNote}`;
+      htmlContent = `
+        <p>Hi <strong>${name}</strong>,</p>
+        <p>This is to let you know that our scheduled meeting on <strong>${formattedDate}</strong> at <strong>${formattedTime} (${Session.getScriptTimeZone()})</strong> has been canceled.</p>
+        <p><strong>Reason:</strong><br>${adminNote}</p>
+      `;
     } else {
-      body = `Hi ${name},\n\nThis is to let you know that our scheduled meeting on ${formattedDate} at ${formattedTime} has been canceled.\n\nPlease feel free to book another time if needed.\n\nBest regards,\n${getConfig().SENDER_NAME}`;
+      plainTextFallback = `Hi ${name},\n\nThis is to let you know that our scheduled meeting on ${formattedDate} at ${formattedTime} has been canceled.`;
+      htmlContent = `
+        <p>Hi <strong>${name}</strong>,</p>
+        <p>This is to let you know that our scheduled meeting on <strong>${formattedDate}</strong> at <strong>${formattedTime} (${Session.getScriptTimeZone()})</strong> has been canceled.</p>
+        <p>Please feel free to book another time if needed.</p>
+      `;
     }
     
-    GmailApp.sendEmail(email, subject, body, { name: getConfig().SENDER_NAME });
+    sendBrandedEmail(email, subject, "Meeting Canceled", htmlContent, plainTextFallback);
     sheet.getRange(row, 9).setBackground('#e2e3e5'); // Gray
     
   } catch (err) {
     Logger.log("Error sending cancellation email: " + err);
     sheet.getRange(row, 9).setNote("Error sending email: " + err);
   }
+}
+
+function adminRescheduleBooking(sheet, row) {
+  const data = sheet.getRange(row, 1, 1, 14).getValues()[0];
+  const name = data[2];
+  const email = data[3];
+  const dateCell = data[5];
+  const timeCell = data[6];
+  const duration = parseInt(data[9], 10) || 15;
+  const eventId = data[11];
+  const calendarId = data[12];
+  const adminNote = data[13];
+  const scriptTz = Session.getScriptTimeZone();
+  
+  if (!eventId || !calendarId) {
+    sheet.getRange(row, 9).setNote("Cannot reschedule: No existing calendar event found.");
+    return;
+  }
+  
+  // Format Date and Time
+  let formattedDate = dateCell instanceof Date ? Utilities.formatDate(dateCell, scriptTz, "yyyy-MM-dd") : dateCell;
+  let formattedTime = timeCell instanceof Date ? Utilities.formatDate(timeCell, scriptTz, "hh:mm a") : timeCell;
+  
+  // Create Date objects for event boundary
+  const dtStr = formattedDate + ' ' + formattedTime;
+  const startDt = new Date(dtStr);
+  
+  if (isNaN(startDt.getTime())) {
+    sheet.getRange(row, 9).setNote("Cannot reschedule: Invalid date/time format.");
+    return;
+  }
+  
+  const endDt = new Date(startDt.getTime() + duration * 60000);
+  
+  try {
+    const event = CalendarApp.getCalendarById(calendarId).getEventById(eventId);
+    event.setTime(startDt, endDt);
+    
+    const subject = `Rescheduled: Your meeting with Arun`;
+    let plainTextFallback = `Hi ${name},\n\nYour meeting has been rescheduled to ${formattedDate} at ${formattedTime}.\n`;
+    if (adminNote && adminNote.toString().trim() !== '') {
+      plainTextFallback += `\nReason: ${adminNote}\n`;
+    }
+    
+    let htmlContent = `
+      <p>Hi <strong>${name}</strong>,</p>
+      <p>Your meeting has been rescheduled to <strong>${formattedDate}</strong> at <strong>${formattedTime} (${Session.getScriptTimeZone()})</strong>.</p>
+    `;
+    if (adminNote && adminNote.toString().trim() !== '') {
+      htmlContent += `<p><strong>Note from Arun:</strong><br>${adminNote}</p>`;
+    }
+    
+    sendBrandedEmail(email, subject, "Meeting Rescheduled", htmlContent, plainTextFallback);
+    
+    // Change status back to Approved
+    sheet.getRange(row, 9).setValue('Approved');
+    sheet.getRange(row, 9).clearNote();
+    
+  } catch (err) {
+    Logger.log("Error in admin reschedule: " + err);
+    sheet.getRange(row, 9).setNote("Error: " + err);
+  }
+}
+function sendBrandedEmail(to, subject, title, htmlContent, plainTextFallback) {
+  const senderName = getConfig().SENDER_NAME;
+  const wrapper = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <style>
+          body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f9fafb; margin: 0; padding: 40px 20px; color: #111827; }
+          .container { max-width: 550px; margin: 0 auto; background: #ffffff; border-radius: 12px; border: 1px solid #e5e7eb; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+          .header { background-color: #3b82f6; color: #ffffff; padding: 30px 24px; text-align: center; }
+          .header h1 { margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -0.025em; }
+          .content { padding: 32px 24px; line-height: 1.6; font-size: 16px; }
+          .content p { margin-top: 0; margin-bottom: 16px; color: #374151; }
+          .content strong { color: #111827; }
+          .footer { background-color: #f3f4f6; padding: 20px; text-align: center; font-size: 13px; color: #6b7280; border-top: 1px solid #e5e7eb; }
+          .btn-container { text-align: center; margin: 24px 0; }
+          .btn { display: inline-block; background-color: #3b82f6; color: #ffffff !important; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: 500; font-size: 15px; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>${title}</h1>
+          </div>
+          <div class="content">
+            ${htmlContent}
+          </div>
+          <div class="footer">
+            &copy; ${new Date().getFullYear()} ${senderName}
+          </div>
+        </div>
+      </body>
+    </html>
+  `;
+  
+  GmailApp.sendEmail(to, subject, plainTextFallback, {
+    name: senderName,
+    htmlBody: wrapper
+  });
 }
 
 /**
@@ -581,11 +681,28 @@ function cancelBooking(id) {
         } catch(err) {
           Logger.log("Error deleting event: " + err);
         }
+        sheet.getRange(row, 12, 1, 2).clearContent();
       }
       
       // Update sheet status
       sheet.getRange(row, 9).setValue('Canceled');
       sheet.getRange(row, 9).setBackground('#e2e3e5'); // Gray
+      
+      // Notify Admin
+      try {
+        const ownerEmail = getConfig().NOTIFICATION_EMAIL || Session.getEffectiveUser().getEmail();
+        const adminSubject = `Canceled: ${data[i][2]} canceled their meeting`;
+        const plainTextFallback = `A user has canceled their meeting.\nName: ${data[i][2]}\nDate: ${data[i][5]}\nTime: ${data[i][6]}`;
+        const htmlContent = `
+          <p>A user has canceled their booking via the scheduling portal.</p>
+          <p>
+            <strong>Name:</strong> ${data[i][2]}<br>
+            <strong>Date:</strong> ${data[i][5]} (${Session.getScriptTimeZone()})<br>
+            <strong>Time:</strong> ${data[i][6]} (${Session.getScriptTimeZone()})
+          </p>
+        `;
+        sendBrandedEmail(ownerEmail, adminSubject, "Meeting Canceled", htmlContent, plainTextFallback);
+      } catch(e) {}
       
       return ContentService.createTextOutput(JSON.stringify({status: 'success', message: 'Your booking has been successfully canceled.'})).setMimeType(ContentService.MimeType.JSON);
     }
@@ -652,20 +769,6 @@ function processRescheduleBooking(data) {
   const bookingDate = Utilities.formatDate(eventDateObj, scriptTz, "yyyy-MM-dd");
   const bookingTime = Utilities.formatDate(eventDateObj, scriptTz, "hh:mm a");
 
-  // Overlap check
-  const request = {
-    timeMin: eventDateObj.toISOString(),
-    timeMax: eventEndObj.toISOString(),
-    items: getConfig().CHECK_CALENDAR_IDS.map(calId => ({ id: calId }))
-  };
-  const response = Calendar.Freebusy.query(request);
-  for (const calId in response.calendars) {
-    const busy = response.calendars[calId].busy;
-    if (busy && busy.length > 0) {
-      throw new Error("This time slot is no longer available. Please select a different time.");
-    }
-  }
-
   const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   const sheet = spreadsheet.getSheetByName(SHEET_NAME);
   const sheetData = sheet.getDataRange().getValues();
@@ -673,44 +776,96 @@ function processRescheduleBooking(data) {
   for (let i = 1; i < sheetData.length; i++) {
     if (sheetData[i][0] === id) {
       const row = i + 1;
-      const status = sheetData[i][8];
+      const oldStatus = sheetData[i][8];
       const eventId = sheetData[i][11];
       const calId = sheetData[i][12];
       
-      // Update spreadsheet row
+      // Unified Double Booking Protection
+      verifySlotIsFree(sheet, eventDateObj, newDuration, eventId, id);
+      
+      // 1. Determine new status based on Option B (inherit old status)
+      const finalStatus = oldStatus;
+      
+      // 2. Handle Google Calendar Event Modification
+      if (finalStatus === 'Approved') {
+         if (eventId && calId) {
+           // Edit the existing event directly without deleting it
+           try {
+             const event = CalendarApp.getCalendarById(calId).getEventById(eventId);
+             event.setTime(eventDateObj, eventEndObj);
+             if (newName) event.setTitle(`${newName} <> Arun Teja Godavarthi`);
+             const cancelLink = getConfig().FRONTEND_URL + "?action=manage&id=" + id;
+             event.setDescription(`Purpose of the meeting:\n${newNotes}\n\nContact Details:\nName: ${newName}\nEmail: ${newEmail}\nPhone: ${newPhone}\n\nCancel or Reschedule:\n${cancelLink}`);
+           } catch (e) {
+             Logger.log("Error rescheduling event: " + e);
+           }
+         }
+      }
+      // If it was Pending, there is no event to modify.
+      
+      // 3. Update Spreadsheet Row
       sheet.getRange(row, 3).setValue(newName);
       sheet.getRange(row, 4).setValue(newEmail);
       sheet.getRange(row, 5).setValue(newPhone);
       sheet.getRange(row, 6).setValue(bookingDate);
       sheet.getRange(row, 7).setValue(bookingTime);
       sheet.getRange(row, 8).setValue(newNotes);
+      sheet.getRange(row, 9).setValue(finalStatus); // Keep inherited status (Col 9)
       sheet.getRange(row, 10).setValue(newDuration);
       
-      // Update event natively if Approved
-      if (status === 'Approved' && eventId && calId) {
-        try {
-          const event = CalendarApp.getCalendarById(calId).getEventById(eventId);
-          event.setTime(eventDateObj, eventEndObj);
-          
-          if (newName) event.setTitle(`${newName} <> Arun Teja Godavarthi`);
-          
-          const cancelLink = getConfig().FRONTEND_URL + "?action=manage&id=" + id;
-          event.setDescription(`Purpose of the meeting:\n${newNotes}\n\nContact Details:\nName: ${newName}\nEmail: ${newEmail}\nPhone: ${newPhone}\n\nCancel or Reschedule:\n${cancelLink}`);
-          
-        } catch (e) {
-          Logger.log("Error rescheduling event: " + e);
-        }
+      // 4. Send Admin Notification
+      try {
+        const ownerEmail = getConfig().NOTIFICATION_EMAIL || Session.getEffectiveUser().getEmail();
+        const adminSubject = `Reschedule ${finalStatus === 'Approved' ? 'Notice' : 'Request'}: ${newName} on ${bookingDate}`;
+        const plainTextFallback = `A user has rescheduled their meeting!\nName: ${newName}\nNew Date: ${bookingDate}\nNew Time: ${bookingTime}\nStatus: ${finalStatus}\n${finalStatus === 'Pending' ? 'Please review in sheet.' : 'Event auto-updated.'}`;
+        
+        const htmlContent = `
+          <p>A user has rescheduled their meeting!</p>
+          <p>
+            <strong>Name:</strong> ${newName}<br>
+            <strong>New Date:</strong> ${bookingDate} (${Session.getScriptTimeZone()})<br>
+            <strong>New Time:</strong> ${bookingTime} (${Session.getScriptTimeZone()})<br>
+            <strong>User's Timezone:</strong> ${userTimezone}<br>
+            <strong>Status:</strong> ${finalStatus}
+          </p>
+          <p>${finalStatus === 'Pending' ? 'Please review and approve the new time in your spreadsheet.' : 'The existing calendar event was automatically updated.'}</p>
+          <div class="btn-container">
+            <a href="${SpreadsheetApp.getActiveSpreadsheet().getUrl()}" class="btn">View Google Sheet</a>
+          </div>
+        `;
+        sendBrandedEmail(ownerEmail, adminSubject, `Reschedule ${finalStatus === 'Approved' ? 'Notice' : 'Request'}`, htmlContent, plainTextFallback);
+      } catch(e) {
+        Logger.log("Admin email fail on reschedule: " + e);
       }
       
-      // Send email
-      try {
-        const emailTarget = newEmail || sheetData[i][3];
-        const nameTarget = newName || sheetData[i][2];
-        const subject = `Update: Your meeting has been rescheduled to ${bookingDate}`;
-        const body = `Hi ${nameTarget},\n\nYour meeting has been successfully rescheduled to ${bookingDate} at ${bookingTime}.\n\nBest regards,\n${getConfig().SENDER_NAME}`;
-        GmailApp.sendEmail(emailTarget, subject, body, { name: getConfig().SENDER_NAME });
-      } catch (e) {
-        Logger.log("Email fail on reschedule: " + e);
+      // 5. Process user notification
+      if (finalStatus === 'Approved') {
+          // Already modified the event. Just send the rescheduled email.
+          try {
+            const emailTarget = newEmail || sheetData[i][3];
+            const subject = `Update: Your meeting has been rescheduled to ${bookingDate}`;
+            const plainTextFallback = `Hi ${newName},\n\nYour meeting has been successfully rescheduled to ${bookingDate} at ${bookingTime}.`;
+            const htmlContent = `
+              <p>Hi <strong>${newName}</strong>,</p>
+              <p>Your meeting has been successfully rescheduled to <strong>${bookingDate}</strong> at <strong>${bookingTime} (${Session.getScriptTimeZone()})</strong>.</p>
+            `;
+            sendBrandedEmail(emailTarget, subject, "Meeting Rescheduled", htmlContent, plainTextFallback);
+          } catch(e) {}
+      } else {
+         // Send pending email
+         try {
+           const emailTarget = newEmail || sheetData[i][3];
+           const subject = `Reschedule Request Received: ${bookingDate} at ${bookingTime}`;
+           const plainTextFallback = `Hi ${newName},\n\nYour request to reschedule to ${bookingDate} at ${bookingTime} has been received and is pending approval.\n\nOnce approved, you will receive a Google Calendar invitation containing the Google Meet link.`;
+           const htmlContent = `
+             <p>Hi <strong>${newName}</strong>,</p>
+             <p>Your request to reschedule to <strong>${bookingDate}</strong> at <strong>${bookingTime} (${Session.getScriptTimeZone()})</strong> has been received and is pending approval.</p>
+             <p>Once approved, you will receive a <strong>Google Calendar invitation</strong> containing the Google Meet link.</p>
+           `;
+           sendBrandedEmail(emailTarget, subject, "Reschedule Pending", htmlContent, plainTextFallback);
+         } catch(e) {
+           Logger.log("User email fail on reschedule: " + e);
+         }
       }
 
       return ContentService.createTextOutput(JSON.stringify({status: 'success', message: 'Booking rescheduled successfully.'})).setMimeType(ContentService.MimeType.JSON);
@@ -865,4 +1020,73 @@ function getMonthAvailability(year, month, duration) {
   }
   
   return availabilityMap;
+}
+
+function verifySlotIsFree(sheet, eventDateObj, duration, skipEventId, skipBookingId) {
+  const reqStartDt = eventDateObj;
+  const reqEndDt = new Date(reqStartDt.getTime() + duration * 60000);
+  const bufferMs = getConfig().BUFFER_MINUTES * 60000;
+  const bufferedReqStart = new Date(reqStartDt.getTime() - bufferMs);
+  const bufferedReqEnd = new Date(reqEndDt.getTime() + bufferMs);
+  const scriptTz = Session.getScriptTimeZone();
+  
+  // 1. Spreadsheet Check (Catch Pending/Approved slots not yet on calendar)
+  const dataRange = sheet.getDataRange().getValues();
+  for (let i = 1; i < dataRange.length; i++) {
+    const rowId = dataRange[i][0];
+    if (skipBookingId && rowId === skipBookingId) continue;
+    
+    const rowStatus = dataRange[i][8];
+    if (rowStatus === 'Pending' || rowStatus === 'Approved') {
+      const rowDate = dataRange[i][5];
+      const rowTime = dataRange[i][6];
+      const rowDuration = parseInt(dataRange[i][9], 10) || 15;
+      
+      let dStr = rowDate instanceof Date ? Utilities.formatDate(rowDate, scriptTz, "yyyy-MM-dd") : rowDate;
+      let tStr = rowTime instanceof Date ? Utilities.formatDate(rowTime, scriptTz, "hh:mm a") : rowTime;
+      
+      const rowStartDt = new Date(dStr + ' ' + tStr);
+      if (!isNaN(rowStartDt.getTime())) {
+        const rowEndDt = new Date(rowStartDt.getTime() + rowDuration * 60000);
+        // Overlap algorithm: Start_A < End_B && Start_B < End_A
+        if (bufferedReqStart < rowEndDt && bufferedReqEnd > rowStartDt) {
+          throw new Error("This time slot is no longer available due to a pending booking. Please select a different time.");
+        }
+      }
+    }
+  }
+  
+  // 2. Google Calendar Check (Catch external events & race conditions)
+  const calIds = getConfig().CHECK_CALENDAR_IDS;
+  for (const calId of calIds) {
+    try {
+      const cal = CalendarApp.getCalendarById(calId);
+      if (cal) {
+        const events = cal.getEvents(bufferedReqStart, bufferedReqEnd);
+        for (const ev of events) {
+          if (skipEventId && ev.getId() === skipEventId) {
+            continue; // Safely skip the old event when rescheduling
+          }
+          
+          const evStart = ev.getStartTime();
+          const evEnd = ev.getEndTime();
+          if (evStart < bufferedReqEnd && evEnd > bufferedReqStart) {
+            throw new Error("This time slot is no longer available on the calendar.");
+          }
+        }
+      }
+    } catch (e) {
+      // Fallback to FreeBusy if we lack read permissions on a secondary calendar
+      const request = {
+        timeMin: bufferedReqStart.toISOString(),
+        timeMax: bufferedReqEnd.toISOString(),
+        items: [{ id: calId }]
+      };
+      const response = Calendar.Freebusy.query(request);
+      const busy = response.calendars[calId].busy;
+      if (busy && busy.length > 0) {
+        throw new Error("This time slot is no longer available on the calendar.");
+      }
+    }
+  }
 }
