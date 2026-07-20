@@ -512,35 +512,134 @@ async function initManageFlow(id) {
     } catch (e) {
         alert('Failed to fetch booking details.');
     }
-}
-
-function populateTimezones() {
+}function populateTimezones() {
     const select = document.getElementById('timezone-select');
-    if (!select) return;
+    const customList = document.getElementById('timezone-list');
+    const displayText = document.getElementById('timezone-display-text');
+    if (!select || !customList || !displayText) return;
 
     select.innerHTML = '';
+    customList.innerHTML = '';
+    
     const userTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-    const commonTzs = [
-        "America/Los_Angeles", "America/Denver", "America/Chicago", "America/New_York",
-        "Europe/London", "Europe/Paris", "Asia/Dubai", "Asia/Kolkata",
-        "Asia/Singapore", "Asia/Tokyo", "Australia/Sydney"
-    ];
-
-    if (!commonTzs.includes(userTz)) {
-        commonTzs.unshift(userTz);
+    let timezones = [];
+    if (typeof Intl !== 'undefined' && typeof Intl.supportedValuesOf === 'function') {
+        timezones = Intl.supportedValuesOf('timeZone');
+    } else {
+        timezones = [
+            "America/Los_Angeles", "America/Denver", "America/Chicago", "America/New_York",
+            "Europe/London", "Europe/Paris", "Asia/Dubai", "Asia/Kolkata",
+            "Asia/Singapore", "Asia/Tokyo", "Australia/Sydney"
+        ];
     }
 
-    commonTzs.forEach(tz => {
+    if (userTz && !timezones.includes(userTz)) {
+        timezones.unshift(userTz);
+    }
+
+    // Cache the options to make searching fast
+    window.timezoneOptions = [];
+
+    timezones.forEach(tz => {
+        // 1. Build Native Option (for hidden state)
         const option = document.createElement('option');
         option.value = tz;
-        option.textContent = tz.replace(/_/g, ' ');
+        
+        let label = tz.replace(/_/g, ' ');
+        try {
+            const date = new Date();
+            const formatter = new Intl.DateTimeFormat('en-US', { timeZone: tz, timeZoneName: 'shortOffset' });
+            const offset = formatter.formatToParts(date).find(p => p.type === 'timeZoneName').value;
+            label = `(${offset}) ${label}`;
+        } catch(e) {
+            // fallback
+        }
+        
+        option.textContent = label;
         if (tz === userTz) option.selected = true;
         select.appendChild(option);
+        
+        // 2. Build Custom LI for the dropdown
+        const li = document.createElement('li');
+        li.className = 'px-3 py-2 cursor-pointer hover:bg-gray-100 text-label-sm font-label-sm text-gray-700 transition-colors border-b border-gray-50 last:border-b-0';
+        li.textContent = label;
+        li.dataset.value = tz;
+        li.dataset.search = label.toLowerCase();
+        
+        if (tz === userTz) {
+            li.classList.add('bg-electric-blue/10', 'text-electric-blue', 'font-medium');
+            displayText.textContent = label;
+        }
+
+        li.addEventListener('click', () => {
+            select.value = tz;
+            displayText.textContent = label;
+            
+            // Remove active styling from all items
+            customList.querySelectorAll('li').forEach(item => item.classList.remove('bg-electric-blue/10', 'text-electric-blue', 'font-medium'));
+            // Add active styling to clicked
+            li.classList.add('bg-electric-blue/10', 'text-electric-blue', 'font-medium');
+            
+            document.getElementById('timezone-dropdown-menu').classList.add('hidden');
+            
+            // Trigger calendar reload
+            renderCalendar(currentDate);
+            if (typeof selectedDate !== 'undefined' && selectedDate) {
+                fetchAvailableSlots(selectedDate);
+            }
+        });
+
+        customList.appendChild(li);
+        window.timezoneOptions.push(li);
     });
 
-    // Re-render slots if timezone changes
-    select.addEventListener('change', () => {
-        if (selectedDate) fetchAvailableSlots(selectedDate);
+    setupTimezoneInteractions();
+}
+
+function setupTimezoneInteractions() {
+    const toggleBtn = document.getElementById('timezone-toggle-btn');
+    const dropdownMenu = document.getElementById('timezone-dropdown-menu');
+    const searchInput = document.getElementById('timezone-search-input');
+    const container = document.getElementById('custom-timezone-container');
+    
+    if (!toggleBtn || !dropdownMenu || !searchInput) return;
+
+    // Toggle Dropdown
+    toggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isHidden = dropdownMenu.classList.contains('hidden');
+        if (isHidden) {
+            dropdownMenu.classList.remove('hidden');
+            searchInput.value = '';
+            // Reset all li displays
+            if (window.timezoneOptions) {
+                window.timezoneOptions.forEach(li => li.style.display = '');
+            }
+            searchInput.focus();
+        } else {
+            dropdownMenu.classList.add('hidden');
+        }
+    });
+
+    // Handle Search
+    searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase();
+        if (window.timezoneOptions) {
+            window.timezoneOptions.forEach(li => {
+                if (li.dataset.search.includes(query)) {
+                    li.style.display = '';
+                } else {
+                    li.style.display = 'none';
+                }
+            });
+        }
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!container.contains(e.target)) {
+            dropdownMenu.classList.add('hidden');
+        }
     });
 }

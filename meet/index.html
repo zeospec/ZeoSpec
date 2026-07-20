@@ -462,7 +462,9 @@ description: Schedule a Meeting with Arun Teja Godavarthi aka. ZeoSpec, a Commun
                         <div class="flex items-start gap-3 text-gray-600">
                             <span class="material-symbols-outlined text-electric-blue"
                                 style="font-variation-settings: 'FILL' 1;">info</span>
-                            <p class="font-body-md text-body-md leading-relaxed text-sm">Schedule a time for an introductory call, a consultation, or a discussion of potential opportunities. Please share a brief agenda when booking.</p>
+                            <p class="font-body-md text-body-md leading-relaxed text-sm">Schedule a time for an
+                                introductory call, consultation, or to discuss potential opportunities. Please share a
+                                brief agenda when booking.</p>
                         </div>
                     </div>
                 </div>
@@ -492,15 +494,7 @@ description: Schedule a Meeting with Arun Teja Godavarthi aka. ZeoSpec, a Commun
                     <div class="flex items-center justify-between mb-8">
                         <h2 class="font-headline-md text-headline-md font-semibold text-gray-900">Select a Date &amp;
                             Time</h2>
-                        <div
-                            class="flex items-center gap-2 text-gray-600 bg-gray-100 px-3 py-1.5 rounded-full border border-gray-200">
-                            <span class="material-symbols-outlined text-[18px]">public</span>
-                            <select id="timezone-select"
-                                class="bg-transparent border-none text-gray-600 font-label-sm text-label-sm outline-none cursor-pointer focus:ring-0 appearance-none pr-4"
-                                style="background-image: url('data:image/svg+xml;utf8,<svg fill=%22none%22 stroke=%22currentColor%22 viewBox=%220 0 24 24%22 xmlns=%22http://www.w3.org/2000/svg%22><path stroke-linecap=%22round%22 stroke-linejoin=%22round%22 stroke-width=%222%22 d=%22M19 9l-7 7-7-7%22></path></svg>'); background-repeat: no-repeat; background-position: right center; background-size: 12px;">
-                                <option value="Loading...">Loading timezone...</option>
-                            </select>
-                        </div>
+
                     </div>
                     <div class="flex flex-col md:flex-row gap-8 flex-grow">
                         <!-- Calendar Widget -->
@@ -543,6 +537,41 @@ description: Schedule a Meeting with Arun Teja Godavarthi aka. ZeoSpec, a Commun
                                 </div>
                                 <div id="calendar-days" class="grid grid-cols-7 gap-y-2 gap-x-2 text-center">
                                 </div>
+                            </div>
+                            
+                            <!-- Custom Timezone UI -->
+                            <div class="mt-8 relative" id="custom-timezone-container">
+                                <p class="font-label-sm text-label-sm font-semibold text-gray-900 mb-2">Time zone</p>
+                                
+                                <!-- Toggle Button -->
+                                <button type="button" id="timezone-toggle-btn"
+                                    class="flex items-center justify-between w-full text-left gap-1.5 text-gray-600 bg-transparent py-1 rounded focus:outline-none focus:ring-2 focus:ring-electric-blue/50 transition-shadow">
+                                    <div class="flex items-center gap-1.5 truncate">
+                                        <span class="material-symbols-outlined text-[16px] shrink-0">public</span>
+                                        <span id="timezone-display-text" class="font-label-sm text-label-sm truncate">Loading timezone...</span>
+                                    </div>
+                                    <span class="material-symbols-outlined text-[18px] shrink-0">arrow_drop_down</span>
+                                </button>
+                                
+                                <!-- Dropdown Menu -->
+                                <div id="timezone-dropdown-menu"
+                                    class="hidden absolute left-0 bottom-full mb-1 z-50 w-full min-w-[280px] bg-white border border-gray-200 shadow-xl rounded-lg overflow-hidden flex flex-col">
+                                    <div class="p-2 border-b border-gray-100 bg-gray-50 shrink-0">
+                                        <div class="relative">
+                                            <span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-[16px] text-gray-400">search</span>
+                                            <input type="text" id="timezone-search-input" placeholder="Search for a city or timezone..."
+                                                class="w-full pl-8 pr-3 py-1.5 bg-white border border-gray-300 rounded text-label-sm font-label-sm focus:outline-none focus:border-electric-blue focus:ring-1 focus:ring-electric-blue transition-colors">
+                                        </div>
+                                    </div>
+                                    <ul id="timezone-list" class="max-h-[220px] overflow-y-auto custom-scrollbar">
+                                        <!-- List items injected by JS -->
+                                    </ul>
+                                </div>
+                                
+                                <!-- Hidden Native Select for state management -->
+                                <select id="timezone-select" class="hidden">
+                                    <option value="Loading...">Loading timezone...</option>
+                                </select>
                             </div>
                         </div>
                         <!-- Time Slots -->
