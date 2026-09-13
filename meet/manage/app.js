@@ -149,8 +149,9 @@ function showToast(message, type = 'info') {
     }
 
     toast.className += ` ${colorClasses}`;
+    const iconSvg = typeof getZeoIconSvg === 'function' ? getZeoIconSvg(iconName, 'text-base') : `<span class="material-symbols-outlined text-base shrink-0">${iconName}</span>`;
     toast.innerHTML = `
-        <span class="material-symbols-outlined text-base shrink-0">${iconName}</span>
+        ${iconSvg}
         <span class="flex-grow">${escapeHtml(message)}</span>
     `;
 
@@ -266,7 +267,12 @@ if (togglePasswordBtn) {
     togglePasswordBtn.addEventListener('click', () => {
         const isPassword = loginPasswordInput.type === 'password';
         loginPasswordInput.type = isPassword ? 'text' : 'password';
-        passwordVisibilityIcon.textContent = isPassword ? 'visibility_off' : 'visibility';
+        const nextIcon = isPassword ? 'visibility_off' : 'visibility';
+        if (typeof getZeoIconSvg === 'function') {
+            passwordVisibilityIcon.innerHTML = getZeoIconSvg(nextIcon, 'text-lg');
+        } else {
+            passwordVisibilityIcon.textContent = nextIcon;
+        }
     });
 }
 
@@ -488,13 +494,13 @@ function createBookingCard(b) {
 
     let statusBadgeHtml = '';
     if (isPending) {
-        statusBadgeHtml = '<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200"><span class="material-symbols-outlined text-xs">pending</span> Pending Review</span>';
+        statusBadgeHtml = `<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200">${typeof getZeoIconSvg === 'function' ? getZeoIconSvg('pending', 'text-xs text-amber-600') : '<span class="material-symbols-outlined text-xs">pending</span>'} Pending Review</span>`;
     } else if (isApproved) {
-        statusBadgeHtml = '<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200"><span class="material-symbols-outlined text-xs">check_circle</span> Approved</span>';
+        statusBadgeHtml = `<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">${typeof getZeoIconSvg === 'function' ? getZeoIconSvg('check_circle', 'text-xs text-emerald-600') : '<span class="material-symbols-outlined text-xs">check_circle</span>'} Approved</span>`;
     } else if (isRejected) {
-        statusBadgeHtml = '<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-red-50 text-red-800 border border-red-200"><span class="material-symbols-outlined text-xs">cancel</span> Declined</span>';
+        statusBadgeHtml = `<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-red-50 text-red-800 border border-red-200">${typeof getZeoIconSvg === 'function' ? getZeoIconSvg('cancel', 'text-xs text-red-600') : '<span class="material-symbols-outlined text-xs">cancel</span>'} Declined</span>`;
     } else {
-        statusBadgeHtml = '<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200"><span class="material-symbols-outlined text-xs">block</span> Canceled</span>';
+        statusBadgeHtml = `<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200">${typeof getZeoIconSvg === 'function' ? getZeoIconSvg('block', 'text-xs text-slate-500') : '<span class="material-symbols-outlined text-xs">block</span>'} Canceled</span>`;
     }
 
     const formattedDate = formatDateDisplay(b.date);
@@ -507,11 +513,11 @@ function createBookingCard(b) {
         actionsHtml = `
             <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 pt-3 border-t border-slate-100">
                 <button class="approve-booking-btn flex-1 sm:flex-initial bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-4 py-2.5 sm:py-2 rounded-xl shadow-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer" data-id="${b.id}">
-                    <span class="material-symbols-outlined text-base">check</span>
+                    ${typeof getZeoIconSvg === 'function' ? getZeoIconSvg('check', 'text-base') : '<span class="material-symbols-outlined text-base">check</span>'}
                     <span>Approve Booking</span>
                 </button>
                 <button class="reject-booking-btn flex-1 sm:flex-initial bg-white hover:bg-red-50 text-slate-700 hover:text-red-700 border border-slate-200 hover:border-red-200 text-xs font-semibold px-4 py-2.5 sm:py-2 rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer" data-id="${b.id}">
-                    <span class="material-symbols-outlined text-base">close</span>
+                    ${typeof getZeoIconSvg === 'function' ? getZeoIconSvg('close', 'text-base') : '<span class="material-symbols-outlined text-base">close</span>'}
                     <span>Decline with Note</span>
                 </button>
             </div>
@@ -520,11 +526,11 @@ function createBookingCard(b) {
         actionsHtml = `
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-3 border-t border-slate-100">
                 <div class="text-xs text-emerald-700 font-medium flex items-center gap-1.5">
-                    <span class="material-symbols-outlined text-base text-emerald-600">event_available</span>
+                    ${typeof getZeoIconSvg === 'function' ? getZeoIconSvg('event_available', 'text-base text-emerald-600') : '<span class="material-symbols-outlined text-base text-emerald-600">event_available</span>'}
                     <span>Google Calendar Event Scheduled</span>
                 </div>
                 <button class="reject-booking-btn text-xs font-semibold text-red-600 hover:text-red-700 hover:bg-red-50 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1 cursor-pointer w-fit" data-id="${b.id}">
-                    <span class="material-symbols-outlined text-xs">cancel</span>
+                    ${typeof getZeoIconSvg === 'function' ? getZeoIconSvg('cancel', 'text-xs') : '<span class="material-symbols-outlined text-xs">cancel</span>'}
                     <span>Cancel / Decline with Note</span>
                 </button>
             </div>
@@ -553,7 +559,7 @@ function createBookingCard(b) {
     if (b.guests) {
         guestsHtml = `
             <div class="text-xs text-slate-500 flex items-start gap-1.5 mt-1">
-                <span class="material-symbols-outlined text-xs text-slate-400 mt-0.5">group</span>
+                ${typeof getZeoIconSvg === 'function' ? getZeoIconSvg('group', 'text-xs text-slate-400 mt-0.5') : '<span class="material-symbols-outlined text-xs text-slate-400 mt-0.5">group</span>'}
                 <span>Guests: <strong class="text-slate-700 font-normal">${escapeHtml(b.guests)}</strong></span>
             </div>
         `;
@@ -567,7 +573,7 @@ function createBookingCard(b) {
                 <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-blue-50 text-blue-700 border border-blue-200">${b.duration} mins</span>
             </div>
             <div class="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
-                <span class="material-symbols-outlined text-sm text-blue-600">schedule</span>
+                ${typeof getZeoIconSvg === 'function' ? getZeoIconSvg('schedule', 'text-sm text-blue-600') : '<span class="material-symbols-outlined text-sm text-blue-600">schedule</span>'}
                 <span>${formattedDate} &bull; ${escapeHtml(b.time)}</span>
             </div>
         </div>
@@ -576,17 +582,17 @@ function createBookingCard(b) {
             <!-- Contact links -->
             <div class="flex flex-wrap items-center gap-x-5 gap-y-1 text-xs">
                 <a href="mailto:${escapeHtml(b.email)}" class="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center gap-1">
-                    <span class="material-symbols-outlined text-xs">mail</span>
+                    ${typeof getZeoIconSvg === 'function' ? getZeoIconSvg('mail', 'text-xs') : '<span class="material-symbols-outlined text-xs">mail</span>'}
                     <span>${escapeHtml(b.email)}</span>
                 </a>
                 ${b.phone ? `
                     <a href="tel:${phoneRaw}" class="text-emerald-700 hover:text-emerald-900 font-medium inline-flex items-center gap-1">
-                        <span class="material-symbols-outlined text-xs">call</span>
+                        ${typeof getZeoIconSvg === 'function' ? getZeoIconSvg('call', 'text-xs') : '<span class="material-symbols-outlined text-xs">call</span>'}
                         <span>${escapeHtml(displayPhone)}</span>
                     </a>
                 ` : `
                     <span class="text-slate-400 inline-flex items-center gap-1">
-                        <span class="material-symbols-outlined text-xs">phone_disabled</span>
+                        ${typeof getZeoIconSvg === 'function' ? getZeoIconSvg('phone_disabled', 'text-xs') : '<span class="material-symbols-outlined text-xs">phone_disabled</span>'}
                         <span>No phone</span>
                     </span>
                 `}

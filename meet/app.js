@@ -562,12 +562,12 @@ function goToBookingForm() {
     bookingSummary.innerHTML = `
         <div class="flex flex-wrap items-center gap-x-2.5 gap-y-1.5 text-gray-700 font-body-md text-sm sm:text-base">
             <div class="inline-flex items-center gap-1.5 font-medium text-gray-900">
-                <span class="material-symbols-outlined text-electric-blue text-[18px]">calendar_today</span>
+                ${typeof getZeoIconSvg === 'function' ? getZeoIconSvg('calendar_today', 'text-electric-blue text-[18px]') : '<svg class="zeo-svg-icon shrink-0 inline-block align-middle text-electric-blue text-[18px]" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>'}
                 <span>${dateStr}</span>
             </div>
             <span class="text-gray-300 hidden sm:inline">&bull;</span>
             <div class="inline-flex items-center gap-1.5 font-medium text-gray-900">
-                <span class="material-symbols-outlined text-electric-blue text-[18px]">schedule</span>
+                ${typeof getZeoIconSvg === 'function' ? getZeoIconSvg('schedule', 'text-electric-blue text-[18px]') : '<svg class="zeo-svg-icon shrink-0 inline-block align-middle text-electric-blue text-[18px]" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>'}
                 <span>${startTimeStr} - ${endTimeStr}</span>
             </div>
             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600 border border-gray-200">

@@ -16,8 +16,9 @@ description: Schedule a Meeting with Arun Teja Godavarthi aka. ZeoSpec, an Ecosy
     <meta name='description' content='{% if page.description %}{{ page.description | strip_html | strip_newlines }}{% else %}{{ site.data.general_settings.description }}{% endif %}'>
 
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
+    <link rel="icon" type="image/x-icon" href="{{site.baseurl}}/favicon.ico">
     <link rel="icon" type="image/svg+xml" href="{{site.baseurl}}/images/logo.svg">
-    <link rel="apple-touch-icon" href="{{site.baseurl}}/images/avatar.jpg">
+    <link rel="apple-touch-icon" href="{{site.baseurl}}/images/favicon-192.png">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
@@ -116,180 +117,28 @@ description: Schedule a Meeting with Arun Teja Godavarthi aka. ZeoSpec, an Ecosy
     }
     </script>
 
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap"
-        rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-        rel="stylesheet" />
-    
-    <script id="tailwind-config">
-        if (typeof tailwind !== 'undefined') {
-            tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "on-secondary": "#263143",
-                        "on-primary-container": "#00285d",
-                        "secondary": "#bcc7de",
-                        "on-primary-fixed-variant": "#004395",
-                        "primary-container": "#4d8eff",
-                        "secondary-fixed": "#d8e3fb",
-                        "on-error": "#690005",
-                        "surface-bright": "#2c3a4c",
-                        "glass-border": "rgba(255, 255, 255, 0.1)",
-                        "on-surface": "#d4e4fa",
-                        "surface-container": "#122131",
-                        "outline-variant": "#424754",
-                        "primary-fixed-dim": "#adc6ff",
-                        "on-surface-variant": "#c2c6d6",
-                        "on-primary": "#002e6a",
-                        "error": "#ffb4ab",
-                        "tertiary": "#4edea3",
-                        "outline": "#8c909f",
-                        "on-tertiary": "#003824",
-                        "secondary-container": "#3e495d",
-                        "bg-midnight": "#020617",
-                        "tertiary-fixed-dim": "#4edea3",
-                        "electric-blue": "#3B82F6",
-                        "on-background": "#d4e4fa",
-                        "surface-dim": "#051424",
-                        "surface-slate": "#1E293B",
-                        "surface": "#051424",
-                        "on-tertiary-fixed-variant": "#005236",
-                        "tertiary-fixed": "#6ffbbe",
-                        "inverse-surface": "#d4e4fa",
-                        "surface-tint": "#adc6ff",
-                        "secondary-fixed-dim": "#bcc7de",
-                        "surface-container-highest": "#273647",
-                        "inverse-on-surface": "#233143",
-                        "tertiary-container": "#00a572",
-                        "surface-container-low": "#0d1c2d",
-                        "on-primary-fixed": "#001a42",
-                        "primary": "#adc6ff",
-                        "success-emerald": "#10B981",
-                        "inverse-primary": "#005ac2",
-                        "on-tertiary-container": "#00311f",
-                        "on-error-container": "#ffdad6",
-                        "surface-variant": "#273647",
-                        "on-tertiary-fixed": "#002113",
-                        "background": "#051424",
-                        "on-secondary-container": "#aeb9d0",
-                        "on-secondary-fixed": "#111c2d",
-                        "on-secondary-fixed-variant": "#3c475a",
-                        "primary-fixed": "#d8e2ff",
-                        "surface-container-high": "#1c2b3c",
-                        "error-container": "#93000a",
-                        "surface-container-lowest": "#010f1f"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "gutter": "24px",
-                        "unit": "4px",
-                        "container-max": "1280px",
-                        "margin-mobile": "20px",
-                        "margin-desktop": "64px"
-                    },
-                    "fontFamily": {
-                        "body-md": [
-                            "Plus Jakarta Sans"
-                        ],
-                        "label-sm": [
-                            "Plus Jakarta Sans"
-                        ],
-                        "headline-md": [
-                            "Plus Jakarta Sans"
-                        ],
-                        "body-lg": [
-                            "Plus Jakarta Sans"
-                        ],
-                        "headline-lg": [
-                            "Plus Jakarta Sans"
-                        ],
-                        "headline-lg-mobile": [
-                            "Plus Jakarta Sans"
-                        ],
-                        "label-md": [
-                            "Plus Jakarta Sans"
-                        ],
-                        "headline-xl": [
-                            "Plus Jakarta Sans"
-                        ]
-                    },
-                    "fontSize": {
-                        "body-md": [
-                            "16px",
-                            {
-                                "lineHeight": "24px",
-                                "fontWeight": "400"
-                            }
-                        ],
-                        "label-sm": [
-                            "12px",
-                            {
-                                "lineHeight": "16px",
-                                "letterSpacing": "0.02em",
-                                "fontWeight": "500"
-                            }
-                        ],
-                        "headline-md": [
-                            "24px",
-                            {
-                                "lineHeight": "32px",
-                                "fontWeight": "600"
-                            }
-                        ],
-                        "body-lg": [
-                            "18px",
-                            {
-                                "lineHeight": "28px",
-                                "fontWeight": "400"
-                            }
-                        ],
-                        "headline-lg": [
-                            "32px",
-                            {
-                                "lineHeight": "40px",
-                                "letterSpacing": "-0.02em",
-                                "fontWeight": "700"
-                            }
-                        ],
-                        "headline-lg-mobile": [
-                            "24px",
-                            {
-                                "lineHeight": "32px",
-                                "fontWeight": "700"
-                            }
-                        ],
-                        "label-md": [
-                            "14px",
-                            {
-                                "lineHeight": "20px",
-                                "letterSpacing": "0.01em",
-                                "fontWeight": "600"
-                            }
-                        ],
-                        "headline-xl": [
-                            "40px",
-                            {
-                                "lineHeight": "48px",
-                                "letterSpacing": "-0.02em",
-                                "fontWeight": "700"
-                            }
-                        ]
-                    }
-                }
-            }
-        };
-    }
-    </script>
+    <!-- Standalone Production Stylesheet (Precompiled, Instant 0ms Load, 100% Offline Reliable) -->
+    <link rel="stylesheet" href="{{ site.baseurl }}/meet/meet.css">
+
+    <!-- Fonts & Local SVG Icons (Zero Network Font Overhead) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+    <script src="{{ site.baseurl }}/meet/icons.js"></script>
+
     <style>
+        .zeo-svg-icon {
+            display: inline-block;
+            vertical-align: -0.125em;
+            fill: currentColor;
+        }
+        .material-symbols-outlined {
+            display: inline-block;
+            font-size: 0;
+            line-height: 0;
+            color: transparent;
+            vertical-align: middle;
+        }
         .hidden, [hidden] {
             display: none !important;
         }
@@ -490,7 +339,7 @@ description: Schedule a Meeting with Arun Teja Godavarthi aka. ZeoSpec, an Ecosy
         <!-- Back to main website link -->
         <div class="max-w-5xl mx-auto mb-3 px-2 flex items-center justify-between">
             <a href="{{ site.baseurl }}/" class="inline-flex items-center gap-1.5 text-gray-500 hover:text-electric-blue transition-colors font-label-sm text-label-sm group">
-                <span class="material-symbols-outlined text-[18px] group-hover:-translate-x-0.5 transition-transform">arrow_back</span>
+                <svg class="zeo-svg-icon text-[18px] group-hover:-translate-x-0.5 transition-transform" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
                 <span>Back to Home</span>
             </a>
         </div>
@@ -518,13 +367,11 @@ description: Schedule a Meeting with Arun Teja Godavarthi aka. ZeoSpec, an Ecosy
                     </p>
                     <div class="flex flex-col gap-3 mb-8">
                         <div class="flex items-center gap-3 text-gray-600">
-                            <span class="material-symbols-outlined text-electric-blue"
-                                style="font-variation-settings: 'FILL' 1;">videocam</span>
+                            <svg class="zeo-svg-icon text-electric-blue w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
                             <span class="font-body-md text-body-md">Google Meet</span>
                         </div>
                         <div class="flex items-start gap-3 text-gray-600">
-                            <span class="material-symbols-outlined text-electric-blue"
-                                style="font-variation-settings: 'FILL' 1;">info</span>
+                            <svg class="zeo-svg-icon text-electric-blue w-5 h-5 shrink-0 mt-0.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
                             <p class="font-body-md text-body-md leading-relaxed text-sm">Schedule a time for an
                                 introductory call, consultation, or to discuss potential opportunities. Please share a
                                 brief agenda when booking.</p>
@@ -568,11 +415,11 @@ description: Schedule a Meeting with Arun Teja Godavarthi aka. ZeoSpec, an Ecosy
                                 <div class="flex gap-2">
                                     <button id="prev-month" aria-label="Previous Month"
                                         class="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-900 transition-colors flex items-center justify-center">
-                                        <span class="material-symbols-outlined">chevron_left</span>
+                                        <svg class="zeo-svg-icon w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
                                     </button>
                                     <button id="next-month" aria-label="Next Month"
                                         class="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-900 transition-colors flex items-center justify-center">
-                                        <span class="material-symbols-outlined">chevron_right</span>
+                                        <svg class="zeo-svg-icon w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
                                     </button>
                                 </div>
                             </div>
@@ -610,10 +457,10 @@ description: Schedule a Meeting with Arun Teja Godavarthi aka. ZeoSpec, an Ecosy
                                 <button type="button" id="timezone-toggle-btn"
                                     class="flex items-center justify-between w-full text-left gap-1.5 text-gray-600 bg-transparent py-1 rounded focus:outline-none focus:ring-2 focus:ring-electric-blue/50 transition-shadow">
                                     <div class="flex items-center gap-1.5 truncate">
-                                        <span class="material-symbols-outlined text-[16px] shrink-0">public</span>
+                                        <svg class="zeo-svg-icon text-[16px] shrink-0" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
                                         <span id="timezone-display-text" class="font-label-sm text-label-sm truncate">Loading timezone...</span>
                                     </div>
-                                    <span class="material-symbols-outlined text-[18px] shrink-0">arrow_drop_down</span>
+                                    <svg class="zeo-svg-icon text-[18px] shrink-0" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
                                 </button>
                                 
                                 <!-- Dropdown Menu -->
@@ -621,7 +468,7 @@ description: Schedule a Meeting with Arun Teja Godavarthi aka. ZeoSpec, an Ecosy
                                     class="hidden absolute left-0 bottom-full mb-1 z-50 w-full min-w-[280px] bg-white border border-gray-200 shadow-xl rounded-lg overflow-hidden flex flex-col">
                                     <div class="p-2 border-b border-gray-100 bg-gray-50 shrink-0">
                                         <div class="relative">
-                                            <span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-[16px] text-gray-400">search</span>
+                                            <svg class="zeo-svg-icon absolute left-2 top-1/2 -translate-y-1/2 text-[16px] text-gray-400" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
                                             <input type="text" id="timezone-search-input" placeholder="Search for a city or timezone..."
                                                 class="w-full pl-8 pr-3 py-1.5 bg-white border border-gray-300 rounded text-label-sm font-label-sm focus:outline-none focus:border-electric-blue focus:ring-1 focus:ring-electric-blue transition-colors">
                                         </div>
@@ -653,7 +500,7 @@ description: Schedule a Meeting with Arun Teja Godavarthi aka. ZeoSpec, an Ecosy
                                 </div>
                                 <div id="scroll-hint"
                                     class="hidden pointer-events-none absolute bottom-2 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 px-3 py-1 rounded-full bg-gray-900/85 text-white text-xs font-medium shadow-md backdrop-blur-sm transition-all duration-200">
-                                    <span class="material-symbols-outlined text-[15px] animate-bounce">arrow_downward</span>
+                                    <svg class="zeo-svg-icon text-[15px] animate-bounce" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"/></svg>
                                     <span>More times below</span>
                                 </div>
                             </div>
@@ -663,14 +510,13 @@ description: Schedule a Meeting with Arun Teja Godavarthi aka. ZeoSpec, an Ecosy
                 <!-- STEP 2: Details Form -->
                 <div class="step-hidden animate-fade-in h-full flex flex-col" id="step-2">
                     <div id="reschedule-banner" class="hidden mb-4 p-4 bg-blue-50 border border-blue-200 rounded-xl text-blue-900 font-body-md flex items-center gap-3">
-                        <span class="material-symbols-outlined text-electric-blue shrink-0">edit_calendar</span>
+                        <svg class="zeo-svg-icon text-electric-blue shrink-0 w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zm-5.7-8.12l1.41 1.41-4.71 4.71H8.59v-1.41l4.71-4.71zm3.83-1.41c-.2-.2-.51-.2-.71 0l-1.13 1.13 1.41 1.41 1.13-1.13c.2-.2.2-.51 0-.71l-.7-.7z"/></svg>
                         <p class="text-sm font-medium">You are selecting a new time for your existing meeting. Please confirm your details below.</p>
                     </div>
                     <div class="mb-6">
                         <button id="back-btn"
                             class="flex items-center gap-2 text-gray-600 hover:text-electric-blue transition-colors mb-4 group w-fit">
-                            <span
-                                class="material-symbols-outlined text-[20px] group-hover:-translate-x-1 transition-transform">arrow_back</span>
+                            <svg class="zeo-svg-icon text-[20px] group-hover:-translate-x-1 transition-transform" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
                             <span class="font-label-md text-label-md">Back to Calendar</span>
                         </button>
                         <h2 class="font-headline-md text-headline-md font-semibold text-gray-900">Confirm Details</h2>
@@ -706,7 +552,7 @@ description: Schedule a Meeting with Arun Teja Godavarthi aka. ZeoSpec, an Ecosy
                         <div class="flex flex-col gap-1.5" id="guests-container">
                             <button type="button" id="add-guests-btn"
                                 class="w-fit flex items-center gap-2 text-electric-blue font-label-md hover:underline transition-colors">
-                                <span class="material-symbols-outlined text-[18px]">person_add</span> Add additional
+                                <svg class="zeo-svg-icon text-[18px]" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg> Add additional
                                 guests
                             </button>
                             <div id="guests-input-wrapper" class="hidden flex-col gap-1.5 mt-1">
@@ -758,7 +604,7 @@ description: Schedule a Meeting with Arun Teja Godavarthi aka. ZeoSpec, an Ecosy
                         <div>
                             <p class="font-label-sm text-label-sm text-gray-500 uppercase mb-1">Where</p>
                             <div class="flex items-center gap-2">
-                                <span class="material-symbols-outlined text-electric-blue text-[18px]">videocam</span>
+                                <svg class="zeo-svg-icon text-electric-blue text-[18px]" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
                                 <p class="font-body-md text-body-md font-medium text-gray-900">Google Meet</p>
                             </div>
                         </div>
@@ -780,7 +626,7 @@ description: Schedule a Meeting with Arun Teja Godavarthi aka. ZeoSpec, an Ecosy
                             </a>
                             <button type="button" id="download-ics-btn"
                                 class="flex items-center justify-center gap-1.5 py-2.5 px-3 bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-lg text-xs font-medium text-gray-700 transition-colors">
-                                <span class="material-symbols-outlined text-[16px] text-gray-600">download</span>
+                                <svg class="zeo-svg-icon text-[16px] text-gray-600" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
                                 <span>.ics File</span>
                             </button>
                         </div>

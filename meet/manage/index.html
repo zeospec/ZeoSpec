@@ -30,11 +30,11 @@ description: "Secure booking management dashboard for ZeoSpec meetings"
     <!-- Standalone Production Stylesheet (Precompiled, Instant 0ms Load, 100% Offline PWA Compatible) -->
     <link rel="stylesheet" href="/meet/manage/manage.css">
 
-    <!-- Fonts & Icons -->
+    <!-- Fonts & Local SVG Icons (Zero Network Overhead, 100% Offline PWA Reliable) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <script src="/meet/icons.js"></script>
 
     <style>
         body {
@@ -42,11 +42,17 @@ description: "Secure booking management dashboard for ZeoSpec meetings"
             background-color: #f8fafc;
             color: #0f172a;
         }
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        .zeo-svg-icon {
             display: inline-block;
+            vertical-align: -0.125em;
+            fill: currentColor;
+        }
+        .material-symbols-outlined {
+            display: inline-block;
+            font-size: 0;
+            line-height: 0;
+            color: transparent;
             vertical-align: middle;
-            line-height: 1;
         }
         .custom-scrollbar::-webkit-scrollbar {
             width: 5px;
@@ -96,8 +102,8 @@ description: "Secure booking management dashboard for ZeoSpec meetings"
                 <div class="flex flex-col items-center text-center mb-8">
                     <div class="relative mb-3">
                         <img src="/images/avatar.jpg" alt="ZeoSpec" class="w-16 h-16 rounded-full border-2 border-blue-500/30 object-cover shadow-md shadow-blue-500/10" />
-                        <div class="absolute -bottom-1 -right-1 bg-blue-600 text-white rounded-full p-1 shadow">
-                            <span class="material-symbols-outlined text-xs">lock</span>
+                        <div class="absolute -bottom-1 -right-1 bg-blue-600 text-white rounded-full p-1 shadow flex items-center justify-center">
+                            <svg class="zeo-svg-icon w-3 h-3" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
                         </div>
                     </div>
                     <h1 class="text-2xl font-bold text-slate-900 tracking-tight">ZeoSpec Meet Manager</h1>
@@ -106,7 +112,7 @@ description: "Secure booking management dashboard for ZeoSpec meetings"
 
                 <!-- Error Banner -->
                 <div id="login-error-banner" class="hidden mb-5 p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs flex items-start gap-2.5">
-                    <span class="material-symbols-outlined text-red-500 text-base shrink-0 mt-0.5">error</span>
+                    <svg class="zeo-svg-icon text-red-500 w-4 h-4 shrink-0 mt-0.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
                     <span id="login-error-text">Invalid login credentials.</span>
                 </div>
 
@@ -115,7 +121,7 @@ description: "Secure booking management dashboard for ZeoSpec meetings"
                     <div>
                         <label for="login-email" class="block text-xs font-semibold text-slate-700 mb-1.5">Host Email / ID</label>
                         <div class="relative">
-                            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">mail</span>
+                            <svg class="zeo-svg-icon absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
                             <input type="email" id="login-email" required placeholder="hi@zeospec.com" class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-colors" />
                         </div>
                     </div>
@@ -123,10 +129,10 @@ description: "Secure booking management dashboard for ZeoSpec meetings"
                     <div>
                         <label for="login-password" class="block text-xs font-semibold text-slate-700 mb-1.5">Password</label>
                         <div class="relative">
-                            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">key</span>
+                            <svg class="zeo-svg-icon absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
                             <input type="password" id="login-password" required placeholder="Enter password" class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-11 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-colors" />
                             <button type="button" id="toggle-password-btn" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 transition-colors">
-                                <span class="material-symbols-outlined text-lg" id="password-visibility-icon">visibility</span>
+                                <span id="password-visibility-icon" class="inline-flex items-center"><svg class="zeo-svg-icon w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg></span>
                             </button>
                         </div>
                     </div>
@@ -146,7 +152,7 @@ description: "Secure booking management dashboard for ZeoSpec meetings"
 
                 <div class="mt-6 pt-5 border-t border-slate-100 text-center">
                     <a href="/meet/" class="text-xs text-slate-500 hover:text-blue-600 transition-colors inline-flex items-center gap-1 font-medium">
-                        <span class="material-symbols-outlined text-xs">arrow_back</span>
+                        <svg class="zeo-svg-icon w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
                         Back to Public Scheduler
                     </a>
                 </div>
@@ -172,29 +178,29 @@ description: "Secure booking management dashboard for ZeoSpec meetings"
                 <div class="flex items-center gap-2">
                     <!-- Install PWA Button -->
                     <button id="pwa-install-btn" class="hidden items-center gap-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors">
-                        <span class="material-symbols-outlined text-sm">install_mobile</span>
+                        <svg class="zeo-svg-icon w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17 18H7V6h10v1h2V3c0-1.1-.9-2-2-2H7c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2v-4h-2v1zm-5-3.5l3.5-3.5H13V7h-2v4H8.5L12 14.5z"/></svg>
                         <span class="hidden sm:inline">Install App</span>
                     </button>
 
                     <!-- Reload Bookings Button -->
                     <button id="refresh-bookings-btn" title="Refresh bookings list" class="p-2 text-slate-600 hover:text-slate-900 bg-slate-50 hover:bg-slate-100 rounded-lg border border-slate-200 transition-colors">
-                        <span class="material-symbols-outlined text-base">sync</span>
+                        <svg class="zeo-svg-icon w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>
                     </button>
 
                     <!-- Public Link -->
                     <a href="/meet/" target="_blank" title="Open public scheduler page" class="hidden sm:inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-slate-700 hover:text-slate-900 bg-slate-50 hover:bg-slate-100 rounded-lg border border-slate-200 transition-colors">
-                        <span class="material-symbols-outlined text-sm">open_in_new</span>
+                        <svg class="zeo-svg-icon w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
                         <span>Public View</span>
                     </a>
 
                     <!-- Change Password Button -->
                     <button id="open-change-password-btn" title="Change host password" class="p-2 text-slate-600 hover:text-slate-900 bg-slate-50 hover:bg-slate-100 rounded-lg border border-slate-200 transition-colors">
-                        <span class="material-symbols-outlined text-base">password</span>
+                        <svg class="zeo-svg-icon w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 17h20v2H2v-2zm1.15-4.05L4 11.47l.85 1.48 1.3-.75-.85-1.48H7v-1.5H5.3l.85-1.47L4.85 7 4 8.47 3.15 7l-1.3.75.85 1.47H1v1.5h1.7l-.85 1.48 1.3.75zm8 0l.85-1.48.85 1.48 1.3-.75-.85-1.48H15v-1.5h-1.7l.85-1.47L12.85 7l-.85 1.47L11.15 7l-1.3.75.85 1.47H9v1.5h1.7l-.85 1.48 1.3.75zm8 0l.85-1.48.85 1.48 1.3-.75-.85-1.48H23v-1.5h-1.7l.85-1.47L20.85 7l-.85 1.47L19.15 7l-1.3.75.85 1.47H17v1.5h1.7l-.85 1.48 1.3.75z"/></svg>
                     </button>
 
                     <!-- Logout Button -->
                     <button id="logout-btn" title="Log out from dashboard" class="p-2 text-red-600 hover:text-red-700 bg-red-50 hover:bg-red-100 rounded-lg border border-red-200 transition-colors">
-                        <span class="material-symbols-outlined text-base">logout</span>
+                        <svg class="zeo-svg-icon w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
                     </button>
                 </div>
             </header>
@@ -208,7 +214,7 @@ description: "Secure booking management dashboard for ZeoSpec meetings"
                     <div class="bg-amber-50/70 rounded-2xl p-4 border border-amber-200/90 shadow-xs relative overflow-hidden">
                         <div class="flex items-center justify-between">
                             <span class="text-xs font-semibold text-amber-900">Pending Review</span>
-                            <span class="material-symbols-outlined text-amber-600 text-lg">pending_actions</span>
+                            <svg class="zeo-svg-icon text-amber-600 w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17 12c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm1.65 7.35L16.5 17.2V14h1.5v2.55l1.8 1.8-1.15 1zm-4.65-9.35H6V8h8v2zm-2 4H6v-2h6v2zm6-10H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h6.1c-.06-.32-.1-.66-.1-1 0-3.31 2.69-6 6-6 .84 0 1.63.18 2.36.49l.64-.64V6c0-1.1-.9-2-2-2zm0 2v3H5V4h14z"/></svg>
                         </div>
                         <div class="mt-2 flex items-baseline gap-2">
                             <span id="stat-pending-count" class="text-2xl sm:text-3xl font-bold text-slate-900">0</span>
@@ -220,7 +226,7 @@ description: "Secure booking management dashboard for ZeoSpec meetings"
                     <div class="bg-emerald-50/70 rounded-2xl p-4 border border-emerald-200/90 shadow-xs relative overflow-hidden">
                         <div class="flex items-center justify-between">
                             <span class="text-xs font-semibold text-emerald-900">Upcoming</span>
-                            <span class="material-symbols-outlined text-emerald-600 text-lg">event_available</span>
+                            <svg class="zeo-svg-icon text-emerald-600 w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zm-8.47-3.03l5.65-5.66 1.42 1.42-7.07 7.07-3.54-3.53 1.42-1.42 2.12 2.12z"/></svg>
                         </div>
                         <div class="mt-2 flex items-baseline gap-2">
                             <span id="stat-upcoming-count" class="text-2xl sm:text-3xl font-bold text-slate-900">0</span>
@@ -232,7 +238,7 @@ description: "Secure booking management dashboard for ZeoSpec meetings"
                     <div class="bg-blue-50/70 rounded-2xl p-4 border border-blue-200/90 shadow-xs relative overflow-hidden">
                         <div class="flex items-center justify-between">
                             <span class="text-xs font-semibold text-blue-900">Completed</span>
-                            <span class="material-symbols-outlined text-blue-600 text-lg">task_alt</span>
+                            <svg class="zeo-svg-icon text-blue-600 w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 5.18L10.59 16.6l-4.24-4.24 1.41-1.41 2.83 2.83 10-10L22 5.18zM19.79 10.22C19.92 10.79 20 11.39 20 12c0 4.41-3.59 8-8 8s-8-3.59-8-8 3.59-8 8-8c1.7 0 3.27.53 4.56 1.44l1.46-1.46C16.27 2.74 14.23 2 12 2 6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10c0-1.19-.22-2.33-.6-3.39l-1.61 1.61z"/></svg>
                         </div>
                         <div class="mt-2 flex items-baseline gap-2">
                             <span id="stat-completed-count" class="text-2xl sm:text-3xl font-bold text-slate-900">0</span>
@@ -244,7 +250,7 @@ description: "Secure booking management dashboard for ZeoSpec meetings"
                     <div class="bg-slate-100/80 rounded-2xl p-4 border border-slate-200 shadow-xs relative overflow-hidden">
                         <div class="flex items-center justify-between">
                             <span class="text-xs font-semibold text-slate-700">Declined / Canceled</span>
-                            <span class="material-symbols-outlined text-slate-500 text-lg">cancel</span>
+                            <svg class="zeo-svg-icon text-slate-500 w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"/></svg>
                         </div>
                         <div class="mt-2 flex items-baseline gap-2">
                             <span id="stat-declined-count" class="text-2xl sm:text-3xl font-bold text-slate-900">0</span>
@@ -276,10 +282,10 @@ description: "Secure booking management dashboard for ZeoSpec meetings"
 
                     <!-- Search Box -->
                     <div class="relative min-w-[240px] md:w-72">
-                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+                        <svg class="zeo-svg-icon absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
                         <input type="text" id="booking-search-input" placeholder="Search by name, email, phone..." class="w-full bg-white border border-slate-200 rounded-lg pl-9 pr-8 py-1.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-colors shadow-xs" />
                         <button id="clear-search-btn" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700">
-                            <span class="material-symbols-outlined text-sm">close</span>
+                            <svg class="zeo-svg-icon w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
                         </button>
                     </div>
                 </div>
@@ -301,7 +307,7 @@ description: "Secure booking management dashboard for ZeoSpec meetings"
                 <!-- Empty State -->
                 <div id="bookings-empty" class="hidden py-16 text-center bg-white rounded-2xl border border-slate-200 shadow-xs">
                     <div class="w-16 h-16 mx-auto mb-3 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-400">
-                        <span class="material-symbols-outlined text-3xl">event_busy</span>
+                        <svg class="zeo-svg-icon w-8 h-8" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9.59 16.59L12 14.18l2.41 2.41 1.41-1.41L13.41 12.77 15.82 10.36 14.41 8.95 12 11.36 9.59 8.95 8.18 10.36l2.41 2.41-2.41 2.41 1.41 1.41z"/></svg>
                     </div>
                     <h3 class="text-base font-bold text-slate-900">No Bookings Found</h3>
                     <p class="text-xs text-slate-500 mt-1 max-w-sm mx-auto">There are no meeting requests matching your current filter criteria.</p>
@@ -320,11 +326,11 @@ description: "Secure booking management dashboard for ZeoSpec meetings"
         <div class="bg-white border border-slate-200 w-full max-w-lg rounded-2xl p-6 sm:p-7 shadow-2xl relative overflow-hidden text-slate-900">
             <div class="flex items-center justify-between pb-4 border-b border-slate-100">
                 <div class="flex items-center gap-2 text-red-600">
-                    <span class="material-symbols-outlined text-xl">cancel</span>
+                    <svg class="zeo-svg-icon w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"/></svg>
                     <h3 class="font-bold text-base text-slate-900">Decline Booking Request</h3>
                 </div>
                 <button id="close-rejection-modal-btn" class="text-slate-400 hover:text-slate-700 transition-colors">
-                    <span class="material-symbols-outlined text-lg">close</span>
+                    <svg class="zeo-svg-icon w-4.5 h-4.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
                 </button>
             </div>
 
@@ -372,17 +378,17 @@ description: "Secure booking management dashboard for ZeoSpec meetings"
         <div class="bg-white border border-slate-200 w-full max-w-md rounded-2xl p-6 sm:p-7 shadow-2xl relative overflow-hidden text-slate-900">
             <div class="flex items-center justify-between pb-4 border-b border-slate-100">
                 <div class="flex items-center gap-2 text-blue-600">
-                    <span class="material-symbols-outlined text-xl">password</span>
+                    <svg class="zeo-svg-icon w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 17h20v2H2v-2zm1.15-4.05L4 11.47l.85 1.48 1.3-.75-.85-1.48H7v-1.5H5.3l.85-1.47L4.85 7 4 8.47 3.15 7l-1.3.75.85 1.47H1v1.5h1.7l-.85 1.48 1.3.75zm8 0l.85-1.48.85 1.48 1.3-.75-.85-1.48H15v-1.5h-1.7l.85-1.47L12.85 7l-.85 1.47L11.15 7l-1.3.75.85 1.47H9v1.5h1.7l-.85 1.48 1.3.75zm8 0l.85-1.48.85 1.48 1.3-.75-.85-1.48H23v-1.5h-1.7l.85-1.47L20.85 7l-.85 1.47L19.15 7l-1.3.75.85 1.47H17v1.5h1.7l-.85 1.48 1.3.75z"/></svg>
                     <h3 class="font-bold text-base text-slate-900">Change Host Password</h3>
                 </div>
                 <button id="close-password-modal-btn" class="text-slate-400 hover:text-slate-700 transition-colors">
-                    <span class="material-symbols-outlined text-lg">close</span>
+                    <svg class="zeo-svg-icon w-4.5 h-4.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
                 </button>
             </div>
 
             <!-- Password Error Banner -->
             <div id="password-error-banner" class="hidden my-3 p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs flex items-center gap-2">
-                <span class="material-symbols-outlined text-red-500 text-sm shrink-0">error</span>
+                <svg class="zeo-svg-icon text-red-500 w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
                 <span id="password-error-text">Failed to change password.</span>
             </div>
 

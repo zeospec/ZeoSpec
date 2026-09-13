@@ -1,9 +1,10 @@
-const CACHE_NAME = 'zeospec-manage-v2';
+const CACHE_NAME = 'zeospec-manage-v3';
 const ASSETS_TO_CACHE = [
   '/meet/manage/',
   '/meet/manage/index.html',
   '/meet/manage/manage.css',
   '/meet/manage/app.js',
+  '/meet/icons.js',
   '/meet/manage/manifest.json',
   '/favicon.ico',
   '/images/favicon-192.png',
