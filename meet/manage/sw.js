@@ -1,10 +1,13 @@
-const CACHE_NAME = 'zeospec-manage-v1';
+const CACHE_NAME = 'zeospec-manage-v2';
 const ASSETS_TO_CACHE = [
   '/meet/manage/',
   '/meet/manage/index.html',
+  '/meet/manage/manage.css',
   '/meet/manage/app.js',
   '/meet/manage/manifest.json',
-  '/images/avatar.jpg',
+  '/favicon.ico',
+  '/images/favicon-192.png',
+  '/images/favicon-512.png',
   '/images/logo.svg'
 ];
 
@@ -35,22 +38,49 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  // Pass Google Apps Script API calls and external API directly to network
+  // Pass Google Apps Script API calls and POST/PUT requests directly to network
   if (event.request.url.includes('script.google.com') || event.request.method !== 'GET') {
     return;
   }
 
+  // Navigation requests: Network-first with offline fallback to cached index.html
+  if (event.request.mode === 'navigate' || event.request.destination === 'document') {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          if (response && response.status === 200) {
+            const copy = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+          }
+          return response;
+        })
+        .catch(() => caches.match(event.request).then((cached) => cached || caches.match('/meet/manage/index.html')))
+    );
+    return;
+  }
+
+  // Static assets (CSS, JS, Fonts, Images, Icons): Cache-first with network fallback & background update
   event.respondWith(
-    fetch(event.request)
-      .then((response) => {
-        if (response && response.status === 200 && response.type === 'basic') {
-          const responseClone = response.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseClone);
-          });
+    caches.match(event.request).then((cached) => {
+      if (cached) {
+        fetch(event.request)
+          .then((response) => {
+            if (response && (response.status === 200 || response.type === 'opaque')) {
+              const copy = response.clone();
+              caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+            }
+          })
+          .catch(() => {});
+        return cached;
+      }
+
+      return fetch(event.request).then((response) => {
+        if (response && (response.status === 200 || response.type === 'opaque')) {
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
         }
         return response;
-      })
-      .catch(() => caches.match(event.request))
+      });
+    })
   );
 });

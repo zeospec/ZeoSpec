@@ -15,8 +15,9 @@ description: "Secure booking management dashboard for ZeoSpec meetings"
 
     <!-- Canonical & Icons -->
     <link rel="canonical" href="https://zeospec.com/meet/manage/">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/svg+xml" href="/images/logo.svg">
-    <link rel="apple-touch-icon" href="/images/avatar.jpg">
+    <link rel="apple-touch-icon" href="/images/favicon-192.png">
 
     <!-- PWA Manifest & Mobile Capability -->
     <link rel="manifest" href="/meet/manage/manifest.json">
@@ -26,35 +27,14 @@ description: "Secure booking management dashboard for ZeoSpec meetings"
     <meta name="apple-mobile-web-app-title" content="MeetManager">
     <meta name="theme-color" content="#f8fafc">
 
+    <!-- Standalone Production Stylesheet (Precompiled, Instant 0ms Load, 100% Offline PWA Compatible) -->
+    <link rel="stylesheet" href="/meet/manage/manage.css">
+
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script>
-        if (typeof tailwind !== 'undefined') {
-            tailwind.config = {
-                darkMode: "class",
-                theme: {
-                    extend: {
-                        colors: {
-                            "primary-blue": "#3B82F6",
-                            "primary-dark": "#1D4ED8",
-                            "success-green": "#10B981",
-                            "warning-amber": "#F59E0B",
-                            "error-red": "#EF4444"
-                        },
-                        fontFamily: {
-                            sans: ['"Plus Jakarta Sans"', 'sans-serif']
-                        }
-                    }
-                }
-            };
-        }
-    </script>
 
     <style>
         body {

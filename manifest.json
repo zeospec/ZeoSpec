@@ -15,14 +15,22 @@
       "purpose": "any maskable"
     },
     {
-      "src": "/images/avatar.jpg",
+      "src": "/images/favicon-192.png",
       "sizes": "192x192",
-      "type": "image/jpeg"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      "src": "/images/zeospec.jpg",
+      "src": "/images/favicon-512.png",
       "sizes": "512x512",
-      "type": "image/jpeg"
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "256x256",
+      "type": "image/x-icon",
+      "purpose": "any"
     }
   ],
   "categories": ["business", "productivity", "education"],
