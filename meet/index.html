@@ -72,6 +72,7 @@ description: Schedule a Meeting with Arun Teja Godavarthi aka. ZeoSpec, an Ecosy
     <meta name="bingbot" content="index, follow">
     
     <!-- Mobile App Meta -->
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="ZeoSpec">
@@ -91,6 +92,30 @@ description: Schedule a Meeting with Arun Teja Godavarthi aka. ZeoSpec, an Ecosy
     <link rel="me" href="https://www.linkedin.com/in/zeospec/" />
     <link rel="me" href="https://rtr.zeospec.com/" />
 
+    <!-- JSON-LD Structured Data for Scheduling -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Schedule a Meeting with Arun Teja Godavarthi",
+      "url": "https://zeospec.com/meet/",
+      "description": "Schedule a direct meeting with Arun Teja Godavarthi (ZeoSpec), an Ecosystem Builder, Rotaractor, and Entrepreneur orchestrating global Developer Ecosystems and Strategic Partnerships.",
+      "about": {
+        "@type": "Person",
+        "name": "Arun Teja Godavarthi",
+        "alternateName": "ZeoSpec",
+        "jobTitle": "Ecosystem Builder, Rotaractor & Entrepreneur",
+        "url": "https://zeospec.com/",
+        "sameAs": [
+          "https://www.linkedin.com/in/zeospec/",
+          "https://twitter.com/ZeoSpec",
+          "https://github.com/ZeoSpec",
+          "https://rtr.zeospec.com/"
+        ]
+      }
+    }
+    </script>
+
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap"
         rel="stylesheet" />
@@ -99,7 +124,8 @@ description: Schedule a Meeting with Arun Teja Godavarthi aka. ZeoSpec, an Ecosy
         rel="stylesheet" />
     
     <script id="tailwind-config">
-        tailwind.config = {
+        if (typeof tailwind !== 'undefined') {
+            tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
@@ -258,11 +284,16 @@ description: Schedule a Meeting with Arun Teja Godavarthi aka. ZeoSpec, an Ecosy
                             }
                         ]
                     }
-                },
-            },
-        }
+                }
+            }
+        };
+    }
     </script>
     <style>
+        .hidden, [hidden] {
+            display: none !important;
+        }
+
         .glow-effect {
             position: relative;
         }
@@ -306,9 +337,33 @@ description: Schedule a Meeting with Arun Teja Godavarthi aka. ZeoSpec, an Ecosy
         }
 
         .time-slot:hover {
-            transform: translateY(-2px);
-            border-color: rgba(59, 130, 246, 0.5);
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+            transform: translateY(-1px);
+            border-color: rgba(59, 130, 246, 0.6);
+            box-shadow: 0 3px 10px rgba(59, 130, 246, 0.12);
+        }
+
+        /* Visible Custom Scrollbar for Time Slots */
+        #time-slots {
+            scrollbar-width: thin;
+            scrollbar-color: #cbd5e1 #f8fafc;
+        }
+
+        #time-slots::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        #time-slots::-webkit-scrollbar-track {
+            background: #f8fafc;
+            border-radius: 9999px;
+        }
+
+        #time-slots::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+
+        #time-slots::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
         }
 
         .pill-active {
@@ -432,6 +487,14 @@ description: Schedule a Meeting with Arun Teja Godavarthi aka. ZeoSpec, an Ecosy
             </div>
         </div>
 
+        <!-- Back to main website link -->
+        <div class="max-w-5xl mx-auto mb-3 px-2 flex items-center justify-between">
+            <a href="{{ site.baseurl }}/" class="inline-flex items-center gap-1.5 text-gray-500 hover:text-electric-blue transition-colors font-label-sm text-label-sm group">
+                <span class="material-symbols-outlined text-[18px] group-hover:-translate-x-0.5 transition-transform">arrow_back</span>
+                <span>Back to Home</span>
+            </a>
+        </div>
+
         <div id="booking-container"
             class="flex flex-col lg:flex-row bg-white rounded-2xl overflow-hidden shadow-xl max-w-5xl mx-auto border border-gray-200">
             <!-- Left Pane: Static Profile -->
@@ -439,17 +502,17 @@ description: Schedule a Meeting with Arun Teja Godavarthi aka. ZeoSpec, an Ecosy
                 class="lg:w-1/3 bg-gray-50 p-8 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-gray-200">
                 <div>
                     <!-- Avatar & Info -->
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-gray-200 flex-shrink-0">
+                    <a href="{{ site.baseurl }}/" class="flex items-center gap-4 mb-6 group cursor-pointer" title="Return to Home">
+                        <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-gray-200 flex-shrink-0 group-hover:border-electric-blue transition-colors">
                             <img alt="Arun Teja Godavarthi" class="w-full h-full object-cover" src="./arunphoto.jpeg" />
                         </div>
                         <div>
-                            <p class="font-label-sm text-label-sm text-gray-500 uppercase tracking-widest mb-1">ZeoSpec
+                            <p class="font-label-sm text-label-sm text-gray-500 uppercase tracking-widest mb-1 group-hover:text-electric-blue transition-colors">ZeoSpec
                             </p>
-                            <h2 class="font-headline-md text-headline-md font-semibold text-gray-900">Arun Teja
+                            <h2 class="font-headline-md text-headline-md font-semibold text-gray-900 group-hover:text-electric-blue transition-colors">Arun Teja
                                 Godavarthi</h2>
                         </div>
-                    </div>
+                    </a>
                     <!-- Meeting Details -->
                     <p class="font-label-sm text-label-sm text-gray-500 mb-3 uppercase tracking-wider">Meeting Details
                     </p>
@@ -471,17 +534,17 @@ description: Schedule a Meeting with Arun Teja Godavarthi aka. ZeoSpec, an Ecosy
                 <!-- Duration Selector (Pill) -->
                 <div>
                     <p class="font-label-sm text-label-sm text-gray-500 mb-3 uppercase tracking-wider">Duration</p>
-                    <div class="flex bg-gray-100 p-1 rounded-full w-fit border border-gray-200">
-                        <button
+                    <div class="flex bg-gray-100 p-1 rounded-full w-fit border border-gray-200" role="group" aria-label="Meeting Duration">
+                        <button type="button" aria-pressed="true" aria-label="15 minutes"
                             class="duration-btn px-4 py-2 rounded-full font-label-md text-label-md transition-all duration-200 pill-active shadow-sm"
                             data-duration="15">15</button>
-                        <button
+                        <button type="button" aria-pressed="false" aria-label="30 minutes"
                             class="duration-btn px-4 py-2 rounded-full font-label-md text-label-md transition-all duration-200 pill-inactive"
                             data-duration="30">30</button>
-                        <button
+                        <button type="button" aria-pressed="false" aria-label="45 minutes"
                             class="duration-btn px-4 py-2 rounded-full font-label-md text-label-md transition-all duration-200 pill-inactive"
                             data-duration="45">45</button>
-                        <button
+                        <button type="button" aria-pressed="false" aria-label="60 minutes"
                             class="duration-btn px-4 py-2 rounded-full font-label-md text-label-md transition-all duration-200 pill-inactive"
                             data-duration="60">60</button>
                     </div>
@@ -501,7 +564,7 @@ description: Schedule a Meeting with Arun Teja Godavarthi aka. ZeoSpec, an Ecosy
                         <div class="md:w-1/2">
                             <div class="flex items-center justify-between mb-6">
                                 <span class="font-body-lg text-body-lg font-medium text-gray-900"
-                                    id="current-month">October 2023</span>
+                                    id="current-month">Loading...</span>
                                 <div class="flex gap-2">
                                     <button id="prev-month" aria-label="Previous Month"
                                         class="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-900 transition-colors flex items-center justify-center">
@@ -576,18 +639,22 @@ description: Schedule a Meeting with Arun Teja Godavarthi aka. ZeoSpec, an Ecosy
                         </div>
                         <!-- Time Slots -->
                         <div class="md:w-1/2 flex flex-col" id="time-slots-container">
-                            <div class="mb-6">
-                                <span class="font-body-lg text-body-lg font-medium text-electric-blue"
+                            <div class="mb-4 flex items-center justify-between gap-2 flex-wrap min-h-[32px]">
+                                <span class="font-body-lg text-body-lg font-medium text-electric-blue truncate"
                                     id="selected-date-text">Select a date</span>
+                                <span id="slots-count-badge"
+                                    class="hidden shrink-0 text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-electric-blue border border-blue-100"></span>
                             </div>
                             <div id="loading-slots" class="hidden font-body-md text-gray-500 text-center py-4">Loading
                                 available slots...</div>
                             <div class="relative w-full">
                                 <div id="time-slots"
-                                    class="overflow-y-auto max-h-[350px] md:max-h-[320px] pr-2 custom-scrollbar flex flex-col gap-3">
+                                    class="overflow-y-auto max-h-[350px] md:max-h-[330px] pr-2 custom-scrollbar grid grid-cols-2 gap-2.5">
                                 </div>
-                                <div id="scroll-fade"
-                                    class="hidden absolute bottom-0 left-0 right-3 h-12 bg-gradient-to-t from-white to-transparent pointer-events-none rounded-b-lg transition-opacity duration-300">
+                                <div id="scroll-hint"
+                                    class="hidden pointer-events-none absolute bottom-2 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 px-3 py-1 rounded-full bg-gray-900/85 text-white text-xs font-medium shadow-md backdrop-blur-sm transition-all duration-200">
+                                    <span class="material-symbols-outlined text-[15px] animate-bounce">arrow_downward</span>
+                                    <span>More times below</span>
                                 </div>
                             </div>
                         </div>
@@ -595,16 +662,21 @@ description: Schedule a Meeting with Arun Teja Godavarthi aka. ZeoSpec, an Ecosy
                 </div>
                 <!-- STEP 2: Details Form -->
                 <div class="step-hidden animate-fade-in h-full flex flex-col" id="step-2">
-                    <div class="mb-8">
+                    <div id="reschedule-banner" class="hidden mb-4 p-4 bg-blue-50 border border-blue-200 rounded-xl text-blue-900 font-body-md flex items-center gap-3">
+                        <span class="material-symbols-outlined text-electric-blue shrink-0">edit_calendar</span>
+                        <p class="text-sm font-medium">You are selecting a new time for your existing meeting. Please confirm your details below.</p>
+                    </div>
+                    <div class="mb-6">
                         <button id="back-btn"
-                            class="flex items-center gap-2 text-gray-600 hover:text-electric-blue transition-colors mb-6 group w-fit">
+                            class="flex items-center gap-2 text-gray-600 hover:text-electric-blue transition-colors mb-4 group w-fit">
                             <span
                                 class="material-symbols-outlined text-[20px] group-hover:-translate-x-1 transition-transform">arrow_back</span>
                             <span class="font-label-md text-label-md">Back to Calendar</span>
                         </button>
                         <h2 class="font-headline-md text-headline-md font-semibold text-gray-900">Confirm Details</h2>
-                        <p id="booking-summary" class="font-body-md text-body-md text-gray-600 mt-1">Select a time to
-                            continue</p>
+                        <div id="booking-summary" class="mt-1">
+                            <p class="font-body-md text-body-md text-gray-600">Select a time to continue</p>
+                        </div>
                     </div>
                     <form id="booking-form" class="flex flex-col gap-5 flex-grow">
                         <div class="flex flex-col gap-1.5">
@@ -626,11 +698,10 @@ description: Schedule a Meeting with Arun Teja Godavarthi aka. ZeoSpec, an Ecosy
                                 placeholder="eg. +91 90000 00001" />
                         </div>
                         <div class="flex flex-col gap-1.5">
-                            <label for="notes" class="font-label-sm text-gray-700 font-semibold">Purpose of the meeting
-                                *</label>
-                            <textarea id="notes" required
-                                class="w-full h-24 resize-none bg-white border border-gray-300 rounded-lg px-4 py-3 text-gray-900 font-body-md focus:outline-none focus:border-electric-blue focus:ring-1 focus:ring-electric-blue transition-all"
-                                placeholder="Please describe the agenda..."></textarea>
+                            <label for="notes" class="font-label-sm text-gray-700 font-semibold">Purpose of the meeting *</label>
+                            <textarea id="notes" required rows="3"
+                                class="w-full min-h-[96px] resize-none overflow-hidden bg-white border border-gray-300 rounded-lg px-4 py-3 text-gray-900 font-body-md focus:outline-none focus:border-electric-blue focus:ring-1 focus:ring-electric-blue transition-all"
+                                placeholder="Please describe the agenda or questions you would like to discuss..."></textarea>
                         </div>
                         <div class="flex flex-col gap-1.5" id="guests-container">
                             <button type="button" id="add-guests-btn"
@@ -664,25 +735,25 @@ description: Schedule a Meeting with Arun Teja Godavarthi aka. ZeoSpec, an Ecosy
                     </form>
                 </div>
                 <!-- STEP 3: Success -->
-                <div class="step-hidden animate-fade-in h-full flex flex-col items-center justify-center text-center"
+                <div class="step-hidden animate-fade-in h-full flex flex-col items-center justify-center text-center py-4"
                     id="step-3">
-                    <div class="mb-8">
+                    <div class="mb-6">
                         <svg class="checkmark" viewbox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
                             <circle class="checkmark-circle" cx="26" cy="26" fill="none" r="25"></circle>
                             <path class="checkmark-check" d="M14.1 27.2l7.1 7.2 16.7-16.8" fill="none"></path>
                         </svg>
                     </div>
-                    <h2 id="success-title" class="font-headline-xl text-headline-xl font-bold text-gray-900 mb-4">You're Scheduled!</h2>
-                    <p id="success-message" class="font-body-lg text-body-lg text-gray-600 mb-8 max-w-md">
+                    <h2 id="success-title" class="font-headline-xl text-headline-xl font-bold text-gray-900 mb-2">You're Scheduled!</h2>
+                    <p id="success-message" class="font-body-lg text-body-lg text-gray-600 mb-6 max-w-md">
                         A calendar invitation has been sent to your email address with the Google Meet details.
                     </p>
                     <div
-                        class="bg-white border border-gray-200 shadow-sm rounded-xl p-6 mb-8 w-full max-w-sm text-left">
+                        class="bg-white border border-gray-200 shadow-sm rounded-xl p-5 mb-5 w-full max-w-sm text-left">
 
-                        <div class="mb-4">
+                        <div class="mb-3">
                             <p class="font-label-sm text-label-sm text-gray-500 uppercase mb-1">When</p>
-                            <p class="font-body-md text-body-md font-medium text-gray-900">Thursday, Oct 13, 2023</p>
-                            <p class="font-body-md text-body-md text-gray-600">10:00 AM - 10:30 AM (GMT+1)</p>
+                            <p id="success-date" class="font-body-md text-body-md font-medium text-gray-900">Loading date...</p>
+                            <p id="success-time" class="font-body-md text-body-md text-gray-600">Loading time...</p>
                         </div>
                         <div>
                             <p class="font-label-sm text-label-sm text-gray-500 uppercase mb-1">Where</p>
@@ -692,8 +763,31 @@ description: Schedule a Meeting with Arun Teja Godavarthi aka. ZeoSpec, an Ecosy
                             </div>
                         </div>
                     </div>
+
+                    <!-- Add to Calendar Action Group -->
+                    <div id="add-to-calendar-container" class="w-full max-w-sm mb-6 flex flex-col gap-2">
+                        <p class="text-xs text-gray-500 font-label-sm uppercase tracking-wider text-center">Add to your calendar</p>
+                        <div class="grid grid-cols-3 gap-2">
+                            <a id="add-google-cal" href="#" target="_blank" rel="noopener noreferrer"
+                                class="flex items-center justify-center gap-1.5 py-2.5 px-3 bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-lg text-xs font-medium text-gray-700 transition-colors">
+                                <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z" fill="#4285F4"/></svg>
+                                <span>Google</span>
+                            </a>
+                            <a id="add-outlook-cal" href="#" target="_blank" rel="noopener noreferrer"
+                                class="flex items-center justify-center gap-1.5 py-2.5 px-3 bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-lg text-xs font-medium text-gray-700 transition-colors">
+                                <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z" fill="#0078D4"/></svg>
+                                <span>Outlook</span>
+                            </a>
+                            <button type="button" id="download-ics-btn"
+                                class="flex items-center justify-center gap-1.5 py-2.5 px-3 bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-lg text-xs font-medium text-gray-700 transition-colors">
+                                <span class="material-symbols-outlined text-[16px] text-gray-600">download</span>
+                                <span>.ics File</span>
+                            </button>
+                        </div>
+                    </div>
+
                     <button id="book-another-btn"
-                        class="text-electric-blue hover:text-blue-600 font-label-md text-label-md transition-colors border border-electric-blue/30 hover:border-electric-blue rounded-full px-6 py-3">
+                        class="text-electric-blue hover:text-blue-600 font-label-md text-label-md transition-colors border border-electric-blue/30 hover:border-electric-blue rounded-full px-6 py-2.5">
                         Book Another Meeting
                     </button>
                 </div>
@@ -709,7 +803,7 @@ description: Schedule a Meeting with Arun Teja Godavarthi aka. ZeoSpec, an Ecosy
             class="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-gray-200 rounded-full blur-[150px] opacity-60">
         </div>
     </div>
-    <script src="app.js"></script>
+    <script src="app.js?v={{ site.time | date: '%s' }}"></script>
 </body>
 
 </html>
