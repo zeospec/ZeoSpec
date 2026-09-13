@@ -16,4 +16,6 @@ Hi, my name is Arun Teja Godavarthi aka' **ZeoSpec**.
 
 *What I Do?*
 
-<strong>Developer Relations</strong> - Google Developers \| <strong>Community</strong> Strategy & Growth, <strong>Open Source</strong>, <strong>Change Management</strong>, <strong>Training</strong>, <strong>Entrepreneurship</strong>, <strong><a href="https://rtr.zeospec.com/" target="_blank">Rotaract</a></strong>, and Exploring the Uncharted Paths.
+**Ecosystem Builder**, **<a href="https://rtr.zeospec.com/" target="_blank">Rotaractor</a>** & **Entrepreneur**.
+
+Orchestrating global **Developer Ecosystems**, high-impact **Strategic Partnerships**, and **Developer & GTM Programs**, while exploring the uncharted paths.

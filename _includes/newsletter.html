@@ -12,28 +12,62 @@
             </div>
           </div>
 
-            <!-- Google Form -->   
-            <script type="text/javascript">
-              var submission = false;
-            </script>
-            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"
-            onload="if(submission)  {window.location='/thankyou';}"></iframe>
-            
-          <form class="c-subscribe__form validate" action="{{ site.data.newsletter.newsletter_identifier }}" target="hidden_iframe" onsubmit="submission=true;" method="POST">
-            <input type="hidden" name="_honey" style="display:none">
-            <label class="screen-reader-text" for="mce-EMAIL">Email address</label>
-            <input class="c-subscribe__form-email required" id="fname" type="text" name="{{ site.data.newsletter.formFNamekey }}" placeholder="First Name" autocomplete="given-name" pattern="^[A-Za-z][A-Za-z\s\-'.]{1,}$" required>
-            <input class="c-subscribe__form-email required" id="lname" type="text" name="{{ site.data.newsletter.formSNamekey }}" placeholder="Last Name" autocomplete="family-name" pattern="^[A-Za-z][A-Za-z\s\-'.]{1,}$" required>
-            <input class="c-subscribe__form-email required email" id="mce-EMAIL" type="email" name="{{ site.data.newsletter.formEmailkey }}" placeholder="Your email address" autocomplete="email" inputmode="email" required>
+          <form
+            id="newsletter-form"
+            class="c-subscribe__form validate"
+            novalidate
+            data-endpoint="{{ site.data.newsletter.script_url | default: site.newsletter_api_url }}"
+            data-reference="{{ site.data.newsletter.reference | default: site.newsletter_reference | default: 'zeospec.com' }}"
+          >
+            <input type="text" name="honey" id="newsletter-honey" class="c-subscribe__honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-            <button class="c-button c-button--primary c-button--large" id="membedded-subscribe" type="submit" name="subscribe" value="Subscribe">{{ site.data.newsletter.newsletter_button }}</button>
+            <label class="screen-reader-text" for="newsletter-firstName">First name</label>
+            <input
+              class="c-subscribe__form-email required"
+              id="newsletter-firstName"
+              name="firstName"
+              type="text"
+              placeholder="First Name"
+              autocomplete="given-name"
+              required
+              maxlength="50"
+            >
+
+            <label class="screen-reader-text" for="newsletter-lastName">Last name</label>
+            <input
+              class="c-subscribe__form-email required"
+              id="newsletter-lastName"
+              name="lastName"
+              type="text"
+              placeholder="Last Name"
+              autocomplete="family-name"
+              required
+              maxlength="50"
+            >
+
+            <label class="screen-reader-text" for="newsletter-email">Email address</label>
+            <input
+              class="c-subscribe__form-email required email"
+              id="newsletter-email"
+              name="email"
+              type="email"
+              placeholder="Your email address"
+              autocomplete="email"
+              inputmode="email"
+              required
+              maxlength="254"
+            >
+
+            <p id="newsletter-form-message" class="c-subscribe__form-message" role="status" aria-live="polite" hidden></p>
+
+            <button class="c-button c-button--primary c-button--large" type="submit" name="subscribe">
+              <span class="c-subscribe__button-text">{{ site.data.newsletter.newsletter_button }}</span>
+            </button>
           </form>
-
-
 
         </div>
       </div>
-    </div> 
+    </div>
   </div>
 </section>
 <!-- end subscribe -->
@@ -41,3 +75,4 @@
 <script>
   var itype_text = ['{{ site.data.newsletter.newsletter_description }}'];
 </script>
+<script defer src="{{ site.baseurl }}/js/newsletter-form.js"></script>

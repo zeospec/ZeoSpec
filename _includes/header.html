@@ -14,21 +14,23 @@
           </a>
         </div>
 
-        <nav class="main-nav" id="primary-navigation" aria-hidden="true">
-          <div class="main-nav__box">
+        <div class="nav-backdrop" id="nav-backdrop" aria-hidden="true"></div>
 
-            <div class="nav__icon-close">
-              <i class="ion ion-md-close"></i>
+        <nav class="main-nav" id="primary-navigation" aria-hidden="true" aria-label="Main Navigation">
+          <div class="main-nav__box">
+            <div class="main-nav__header">
+              <div class="nav__title">Menu</div>
+              <button class="nav__icon-close" type="button" aria-label="Close menu">
+                <i class="ion ion-md-close" aria-hidden="true"></i>
+              </button>
             </div>
 
-            <div class="nav__title">Menu</div>
-
-              <ul class="nav__list list-reset">
+            <ul class="nav__list list-reset">
 
               {% for item in site.data.navigation.menu__settings.menu__items %}
                 {% if item.submenu %}
                 <li class="nav__item dropdown">
-                  <span class="nav__link dropdown-toggle">{{ item.title }} <i class="ion ion-ios-arrow-down arrow-down"></i></span>
+                  <span class="nav__link dropdown-toggle" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">{{ item.title }} <i class="ion ion-ios-arrow-down arrow-down"></i></span>
                   <div class="dropdown-menu">
                     {% for submenu-item in item.submenu %}
                       <a href="{% if submenu-item.url contains "://" %}{{ submenu-item.url }}{% else %}{{ submenu-item.url | relative_url }}{% endif %}" class="nav__link{% if page.url == submenu-item.url %} active-link{% endif %}" {% if submenu-item.url contains "://" %}target="_blank"{% endif %}>{{submenu-item.title}}</a>
@@ -38,7 +40,7 @@
 
                 {% else %}
                 <li class="nav__item">
-                  <a href="{% if submenu-item.url contains "://" %}{{ item.url }}{% else %}{{ item.url | relative_url }}{% endif %}" class="nav__link{% if page.url == item.url %} active-link{% endif %}" {% if item.url contains "://" %}target="_blank"{% endif %}>{{ item.title }}</a>
+                  <a href="{% if item.url contains "://" %}{{ item.url }}{% else %}{{ item.url | relative_url }}{% endif %}" class="nav__link{% if page.url == item.url %} active-link{% endif %}" {% if item.url contains "://" %}target="_blank"{% endif %}>{{ item.title }}</a>
                 </li>
                 {% endif %}
               {% endfor %}
@@ -49,12 +51,13 @@
           {% include social-link.html %}
         </nav>
 
-        <div class="nav-button" aria-controls="primary-navigation">
-          <i class="nav__icon nav__icon-menu ion ion-md-menu" role="button" tabindex="0" aria-controls="primary-navigation" aria-expanded="false" aria-label="Open menu"></i>
-        </div>
+        <button class="nav-button" id="menu-toggle-btn" type="button" aria-controls="primary-navigation" aria-expanded="false" aria-label="Open menu">
+          <i class="nav__icon nav__icon-menu ion ion-md-menu" aria-hidden="true"></i>
+        </button>
 
       </div>
     </div>
   </div>
+  <div class="reading-progress" id="reading-progress" aria-hidden="true"></div>
 </header>
 <!-- end header -->

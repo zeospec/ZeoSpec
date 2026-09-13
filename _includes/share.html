@@ -8,7 +8,7 @@
     {% assign share_desc = page.description | default: site.data.general_settings.description %}
     {% assign share_image = page.image | default: site.data.general_settings.social_media_share_image %}
 
-    <!-- Reordered for better UX: Native, WhatsApp, Telegram, Twitter, LinkedIn, Reddit, Facebook, Pinterest, Pocket, Email, Copy -->
+    <!-- Share platforms: Native Share, WhatsApp, Telegram, X, LinkedIn, Facebook, Instagram, Email, Copy Link -->
     <li class="share__item">
       <a class="share__link share__native" data-platform="native" href="{{ abs_url }}" title="Share" aria-label="Share" rel="noopener">
         <i class="ion ion-md-share" aria-hidden="true"></i><span class="screen-reader-text">Share</span>
@@ -32,10 +32,10 @@
     </li>
 
     <li class="share__item">
-      <a class="share__link share__twitter" data-platform="twitter"
-        href="https://twitter.com/intent/tweet?text={{ page.title | uri_escape }}&url={{ abs_url }}?utm_source=twitter&utm_medium=social&utm_campaign={{ share_campaign }}"
-        title="Share on Twitter" aria-label="Share on Twitter" rel="noopener noreferrer nofollow">
-        <i class="ion ion-logo-twitter" aria-hidden="true"></i><span class="screen-reader-text">Share on Twitter</span>
+      <a class="share__link share__twitter share__x" data-platform="twitter"
+        href="https://x.com/intent/tweet?text={{ page.title | uri_escape }}&url={{ abs_url }}?utm_source=x&utm_medium=social&utm_campaign={{ share_campaign }}"
+        title="Share on X" aria-label="Share on X" rel="noopener noreferrer nofollow">
+        <svg class="icon-x" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg><span class="screen-reader-text">Share on X</span>
       </a>
     </li>
 
@@ -48,14 +48,6 @@
     </li>
 
     <li class="share__item">
-      <a class="share__link share__reddit" data-platform="reddit"
-        href="https://www.reddit.com/submit?url={{ abs_url }}?utm_source=reddit&utm_medium=social&utm_campaign={{ share_campaign }}&title={{ page.title | uri_escape }}"
-        title="Share on Reddit" aria-label="Share on Reddit" rel="noopener noreferrer nofollow">
-        <i class="ion ion-logo-reddit" aria-hidden="true"></i><span class="screen-reader-text">Share on Reddit</span>
-      </a>
-    </li>
-
-    <li class="share__item">
       <a class="share__link share__facebook" data-platform="facebook"
         href="https://www.facebook.com/sharer/sharer.php?u={{ abs_url }}?utm_source=facebook&utm_medium=social&utm_campaign={{ share_campaign }}"
         title="Share on Facebook" aria-label="Share on Facebook" rel="noopener noreferrer nofollow">
@@ -64,18 +56,10 @@
     </li>
 
     <li class="share__item">
-      <a class="share__link share__pinterest" data-platform="pinterest"
-        href="https://pinterest.com/pin/create/button/?url={{ abs_url }}?utm_source=pinterest&utm_medium=social&utm_campaign={{ share_campaign }}&amp;media={{ share_image | absolute_url }}&amp;description={{ page.title | uri_escape }}"
-        title="Share on Pinterest" aria-label="Share on Pinterest" rel="noopener noreferrer nofollow">
-        <i class="ion ion-logo-pinterest" aria-hidden="true"></i><span class="screen-reader-text">Share on Pinterest</span>
-      </a>
-    </li>
-
-    <li class="share__item">
-      <a class="share__link share__pocket" data-platform="pocket"
-        href="https://getpocket.com/save?url={{ abs_url }}?utm_source=pocket&utm_medium=social&utm_campaign={{ share_campaign }}&title={{ page.title | uri_escape }}"
-        title="Save to Pocket" aria-label="Save to Pocket" rel="noopener noreferrer nofollow">
-        <i class="ion ion-md-bookmarks" aria-hidden="true"></i><span class="screen-reader-text">Save to Pocket</span>
+      <a class="share__link share__instagram" data-platform="instagram"
+        href="https://www.instagram.com/"
+        title="Share on Instagram" aria-label="Share on Instagram" rel="noopener noreferrer nofollow">
+        <i class="ion ion-logo-instagram" aria-hidden="true"></i><span class="screen-reader-text">Share on Instagram</span>
       </a>
     </li>
 

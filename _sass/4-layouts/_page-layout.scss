@@ -1,60 +1,130 @@
 /* Page + Post + Project */
 .post-top,
 .page-top {
-	padding: 96px 0 48px;
+	padding: 56px 0 32px;
 
 	.row {
 		align-items: center;
 	}
 
 	@media only screen and (max-width: $desktop) {
-		padding: 80px 0 40px;
+		padding: 48px 0 28px;
 	}
 
 	@media only screen and (max-width: $tablet) {
-		padding: 40px 0;
+		padding: 36px 0 20px;
 	}
 
 	@media only screen and (max-width: $mobile) {
-		padding: 30px 0;
+		padding: 28px 0 16px;
+	}
+}
+
+.post__header {
+	max-width: 860px;
+	margin: 0 auto 32px;
+	text-align: center;
+
+	.post-tags {
+		justify-content: center;
+		margin-bottom: 16px;
+	}
+
+	.post__title {
+		font-size: 44px;
+		line-height: 1.25;
+		margin-bottom: 24px;
+		font-weight: 800;
+
+		@media only screen and (max-width: $tablet) {
+			font-size: 32px;
+		}
+
+		@media only screen and (max-width: $mobile) {
+			font-size: 26px;
+			margin-bottom: 18px;
+		}
+	}
+
+	.post__meta {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.post__author-image {
+		width: 44px;
+		height: 44px;
+		margin-right: 12px;
+		border-radius: 50%;
+		overflow: hidden;
+		flex-shrink: 0;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+	}
+
+	.post__meta-bottom {
+		text-align: left;
+	}
+
+	.post__author {
+		font-weight: 600;
+		font-size: 15px;
+		margin-bottom: 2px;
+		color: $text-color;
+	}
+
+	.post__date {
+		font-size: 13px;
+		opacity: 0.7;
 	}
 }
 
 .post-image {
 	position: relative;
-	transform: translate(0);
-	padding-top: 100%;
-	min-height: 280px;
+	width: 100%;
+	max-width: 780px;
+	margin: 0 auto 28px;
+	aspect-ratio: 16 / 9;
 	border-radius: 16px;
 	overflow: hidden;
-	background: $blue-gray;
+	background: $background-color-alt;
+	box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
+	border: 1px solid rgba(0, 0, 0, 0.06);
+
+	@supports not (aspect-ratio: 16 / 9) {
+		height: 0;
+		padding-top: 56.25%;
+	}
+
+	picture,
+	img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+		background-color: $background-color-alt;
+	}
 
 	img {
 		position: absolute;
 		top: 0;
 		left: 0;
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
 		user-select: none;
 	}
 
-	@media only screen and (max-width: $desktop) {
-		padding-top: 65%;
-		margin-bottom: 40px;
-	}
-
-	@media only screen and (max-width: $mobile) {
-		margin-bottom: 32px;
+	@media only screen and (max-width: $tablet) {
+		border-radius: 12px;
+		margin-bottom: 12px;
 	}
 }
 
 .post__info {
-	margin-left: 40px;
-
-	@media only screen and (max-width: $desktop) {
-		margin-left: 0;
-	}
+	margin-left: 0;
 }
 
 .page__info {
@@ -245,13 +315,12 @@
 
 		&.share__facebook,
 		&.share__twitter,
+		&.share__x,
 		&.share__linkedin,
-		&.share__pinterest,
+		&.share__instagram,
 		&.share__whatsapp,
 		&.share__telegram,
-		&.share__reddit,
 		&.share__email,
-		&.share__pocket,
 		&.share__copy,
 		&.share__native {
 			background: $background-color-alt;
@@ -266,10 +335,16 @@
 				background: #3b5998;
 			}
 		}
-		&.share__twitter {
-			color: #55acee;
+		&.share__twitter,
+		&.share__x {
+			color: #0f1419;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+
 			&:hover {
-				background: #55acee;
+				background: #000000;
+				color: $white;
 			}
 		}
 		&.share__linkedin {
@@ -278,10 +353,11 @@
 				background: #0077b5;
 			}
 		}
-		&.share__pinterest {
-			color: #bd081c;
+		&.share__instagram {
+			color: #e4405f;
 			&:hover {
-				background: #bd081c;
+				background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+				color: $white;
 			}
 		}
 		&.share__whatsapp {
@@ -292,17 +368,9 @@
 			color: #0088cc;
 			&:hover { background: #0088cc; }
 		}
-		&.share__reddit {
-			color: #ff4500;
-			&:hover { background: #ff4500; }
-		}
 		&.share__email {
 			color: #6e6e6e;
 			&:hover { background: #6e6e6e; }
-		}
-		&.share__pocket {
-			color: #ef4056;
-			&:hover { background: #ef4056; }
 		}
 		&.share__copy {
 			color: $text-color;

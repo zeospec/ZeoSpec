@@ -37,6 +37,10 @@
 		padding-right: 20px;
 		margin-right: auto;
 
+		@media only screen and (min-width: 1440px) {
+			max-width: 580px;
+		}
+
 		@media only screen and (max-width: $tablet) {
 			max-width: 100%;
 			padding-right: 0;
@@ -140,13 +144,13 @@
 			}
 
 			a {
-				color: $primary-color;
+				color: $secondary-color;
 				text-decoration: none;
 				font-weight: 500;
 				transition: color 0.3s ease;
 
 				&:hover {
-					color: $secondary-color;
+					color: darken($secondary-color, 8%);
 					text-decoration: underline;
 				}
 			}

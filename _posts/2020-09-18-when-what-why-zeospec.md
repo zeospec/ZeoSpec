@@ -3,6 +3,7 @@ date: 2020-09-18
 title: When? What? Why? 'ZeoSpec'
 description: Discover the fascinating story behind the username 'ZeoSpec' - how Arun Teja Godavarthi created this unique identity combining anime inspiration and technical specifications. Learn about the meaning, history, and evolution of the ZeoSpec brand.
 image: /images/1_why_when_what_zeospec.png
+image_webp: /images/1_why_when_what_zeospec.webp
 image_alt: "ZeoSpec username origin story and meaning"
 tags:
   - story

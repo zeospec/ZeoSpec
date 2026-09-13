@@ -74,31 +74,88 @@
 			border: 1px solid $primary-color;
 			box-shadow: 0px 4px 10px rgba($primary-color, 0.25);
 		}
+
+		&--invalid {
+			border: 1px solid #c0392b;
+			box-shadow: 0px 4px 10px rgba(#c0392b, 0.15);
+		}
+	}
+
+	&__field-error {
+		width: 100%;
+		margin: -12px 0 16px;
+		font-size: 14px;
+		line-height: 1.4;
+		text-align: center;
+		color: #c0392b;
+	}
+
+	&__form-message {
+		width: 100%;
+		margin: 0 0 16px;
+		padding: 12px 16px;
+		font-size: 15px;
+		line-height: 1.5;
+		text-align: center;
+		border-radius: 12px;
+
+		&--error {
+			color: #7f1d1d;
+			background: #fef2f2;
+			border: 1px solid #fecaca;
+		}
+
+		&--warning {
+			color: #854d0e;
+			background: #fefce8;
+			border: 1px solid #fef08a;
+		}
+
+		&--success {
+			color: #14532d;
+			background: #f0fdf4;
+			border: 1px solid #bbf7d0;
+		}
+	}
+
+	&__honeypot {
+		position: absolute;
+		left: -9999px;
+		width: 1px;
+		height: 1px;
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	&__form--submitting {
+		opacity: 0.85;
+		pointer-events: none;
 	}
 }
 
 .ityped-cursor {
 	font-weight: 400;
+	color: $primary-color;
 	animation: blink 0.4s infinite;
 	animation-direction: alternate;
 }
 
 @keyframes blink {
 	0%, to {
-		color: transparent;
+		opacity: 0;
 	}
 
 	100% {
-		color: $primary-color;
+		opacity: 1;
 	}
 }
 
 @-webkit-keyframes blink {
 	0%, to {
-		color: transparent;
+		opacity: 0;
 	}
 
 	100% {
-		color: $primary-color;
+		opacity: 1;
 	}
 }

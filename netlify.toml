@@ -1,2 +1,81 @@
+[build]
+  publish = "_site"
+  command = "bundle exec jekyll build"
+
 [build.environment]
-RUBY_VERSION = "3.3.6"
+  RUBY_VERSION = "3.3.6"
+  JEKYLL_ENV = "production"
+
+# Primary domain redirects
+[[redirects]]
+  from = "https://zeospec.netlify.app/*"
+  to = "https://zeospec.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://zeospec.com/2020/09/18/when-what-why-zeospec/"
+  to = "https://zeospec.com/blog/when-what-why-zeospec/"
+  status = 301
+  force = true
+
+# Newsletter legacy thankyou redirect
+[[redirects]]
+  from = "/thankyou"
+  to = "/"
+  status = 301
+  force = true
+
+# Long-term cache for static immutable assets
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/llms.txt"
+  [headers.values]
+    Content-Type = "text/plain; charset=utf-8"
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=86400"
+
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Content-Type = "text/plain; charset=utf-8"
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=86400"
+
+# Decap CMS admin needs GitHub API, Netlify Identity, and a permissive script policy
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+    Cross-Origin-Opener-Policy = "same-origin"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    X-Frame-Options = "DENY"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https: blob:; connect-src 'self' https://api.github.com https://api.netlify.com https://identity.netlify.com; frame-src https://github.com https://accounts.google.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://github.com"
+
+# Global security headers and cache policy
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cache-Control = "no-cache"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+    Cross-Origin-Opener-Policy = "same-origin"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://www.clarity.ms https://scripts.clarity.ms https://cdn.jsdelivr.net https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' data: https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: https: blob:; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://www.clarity.ms https://c.clarity.ms https://e.clarity.ms https://s.clarity.ms https://scripts.clarity.ms https://docs.google.com https://script.google.com https://script.googleusercontent.com; frame-src https://docs.google.com https://timesync.novocall.co https://www.googletagmanager.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://script.google.com"

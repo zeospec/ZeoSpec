@@ -5,11 +5,11 @@ footer_menu__settings:
     # - title: 'work'
     #   url: '/work/'
     - title: 'Blog'
-      url: '/Blog/'
+      url: '/blog/'
     - title: 'Schedule a Meeting 🤝'
       url: '/meet/'
     - title: 'About'
       url: '/about/'
 
 copyright_text_html: >-
-  <p>2022 &copy; <a href="/">ZeoSpec</a></p>
+  <p>2026 &copy; <a href="/" aria-label="ZeoSpec home">ZeoSpec</a></p>

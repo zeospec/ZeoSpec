@@ -4,7 +4,14 @@
     {% if post.image %}
     <div class="c-blog-card__image-wrap">
       <a class="c-blog-card__image" href="{{ post.url }}">
+        {% if post.image_webp %}
+        <picture>
+          <source type="image/webp" srcset="{{ post.image_webp }}">
+          <img loading="lazy" src="{{ post.image }}" alt="{{ post.title }}" width="1200" height="800" decoding="async">
+        </picture>
+        {% else %}
         <img loading="lazy" src="{{ post.image }}" alt="{{ post.title }}" width="1200" height="800" decoding="async">
+        {% endif %}
       </a>
     </div>
     {% endif %}
@@ -14,7 +21,7 @@
       {% if post.tags.size >= 1 %}
       <div class="c-blog-card__tags-box">
         {% for tag in post.tags %}
-        <a href="{{ site.baseurl }}/blog/tags/{{ tag | downcase }}" class="c-blog-card__tag">{{ tag | capitalize | replace: "-"," "}}</a>
+        <a href="{{ site.baseurl }}/blog/tags/{{ tag | downcase }}" class="c-blog-card__tag" aria-label="Posts tagged {{ tag | replace: '-', ' ' }}">{{ tag | capitalize | replace: "-"," "}}</a>
         {% endfor %}
       </div>
       {% endif %}

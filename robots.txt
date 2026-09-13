@@ -1,10 +1,7 @@
 User-agent: *
 Allow: /
 
-# Sitemap
-Sitemap: https://zeospec.com/sitemap.xml
-
-# Disallow admin and private areas
+# Disallow admin and internal build artifacts
 Disallow: /admin/
 Disallow: /_site/
 Disallow: /.jekyll-cache/
@@ -12,11 +9,46 @@ Disallow: /.forestry/
 Disallow: /admin/config.yml
 Disallow: /admin/index.html
 
-# Allow important directories
+# Allow key directories
 Allow: /blog/
 Allow: /about/
 Allow: /work/
 Allow: /meet/
 
-# Crawl delay for better server performance
-Crawl-delay: 1
+# AI Search & Answer Engine Crawlers (AEO / GEO Optimization)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+# Sitemaps & Machine-Readable Declarations
+Sitemap: https://zeospec.com/sitemap.xml
+# LLMs discovery standard: https://zeospec.com/llms.txt

@@ -1,32 +1,62 @@
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.data.general_settings.google-analytics }}"></script>
+{% assign _ga_page_title = page.title | default: site.data.general_settings.title %}
+{% assign _ga_page_location = page.url | absolute_url %}
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+(function () {
+  var gaId = {{ site.data.general_settings.google-analytics | jsonify }};
+  var pageTitle = {{ _ga_page_title | jsonify }};
+  var pageLocation = {{ _ga_page_location | jsonify }};
+  var gtmId = 'GTM-TXSJ735';
+  var loaded = false;
 
-  gtag('config', '{{ site.data.general_settings.google-analytics }}', {
-    'page_title': '{{ page.title | default: site.data.general_settings.title }}',
-    'page_location': '{{ page.url | absolute_url }}',
-    'custom_map': {
-      'dimension1': 'author',
-      'dimension2': 'content_type'
+  function inject() {
+    if (loaded) return;
+    loaded = true;
+
+    var gtagScript = document.createElement('script');
+    gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(gaId);
+    gtagScript.async = true;
+    document.head.appendChild(gtagScript);
+    gtagScript.onload = function () {
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', gaId, {
+        page_title: pageTitle,
+        page_location: pageLocation,
+        custom_map: { dimension1: 'author', dimension2: 'content_type' },
+        send_page_view: true,
+        anonymize_ip: true,
+        allow_google_signals: false,
+        allow_ad_personalization_signals: false
+      });
+    };
+
+    var gtmInline = document.createElement('script');
+    gtmInline.text = '(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({\'gtm.start\':new Date().getTime(),event:\'gtm.js\'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!=\'dataLayer\'?\'&l=\'+l:\'\';j.async=true;j.src=\'https://www.googletagmanager.com/gtm.js?id=\'+i+dl;f.parentNode.insertBefore(j,f);})(window,document,\'script\',\'dataLayer\',\'' + gtmId + '\');';
+    document.head.appendChild(gtmInline);
+  }
+
+  function schedule() {
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(function () { inject(); }, { timeout: 4500 });
+    } else {
+      setTimeout(inject, 1);
     }
-  });
-  
-  // Enhanced Ecommerce tracking
-  gtag('config', '{{ site.data.general_settings.google-analytics }}', {
-    'send_page_view': true,
-    'anonymize_ip': true,
-    'allow_google_signals': false,
-    'allow_ad_personalization_signals': false
-  });
-</script>
+  }
 
-  <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-TXSJ735');</script>
-    <!-- End Google Tag Manager -->
+  function onFirstInteraction() {
+    inject();
+  }
+
+  if (document.readyState === 'complete') {
+    schedule();
+  } else {
+    window.addEventListener('load', schedule);
+  }
+
+  ['scroll', 'pointerdown', 'keydown'].forEach(function (evt) {
+    window.addEventListener(evt, onFirstInteraction, { passive: true, once: true });
+  });
+})();
+</script>

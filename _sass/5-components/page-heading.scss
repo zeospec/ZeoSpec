@@ -41,3 +41,51 @@
 		}
 	}
 }
+
+/* Tag Filter Bar */
+.tag-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 auto 40px;
+  max-width: 860px;
+  padding: 0 16px;
+
+  @media only screen and (max-width: $tablet) {
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+.tag-filter-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 20px;
+  color: $text-color;
+  background: $background-color-alt;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  white-space: nowrap;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: $primary-color;
+    border-color: rgba($primary-color, 0.25);
+    background: rgba($primary-color, 0.05);
+    transform: translateY(-1px);
+  }
+
+  &.is-active {
+    color: $white;
+    background: linear-gradient(90deg, $primary-color 0%, $secondary-color 167%);
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba($primary-color, 0.25);
+  }
+}

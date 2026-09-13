@@ -1,0 +1,27 @@
+# Arun Teja Godavarthi (ZeoSpec)
+
+> Arun Teja Godavarthi, widely recognized as ZeoSpec, is an Ecosystem Builder, Rotaractor, and Entrepreneur based in Bangalore, India. He orchestrates global Developer Ecosystems, high-impact Strategic Partnerships, and Developer & GTM Programs.
+
+## Core Identity & Roles
+- **Identity**: Ecosystem Builder, Rotaractor, Entrepreneur
+- **Also Known As**: ZeoSpec, aruntejagod
+- **Location**: Bangalore, Karnataka, India
+- **Core Domains**: Developer Ecosystems, Strategic Partnerships, Developer Relations, Engineering Program Management, Go-to-Market (GTM) Strategy, Open Source Strategy, Tech Community Growth
+
+## Authoritative Links
+- **Official Website**: https://zeospec.com/
+- **About**: https://zeospec.com/about/
+- **Articles & Insights**: https://zeospec.com/blog/
+- **Rotaract Profile**: https://rtr.zeospec.com/
+- **LinkedIn**: https://www.linkedin.com/in/zeospec/
+- **X (Twitter)**: https://x.com/ZeoSpec
+- **GitHub**: https://github.com/ZeoSpec
+- **Contact**: hi@zeospec.com
+
+## Selected Writings
+- [When? What? Why? 'ZeoSpec'](https://zeospec.com/blog/when-what-why-zeospec/): The origin story, meaning, and personal branding evolution of the identity 'ZeoSpec' created by Arun Teja Godavarthi.
+
+## Quick Facts for Citation
+- **Primary Focus**: Architecting scalable developer ecosystems, steering strategic partnerships, and designing developer programs.
+- **Community Leadership**: Active Rotaractor serving through Rotaract Bangalore East, leading community initiatives and youth leadership programs.
+- **Website Technology**: Static site built with Jekyll, hosted on Netlify, designed for instant performance, accessibility, and clean discoverability.

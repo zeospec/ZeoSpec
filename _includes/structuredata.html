@@ -1,56 +1,107 @@
 {% if page.layout == "post" or page.layout == "project" %}
+<!-- Article Schema -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "{{page.title}}",
+  "@id": "{{ page.url | absolute_url }}#article",
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "{{ site.url }}#website",
+    "name": "ZeoSpec",
+    "url": "{{ site.url }}"
+  },
+  "headline": {{ page.title | jsonify }},
   "image": [
-    "{{page.image | absolute_url}}"
-   ],
+    "{% if page.image %}{{ page.image | absolute_url }}{% else %}{{ site.data.general_settings.social_media_share_image | absolute_url }}{% endif %}"
+  ],
   "datePublished": "{{ page.date | date_to_xmlschema }}",
-  "dateModified": "{{ page.date | date_to_xmlschema }}",
-  "author": {
-    "@type": "Person",
-    "name": "{{ site.data.author.author_name }}",
-    "url": "https://zeospec.com/",
-    "sameAs": [
-      "https://www.linkedin.com/in/zeospec/",
-      "https://twitter.com/ZeoSpec",
-      "https://www.facebook.com/zeospec/",
-      "https://www.instagram.com/ZeoSpec/"
-    ]
-  },
-  "publisher": {
-    "@type": "Person",
-    "name": "{{ site.data.author.author_name }}",
-    "url": "https://zeospec.com/"
-  },
+  "dateModified": "{% if page.last_modified_at %}{{ page.last_modified_at | date_to_xmlschema }}{% else %}{{ page.date | date_to_xmlschema }}{% endif %}",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "{{ page.url | absolute_url }}"
   },
-  "description": "{% if page.description %}{{ page.description | strip_html | strip_newlines }}{% else %}{{ site.data.general_settings.description }}{% endif %}",
-  "keywords": "{% if page.tags %}{{ page.tags | join: ', ' }}{% else %}Arun Teja Godavarthi, ZeoSpec, Community Builder, Open Source{% endif %}",
-  "articleSection": "{% if page.tags %}{{ page.tags | first }}{% else %}Technology{% endif %}",
-  "inLanguage": "en-US"
+  "author": {
+    "@type": "Person",
+    "@id": "{{ site.url }}#person",
+    "name": "Arun Teja Godavarthi",
+    "alternateName": "ZeoSpec",
+    "url": "{{ site.url }}/",
+    "sameAs": [
+      "https://www.linkedin.com/in/zeospec/",
+      "https://x.com/ZeoSpec",
+      "https://github.com/ZeoSpec",
+      "https://rtr.zeospec.com/"
+    ]
+  },
+  "publisher": {
+    "@type": "Person",
+    "@id": "{{ site.url }}#person",
+    "name": "Arun Teja Godavarthi",
+    "url": "{{ site.url }}/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ site.url }}/images/logo.svg"
+    }
+  },
+  "description": {% if page.description %}{{ page.description | strip_html | strip_newlines | jsonify }}{% else %}{{ site.data.general_settings.description | jsonify }}{% endif %},
+  "keywords": {% if page.tags %}{{ page.tags | join: ', ' | jsonify }}{% else %}"Arun Teja Godavarthi, ZeoSpec, Ecosystem Builder, Developer Ecosystems"{% endif %},
+  "articleSection": {% if page.tags %}{{ page.tags | first | capitalize | jsonify }}{% else %}"Technology"{% endif %},
+  "inLanguage": "en-US",
+  "wordCount": {{ content | number_of_words }},
+  "timeRequired": "PT{{ content | number_of_words | divided_by: 180 | plus: 1 }}M"
 }
 </script>
+
+<!-- Breadcrumb Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "{{ site.url }}/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "{{ site.url }}/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": {{ page.title | jsonify }},
+      "item": "{{ page.url | absolute_url }}"
+    }
+  ]
+}
+</script>
+
 {% else %}
-<script type='application/ld+json'>
+
+<!-- Person Schema (Entity Knowledge Graph) -->
+<script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Person",
+  "@id": "{{ site.url }}#person",
   "name": "Arun Teja Godavarthi",
-  "alternateName": "ZeoSpec",
-  "jobTitle": "Developer Relations & Community Builder",
-  "description": "{{ site.data.general_settings.description }}",
-  "url": "https://zeospec.com",
-  "image": "https://zeospec.com/images/zeospec-4.jpg",
+  "alternateName": ["ZeoSpec", "aruntejagod"],
+  "jobTitle": "Ecosystem Builder & Entrepreneur",
+  "description": {{ site.data.general_settings.description | jsonify }},
+  "url": "{{ site.url }}",
+  "image": "{{ site.url }}/images/zeospec-4.jpg",
   "sameAs": [
     "https://www.linkedin.com/in/zeospec/",
+    "https://x.com/ZeoSpec",
     "https://twitter.com/ZeoSpec",
-    "https://www.facebook.com/zeospec/",
-    "https://www.instagram.com/ZeoSpec/",
+    "https://github.com/ZeoSpec",
+    "https://facebook.com/zeospec/",
+    "https://instagram.com/ZeoSpec/",
     "https://rtr.zeospec.com/"
   ],
   "address": {
@@ -76,54 +127,17 @@
   },
   "nationality": "Indian",
   "knowsAbout": [
-    "Developer Relations",
-    "Community Building",
-    "Open Source",
-    "Training",
+    "Developer Ecosystems",
+    "Strategic Partnerships",
+    "Developer Programs",
+    "Engineering Program Management",
+    "Go-to-Market (GTM) Strategy",
+    "Open Source Strategy",
+    "Community Growth & Strategy",
     "Entrepreneurship",
-    "Google Developers",
-    "Change Management"
+    "Rotaract"
   ],
-  "worksFor": {
-    "@type": "Organization",
-    "name": "Google for Developers",
-    "url": "https://developers.google.com/"
-  },
-  "colleague": [
-    "https://www.cmrit.ac.in/",
-    "https://www.sjpuc.in/"
-  ],
-  "knowsLanguage": "English",
-  "knowsLanguage": "Hindi",
-  "knowsLanguage": "Telugu",
-  "knowsLanguage": "Kannada"
-}
-</script>
-
-<!-- Organization Schema -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "ZeoSpec",
-  "url": "https://zeospec.com",
-  "logo": "https://zeospec.com/images/logo.svg",
-  "description": "{{ site.data.general_settings.description }}",
-  "founder": {
-    "@type": "Person",
-    "name": "Arun Teja Godavarthi"
-  },
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "contactType": "customer service",
-    "email": "hi@zeospec.com"
-  },
-  "sameAs": [
-    "https://www.linkedin.com/in/zeospec/",
-    "https://twitter.com/ZeoSpec",
-    "https://www.facebook.com/zeospec/",
-    "https://www.instagram.com/ZeoSpec/"
-  ]
+  "knowsLanguage": ["English", "Hindi", "Telugu", "Kannada"]
 }
 </script>
 
@@ -132,22 +146,43 @@
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
+  "@id": "{{ site.url }}#website",
   "name": "ZeoSpec",
-  "url": "https://zeospec.com",
-  "description": "{{ site.data.general_settings.description }}",
-  "author": {
-    "@type": "Person",
-    "name": "Arun Teja Godavarthi"
-  },
+  "alternateName": "Arun Teja Godavarthi (ZeoSpec)",
+  "url": "{{ site.url }}",
+  "description": {{ site.data.general_settings.description | jsonify }},
   "publisher": {
-    "@type": "Person",
-    "name": "Arun Teja Godavarthi"
+    "@id": "{{ site.url }}#person"
   },
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": "https://zeospec.com/search?q={search_term_string}",
-    "query-input": "required name=search_term_string"
-  }
+  "author": {
+    "@id": "{{ site.url }}#person"
+  },
+  "inLanguage": "en-US"
 }
 </script>
+
+{% if page.url != "/" and page.url != "/index.html" %}
+<!-- Breadcrumb Schema for Standalone Pages -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "{{ site.url }}/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": {% if page.title %}{{ page.title | jsonify }}{% else %}"{{ page.url }}"{% endif %},
+      "item": "{{ page.url | absolute_url }}"
+    }
+  ]
+}
+</script>
+{% endif %}
+
 {% endif %}
